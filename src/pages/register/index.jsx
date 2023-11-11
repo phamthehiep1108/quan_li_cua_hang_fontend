@@ -1,35 +1,38 @@
 import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { callRegister } from '../../services/api';
+
 import './register.scss';
+import { callLRegisterUser } from '../../services/api';
+
 
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
 
     const onFinish = async (values) => {
-        const { fullName, email, password, phone } = values;
-        setIsSubmit(true);
-        const res = await callRegister(fullName, email, password, phone);
+        const { email, password, display_name, phone_number, detail_address} = values;
+         setIsSubmit(true);
+         const res = await callLRegisterUser(email, password, display_name, phone_number, detail_address);
         setIsSubmit(false);
-        if (res?.data?._id) {
-            message.success('Đăng ký tài khoản thành công!');
-            navigate('/login')
-        } else {
+         if (res?.data?.id) {
+             message.success('Đăng ký tài khoản thành công!');
+             navigate('/login')
+         } else {
             notification.error({
                 message: "Có lỗi xảy ra",
                 description:
-                    res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-                duration: 5
+                    'Đã xảy ra lỗi khi đăng ký, vui lòng kiểm tra lại thông tin đăng ký',
+                duration: 3
             })
         }
+      //  console.log('check res =>',res);
     };
 
 
     return (
-        <div className="register-page">
-            <main className="main">
+        <div className="register-page" style={{backgroundColor:'#ffffff'}}>
+            <main className="main" >
                 <div className="container">
                     <section className="wrapper">
                         <div className="heading">
@@ -45,7 +48,7 @@ const RegisterPage = () => {
                             <Form.Item
                                 labelCol={{ span: 24 }} //whole column
                                 label="Họ tên"
-                                name="fullName"
+                                name="display_name"
                                 rules={[{ required: true, message: 'Họ tên không được để trống!' }]}
                             >
                                 <Input />
@@ -72,8 +75,16 @@ const RegisterPage = () => {
                             <Form.Item
                                 labelCol={{ span: 24 }} //whole column
                                 label="Số điện thoại"
-                                name="phone"
+                                name="phone_number"
                                 rules={[{ required: true, message: 'Số điện thoại không được để trống!' }]}
+                            >
+                                <Input />
+                            </Form.Item>
+                            <Form.Item
+                                labelCol={{ span: 24 }} //whole column
+                                label="Địa chỉ"
+                                name="detail_address"
+                                rules={[{ required: true, message: 'Địa chỉ không được để trống!' }]}
                             >
                                 <Input />
                             </Form.Item>

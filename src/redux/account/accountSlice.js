@@ -4,13 +4,17 @@ const initialState = {
     isAuthenticated: false,
     isLoading: true,
     user: {
+        id: "",
+        display_name: "",
         email: "",
-        phone: "",
-        "fullName": "",
-        "role": "",
-        "avatar": "",
-        "id": ""
-    }
+        phone_number: "",
+        phone_number: "",
+        avatar: "",
+        role_id:0,
+        status: 0,
+        verify: 0,
+    },
+    
 };
 
 
@@ -28,6 +32,7 @@ export const accountSlide = createSlice({
             state.isLoading = false;
             state.user = action.payload;
         },
+        
         doGetAccountAction: (state, action) => {
             // Redux Toolkit allows us to write "mutating" logic in reducers. It
             // doesn't actually mutate the state because it uses the Immer library,

@@ -1,17 +1,21 @@
 import axios from '../utils/axios-customize';
 
-export const callRegister = (fullName, email, password, phone) => {
-    return axios.post('/api/v1/user/register', { fullName, email, password, phone })
+//Login User
+export const callLoginUser = (email, password, device_token) => {
+    return axios.post('/api/auth/login', { email, password, device_token })
+
 }
 
-export const callLogin = (username, password) => {
-    return axios.post('/api/v1/auth/login', { username, password })
+//Register User
+export const callLRegisterUser = (email, password, display_name, phone_number, detail_address) => {
+   
+    const data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
+    data.append("display_name", display_name);
+    data.append("phone_number", phone_number);
+    data.append("detail_address", detail_address);
+  
+    return axios.post('/api/register', data)
 }
 
-export const callFetchAccount = () => {
-    //return axios.get('/api/v1/auth/account')
-}
-
-export const callLogout = () => {
-    return axios.post('/api/v1/auth/logout')
-}

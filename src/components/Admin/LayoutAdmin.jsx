@@ -15,7 +15,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import './layout.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { callLogout } from '../../services/api';
+
 import { doLogoutAction } from '../../redux/account/accountSlice';
 
 const { Content, Footer, Sider } = Layout;

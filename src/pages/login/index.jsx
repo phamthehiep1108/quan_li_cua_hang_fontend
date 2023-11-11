@@ -1,10 +1,12 @@
 import { Button, Divider, Form, Input, message, notification } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { callLogin } from '../../services/api';
 import './login.scss';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { doLoginAction } from '../../redux/account/accountSlice';
+import { callLoginUser } from '../../services/api';
+
+
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -14,12 +16,13 @@ const LoginPage = () => {
 
     const onFinish = async (values) => {
 
-        const { username, password } = values;
-        setIsSubmit(true);
-        const res = await callLogin(username, password);
-        setIsSubmit(false);
+        const { email, password } = values;
+       // setIsSubmit(true);
+        const res = await callLoginUser(email, password, "xxx111xxx");
+        console.log("check res",res);
+       setIsSubmit(false);
         if (res?.data) {
-            localStorage.setItem('access_token', res.data.access_token);
+            localStorage.setItem('access_token', res.data.token);
             dispatch(doLoginAction(res.data.user))
             message.success('Đăng nhập tài khoản thành công!');
             navigate('/')
@@ -27,8 +30,8 @@ const LoginPage = () => {
             notification.error({
                 message: "Có lỗi xảy ra",
                 description:
-                    res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-                duration: 5
+                    "Có lỗi xảy ra khi đăng nhập, vui lòng kiểm tra lại thông tin",
+                duration: 3
             })
         }
     };
@@ -53,7 +56,7 @@ const LoginPage = () => {
                             <Form.Item
                                 labelCol={{ span: 24 }} //whole column
                                 label="Email"
-                                name="username"
+                                name="email"
                                 rules={[{ required: true, message: 'Email không được để trống!' }]}
                             >
                                 <Input />

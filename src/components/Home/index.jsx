@@ -20,8 +20,8 @@ const Home = () => {
           </div>
           <div className="cardDiv">
             Test content
-            <div className="cntent">content 2</div>
-            <div className="cntent">content 3</div>
+            <div className="content">content 2</div>
+            <div className="content">content 3</div>
           </div>
         </div>
       </div>

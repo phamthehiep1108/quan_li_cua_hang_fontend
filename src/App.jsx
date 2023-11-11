@@ -11,7 +11,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import RegisterPage from './pages/register';
-import { callFetchAccount } from './services/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { doGetAccountAction } from './redux/account/accountSlice';
 import Loading from './components/Loading';
@@ -20,6 +19,7 @@ import AdminPage from './pages/admin';
 import ProtectedRoute from './components/ProtectedRoute';
 import LayoutAdmin from './components/Admin/LayoutAdmin';
 import './styles/reset.scss';
+
 
 const Layout = () => {
   return (
@@ -35,22 +35,22 @@ export default function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.account.isLoading)
 
-  const getAccount = async () => {
-    if (
-      window.location.pathname === '/login'
-      || window.location.pathname === '/register'
-    )
-      return;
+  // const getAccount = async () => {
+  //   if (
+  //     window.location.pathname === '/login'
+  //     || window.location.pathname === '/register'
+  //   )
+  //     return;
 
-    const res = await callFetchAccount();
-    if (res && res.data) {
-      dispatch(doGetAccountAction(res.data))
-    }
-  }
+  //   const res = await callFetchAccount();
+  //   if (res && res.data) {
+  //     dispatch(doGetAccountAction(res.data))
+  //   }
+  // }
 
-  useEffect(() => {
-    getAccount();
-  }, [])
+  // useEffect(() => {
+  //   getAccount();
+  // }, [])
 
   const router = createBrowserRouter([
     {
