@@ -3,12 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import './login.scss';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { doLoginAction } from '../../redux/account/accountSlice';
-import { callLoginUser } from '../../services/api';
+import { doLoginAdminAction } from '../../../redux/account/accountSlice';
+import { callLoginAdmin } from '../../../services/api';
 
 
 
-const LoginPage = () => {
+const LoginForAdmin
+ = () => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
 
@@ -17,13 +18,15 @@ const LoginPage = () => {
     const onFinish = async (values) => {
 
         const { email, password } = values;
-       // setIsSubmit(true);
-        const res = await callLoginUser(email, password, "xxx111xxx");
+        setIsSubmit(true);
+        const res = await callLoginAdmin(email, password);
         console.log("check res",res);
-       setIsSubmit(false);
+        setIsSubmit(false);
         if (res?.data) {
             localStorage.setItem('access_token', res.data.token);
-            dispatch(doLoginAction(res.data))
+
+            dispatch(doLoginAdminAction(res.data))
+
             message.success('Đăng nhập tài khoản thành công!');
             navigate('/')
         } else {
@@ -43,13 +46,12 @@ const LoginPage = () => {
                 <div className="container">
                     <section className="wrapper">
                         <div className="heading">
-                            <h2 className="text text-large">Đăng Nhập</h2>
+                            <h2 className="text text-large">Login Admin/Staff</h2>
                             <Divider />
 
                         </div>
                         <Form
                             name="basic"
-                            // style={{ maxWidth: 600, margin: '0 auto' }}
                             onFinish={onFinish}
                             autoComplete="off"
                         >
@@ -72,18 +74,12 @@ const LoginPage = () => {
                             </Form.Item>
 
                             <Form.Item
-                            // wrapperCol={{ offset: 6, span: 16 }}
                             >
                                 <Button type="primary" htmlType="submit" loading={isSubmit}>
                                     Đăng nhập
                                 </Button>
                             </Form.Item>
-                            <Divider>Or</Divider>
-                            <p className="text text-normal">Chưa có tài khoản ?
-                                <span>
-                                    <Link to='/register' > Đăng Ký </Link>
-                                </span>
-                            </p>
+                          
                         </Form>
                     </section>
                 </div>
@@ -92,4 +88,5 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage;
+export default LoginForAdmin
+;

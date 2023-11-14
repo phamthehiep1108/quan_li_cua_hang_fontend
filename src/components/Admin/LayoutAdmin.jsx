@@ -32,20 +32,30 @@ const items = [
         icon: <UserOutlined />,
         children: [
             {
-                label: <Link to='/admin/user'>CRUD</Link>,
-                key: 'crud',
+                label: <Link to='/admin/customer'>Customer</Link>,
+                key: 'customer',
                 icon: <TeamOutlined />,
             },
             {
-                label: 'Files1',
-                key: 'file1',
+                label: <Link to='/admin/staff'>Staff</Link>,
+                key: 'staff',
                 icon: <TeamOutlined />,
             }
         ]
     },
     {
-        label: <Link to='/admin/book'>Manage Books</Link>,
-        key: 'book',
+        label: <Link to='/admin/category'>Category</Link>,
+        key: 'category',
+        icon: <ExceptionOutlined />
+    },
+    {
+        label: <Link to='/admin/tour'>Manage Tour</Link>,
+        key: 'tour',
+        icon: <ExceptionOutlined />
+    },
+    {
+        label: <Link to='/admin/room'>Manage Room</Link>,
+        key: 'room',
         icon: <ExceptionOutlined />
     },
     {
@@ -59,18 +69,21 @@ const items = [
 const LayoutAdmin = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState('dashboard');
-    const user = useSelector(state => state.account.user);
+
+    const userAdmin = useSelector(state => state.account.admin);
+    const isLoading = useSelector(state => state.account.isLoading);
+    const isAuthenticated = useSelector(state => state.account.isAuthenticated);
+    const role = userAdmin?.role;
+
+   // console.log(userAdmin);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleLogout = async () => {
-        const res = await callLogout();
-        if (res && res.data) {
-            dispatch(doLogoutAction());
-            message.success('Đăng xuất thành công');
-            navigate('/')
-        }
+        dispatch(doLogoutAction());
+        message.success("Đã đăng xuất thành công")
+        navigate('/');
     }
 
 
@@ -110,6 +123,8 @@ const LayoutAdmin = () => {
                     onClick={(e) => setActiveMenu(e.key)}
                 />
             </Sider>
+
+            
             <Layout>
                 <div className='admin-header'>
                     <span>
@@ -121,7 +136,7 @@ const LayoutAdmin = () => {
                     <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                                Welcome {user?.fullName}
+                                Welcome Admin
                                 <DownOutlined />
                             </Space>
                         </a>
@@ -130,10 +145,9 @@ const LayoutAdmin = () => {
                 <Content>
                     <Outlet />
                 </Content>
-                <Footer style={{ padding: 0 }}>
-                The world's first electronic trading website <HeartTwoTone />
-                </Footer>
+
             </Layout>
+        
         </Layout>
     );
 };

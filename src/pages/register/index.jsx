@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, message, notification } from 'antd';
+import { Button, Divider, Form, Input, InputNumber, message, notification } from 'antd';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,11 @@ const RegisterPage = () => {
 
     const onFinish = async (values) => {
         const { email, password, display_name, phone_number, detail_address} = values;
-         setIsSubmit(true);
+        if(phone_number.length < 10){
+            message.error("Số điện thoại cần nhập tối thiểu 10 số!")
+            return
+        }
+        setIsSubmit(true);
          const res = await callLRegisterUser(email, password, display_name, phone_number, detail_address);
         setIsSubmit(false);
          if (res?.data?.id) {
@@ -29,9 +33,10 @@ const RegisterPage = () => {
       //  console.log('check res =>',res);
     };
 
+    
 
     return (
-        <div className="register-page" style={{backgroundColor:'#ffffff'}}>
+        <div className="register-page" style={{backgroundColor:'#469afa'}}>
             <main className="main" >
                 <div className="container">
                     <section className="wrapper">
@@ -78,7 +83,7 @@ const RegisterPage = () => {
                                 name="phone_number"
                                 rules={[{ required: true, message: 'Số điện thoại không được để trống!' }]}
                             >
-                                <Input />
+                                <Input maxLength={10}/>
                             </Form.Item>
                             <Form.Item
                                 labelCol={{ span: 24 }} //whole column

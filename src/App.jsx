@@ -19,6 +19,9 @@ import AdminPage from './pages/admin';
 import ProtectedRoute from './components/ProtectedRoute';
 import LayoutAdmin from './components/Admin/LayoutAdmin';
 import './styles/reset.scss';
+import LoginForAdmin from './pages/admin/loginForAdmin';
+import TableCustomer from './components/Admin/Customer/TableCustomer';
+import TableCategory from './components/Admin/Category/TableCategory';
 
 
 const Layout = () => {
@@ -34,6 +37,7 @@ const Layout = () => {
 export default function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.account.isLoading)
+  const isAuthenticated = useSelector(state => state.account.isAuthenticated)
 
   // const getAccount = async () => {
   //   if (
@@ -67,6 +71,14 @@ export default function App() {
           path: "book",
           element: <BookPage />,
         },
+        {
+          path: "room",
+          element: <BookPage />,
+        },
+        {
+          path: "tour",
+          element: <BookPage />,
+        },
       ],
     },
 
@@ -81,12 +93,27 @@ export default function App() {
               <AdminPage />
             </ProtectedRoute>
         },
+        
         {
-          path: "user",
+          path: "staff",
           element: <ContactPage />,
         },
+
         {
-          path: "book",
+          path: "customer",
+          element: <TableCustomer />,
+        },
+    
+        {
+          path: "category",
+          element: <TableCategory/>,
+        },
+        {
+          path: "tour",
+          element: <BookPage />,
+        },
+        {
+          path: "room",
           element: <BookPage />,
         },
         {
@@ -103,6 +130,11 @@ export default function App() {
     },
 
     {
+      path: "/loginAdmin",
+      element: <LoginForAdmin/>,
+    },
+
+    {
       path: "/register",
       element: <RegisterPage />,
     },
@@ -111,8 +143,9 @@ export default function App() {
   return (
     <>
       {
-        isLoading === false
+           isLoading === false 
           || window.location.pathname === '/login'
+          || window.location.pathname === '/loginAdmin'
           || window.location.pathname === '/register'
           || window.location.pathname === '/'
           ?

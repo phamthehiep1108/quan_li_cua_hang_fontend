@@ -11,7 +11,8 @@ instance.defaults.headers.common = {
   Authorization: `Bearer ${localStorage.getItem("access_token")}`,
   language: "vi",
   "Content-Type": "application/json",
-  "X-CSRF-TOKEN": ""
+  "X-CSRF-TOKEN": "",
+  accept:"application/json"
 };
 
 
