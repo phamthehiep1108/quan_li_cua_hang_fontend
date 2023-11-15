@@ -74,8 +74,30 @@ export const callDeleteCategory = (dataID) => {
     return axios.delete(`/api/v2/category/multiple-delete`,{params:dataID})
 }
 
+// Get Room -- /api/v2/room/index?page=1&perpage=10&search=Phong so 1&status[]=1&type[]=1&type[]=2&type_room[]=room
+export const callGetRoomTour = (query) => {
+    return axios.get(`/api/v2/room/${query}`)
+}
 
+// --- /api/v2/room/index?page=1&perpage=10&type_room[]=room&type_room[]=tour&search=Ha Noi - HCM
 
+// --- room /api/v2/room/index?page=1&perpage=10&type_room[]=room&search=Spring
+
+// --- tour /api/v2/room/index?page=1&perpage=10&type_room[]=tour&search=Hà Nội  - HCM
+
+export const callCreateNewRoom = (name, description, type, cost, logo, banner, status, type_room) => {
+    const data = new FormData();
+    data.append("name", name);
+    data.append("type", type);
+    data.append("description", description);
+    data.append("cost", cost);
+    data.append("logo", logo);
+    data.append("banner[]", banner);
+    data.append("status", status);
+    data.append("type_room", type_room);
+    
+    return axios.post(`/api/v2/room/create-room`,data)
+}
 
 
 

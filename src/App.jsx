@@ -22,6 +22,8 @@ import './styles/reset.scss';
 import LoginForAdmin from './pages/admin/loginForAdmin';
 import TableCustomer from './components/Admin/Customer/TableCustomer';
 import TableCategory from './components/Admin/Category/TableCategory';
+import TableManage from './components/Admin/Room/TableRoom';
+import TableRoom from './components/Admin/Room/TableRoom';
 
 
 const Layout = () => {
@@ -109,11 +111,11 @@ export default function App() {
           element: <TableCategory/>,
         },
         {
-          path: "tour",
-          element: <BookPage />,
+          path: "room",
+          element: <TableRoom />,
         },
         {
-          path: "room",
+          path: "tour",
           element: <BookPage />,
         },
         {
@@ -143,7 +145,7 @@ export default function App() {
   return (
     <>
       {
-           isLoading === false 
+           isLoading === false
           || window.location.pathname === '/login'
           || window.location.pathname === '/loginAdmin'
           || window.location.pathname === '/register'

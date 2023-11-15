@@ -274,7 +274,8 @@ const Home = () => {
         </div>
        
       </div>
-
+    
+      <img src={`data:image/jpeg;base64,http://120.0.0.1:8000/storage/room/fruOWWi2Isu3FI4w.jpg`} />
     </>
   );
 };

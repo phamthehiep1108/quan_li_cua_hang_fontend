@@ -30,14 +30,14 @@ const ModalUpdateCate = (props) => {
      const res = await callUpdateCategory(id,name, number, description);
      setIsSubmit(false);
      if (res) {
-      message.success("Thêm mới category thành công");
+      message.success("Update category thành công");
       form.resetFields();
       setOpen(false);
       await fetchListCate();
     } else {
       notification.error({
         message: "Có lỗi xảy ra!!!",
-        description: "Không thể thêm mới category",
+        description: "Không thể update category",
         duration: 3,
       });
 

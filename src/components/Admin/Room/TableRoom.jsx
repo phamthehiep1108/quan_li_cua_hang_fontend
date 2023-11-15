@@ -4,43 +4,29 @@ import {
     DeleteTwoTone,
     EditTwoTone,
 } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import "./tableCategory.scss";
+import { useSelector } from "react-redux";
+import "./TableManage.scss";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { callDeleteCategory, callGetCategory } from "../../../services/api";
-import InputSearchCate from "./InputSearchCate";
-import ModalCreateCate from "./ModalCreateCate";
-import ModalUpdateCate from "./ModalUpdateCate";
-import ModalDeleteCate from "./ModalDelete";
-import { doSaveCategoryAction } from "../../../redux/categoryAD/categorySlice";
+import { callGetRoomTour } from "../../../services/api";
+import InputSearchRT from "./InputSearchRoom";
+import ModalCreateRoom from "./ModalCreateRoom";
 
 
-const TableCategory = () => {
+const TableRoom = () => {
     const [form] = Form.useForm()
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
     const [isLoading, setIsLoading] = useState(false)
-    const [listCategory, setListCategory] = useState([]);
+    const [typeRT, setTypeRT] = useState("&type_room[]=room&type_room[]=tour")
+    const [querySearch, setQuerySearch] = useState("")
+    const [listRoomTour, setListRoomTour] = useState([])
     
-    const [showModalAdd, setShowModalAdd] = useState(false)
-    const [showModalUpdate, setShowModalUpdate] = useState(false)
-    const [showModalDelete, setShowModalDelete] = useState(false)
 
-    const [dataUpdate, setDataUpdate] = useState({})
-    const [searchQuery, setSearchQuery] = useState('')
-
-
-    const handleQuerySearch = (query) => {
-        //console.log('query',query);
-        setSearchQuery(query)
-    }
-  
-    const dispatch = useDispatch()
-   
+    const [openCreateRoom, setOpenCreateRoom] = useState(false)
 
   //Table Component--------------------------
   const columns = [
@@ -61,11 +47,27 @@ const TableCategory = () => {
     {
       title: "Description",
       dataIndex: "description",
-      width:650,
+      
     },
     {
-      title: "People",
-      dataIndex: "number",
+      title: "Type",
+      dataIndex: "type_room",
+    },
+    {
+      title: "Cost",
+      dataIndex: "cost",
+    },
+    {
+      title: "Start date",
+      dataIndex: "start_date",
+    },
+    {
+      title: "End date",
+      dataIndex: "end_date",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
     },
     {
         title: "Action",
@@ -78,8 +80,8 @@ const TableCategory = () => {
                 twoToneColor="#3cc41a"
                 style={{ cursor: "pointer", marginLeft: "20px" }}
                 onClick={()=>{
-                    setShowModalUpdate(true)
-                    setDataUpdate(record)
+                    // setShowModalUpdate(true)
+                    // setDataUpdate(record)
                 }}
               />
           </>)
@@ -113,39 +115,45 @@ const TableCategory = () => {
     }
   };
 
+  // Selected
+  const handleChange = (value) => {
+    setTypeRT(value)
+  };
+
+  //Search
+  const handleQuerySearch = (searchInput) => {
+  
+      setQuerySearch(searchInput)
+  }
 
   //----------------------------------------------------------
+
   useEffect(() => {
-    getAllCategory();
-  }, [searchQuery, currentPage, pageSize]);
+    fetchGetRoomTour();
+  }, [typeRT, currentPage, pageSize, querySearch]);
 
- useEffect(()=>{
-    const getCateForCreate = async() => {
-      const resOne =  await callGetCategory('index?');
-      if(resOne?.data?.data){
-        dispatch(doSaveCategoryAction(resOne.data.data))
-      }
-  }
- },[])
 
-  const getAllCategory = async () => {
-
-    let queryCate = `index?page=${currentPage}&perpage=${pageSize}`
-    if(searchQuery){
-      queryCate += searchQuery
+  const fetchGetRoomTour = async () => {
+    let queryRT= `index?page=${currentPage}&perpage=${pageSize}`
+    if(typeRT){
+      queryRT += typeRT
     }
 
-    const res = await callGetCategory(queryCate);
+    if(querySearch){
+      queryRT += querySearch  
+    }
+
+    const res = await callGetRoomTour(queryRT);
     if (res && res?.data) {
-    
-      setListCategory(res.data.data);
+
+      setListRoomTour(res?.data?.data);
       setTotal(res.data.total)
      
+     // console.log("resAll",res);
     }
-     console.log('dataList',res.data.data);
-};
-
-//console.log("dataUpdate", dataUpdate);
+  };
+  
+  //console.log('dataListRT',listRoomTour);
 
 
 //Confirm Delete
@@ -157,18 +165,28 @@ const handleDelete = async() => {
   return (
     <>
       <div className="container-table-cate">
+        
         <div className="header-table">
           <div className="title-table">
-            <InputSearchCate handleQuerySearch={handleQuerySearch}/>
+            <InputSearchRT handleQuerySearch = {handleQuerySearch}/>
           </div>
-          <Button
+         
+            {typeRT === "&type_room[]=room"?
+            
+            <Button
             type="primary"
             onClick={() => {
-                setShowModalAdd(true)
+               setOpenCreateRoom(true)
             }}
-          >
-            New Category
-          </Button>
+            > New Room</Button>
+            : 
+            <Button
+            type="primary"
+            onClick={() => {
+               // setShowModalAdd(true)
+            }}
+            >New Tour</Button>
+            }
         </div>
         <div
           style={{
@@ -191,7 +209,7 @@ const handleDelete = async() => {
                   {`Selected ${selectedRowKeys.length} items`}
                 </span>
                
-                  <Button danger onClick={()=>handleDelete()}>Delete Category</Button>
+                  <Button danger onClick={()=>handleDelete()}>Delete Room</Button>
               
               </div>
             ) : (
@@ -200,17 +218,31 @@ const handleDelete = async() => {
           </span>
         </div>
         <Table
-        rowKey={(record) => record.id} // fix select one but delect all
+        rowKey={(record) => record.id} // fix select one but select all
           title={() => {
             return (
-              <div className="selected-status" style={{display:"flex"}}>
-                    Quản lý Category
+              <div className="selected-status" style={{display:"flex", justifyContent:'space-between'}}>
+                <span>
+                  Quản lý Room - Tour
+                </span>
+                <span>
+                <Select
+                  defaultValue="All"
+                  style={{ width: 120 }}
+                  onChange={handleChange}
+                  options={[
+                    { value: '&type_room[]=room&type_room[]=tour', label: 'All' },
+                    { value: '&type_room[]=room', label: 'Room' },
+                    { value: '&type_room[]=tour', label: 'Tour' },
+                  ]}
+                />
+                </span>
               </div>
             );
           }}
             rowSelection={rowSelection}
             columns={columns}
-            dataSource={listCategory}
+            dataSource={listRoomTour}
 
             onChange={onChange}
             loading={isLoading}
@@ -231,7 +263,25 @@ const handleDelete = async() => {
         />
       </div>
         
-      <ModalCreateCate 
+      {/* {typeRT === "&type_room[]=room"?"New Room" : "New Tour"} */}
+
+
+      <ModalCreateRoom 
+        open = {openCreateRoom}
+        setOpen = {setOpenCreateRoom}
+        fetchGetRoomTour = {fetchGetRoomTour}
+        setTypeRT = {setTypeRT}
+      />
+      
+
+
+
+
+
+
+
+
+      {/* <ModalCreateCate 
         open = {showModalAdd}
         setOpen = {setShowModalAdd}
         fetchListCate = {getAllCategory}
@@ -249,9 +299,9 @@ const handleDelete = async() => {
         setOpen = {setShowModalDelete}
         selectedRowKeys = {selectedRowKeys}
         fetchListCate = {getAllCategory}
-     />
+     /> */}
     </>
   );
 };
 
-export default TableCategory;
+export default TableRoom;

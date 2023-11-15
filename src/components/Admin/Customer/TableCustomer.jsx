@@ -13,6 +13,7 @@ import {
 import {DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
 import "./tableCustomer.scss";
 import { callGetAllCustomer, callUpdateStatusCustomer, callDeleteCustomer } from "../../../services/api";
+import InputSearchCus from "./InputSearchCus";
 
 
 const TableCustomer = () => {
@@ -185,7 +186,7 @@ const TableCustomer = () => {
 
   const fetchCustomerWithPaginate = async () => {
     setIsLoading(true);
-    let query = `index?page=${currentPage}&perpage=${pageSize}&search=1%20ng%C6%B0%C6%A1%CC%80i`;
+    let query = `index?page=${currentPage}&perpage=${pageSize}`;
   
     const res = await callGetAllCustomer(query);
     if (res && res?.data) {
@@ -225,16 +226,10 @@ const TableCustomer = () => {
             title={() => {
               return (
                 <>
+                  <InputSearchCus/>
                   <div className="header-table">
                     <div className="title-table">Quản lý Customer</div>
-                    <div className="btn-table">
-                      <Button
-                        type="primary"
-                        onClick={() => setOpenCreateModal(true)}
-                      >
-                        Thêm mới
-                      </Button>
-                    </div>
+                    
                   </div>
                 </>
               );
