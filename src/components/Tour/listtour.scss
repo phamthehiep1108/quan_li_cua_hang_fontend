@@ -1,0 +1,135 @@
+
+.container-list-tour {
+    margin: 0 auto;
+    margin-top: 150px;
+    //100% display// translate: 0 5%;
+     max-width: 1170px;
+    padding: 15px;
+    display: flex;
+}
+.inputPrice {
+    width: 250px;
+    height: 120px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(233, 217, 217);
+    text-align: center;
+    border-radius: 15px;
+}
+
+.listcheckbox {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid rgb(233, 217, 217);
+    border-radius: 15px;
+    gap: 20px;
+}
+.listtour {
+    background-color: white !important;
+}
+.title-select {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 40px;
+}
+.btn-search {
+    margin-top: 10px;
+}
+.checkbox {
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+}
+.container-data-tour {
+    width: 75%;
+}
+.filter-select-option{
+    width: 25%;
+}
+.select-price {
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+.tour-list {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            row-gap: 50px;
+    
+            .tour-item {
+                box-shadow: 2px 3px #1c5b802c;
+                background-color: #ffffff;
+                display: grid;
+                width: 100%;
+                border-radius: 15px;
+    
+                .left-item {
+                    display: flex;
+                    width: 100%;
+    
+                    .media-tour {
+                        width: 33.33%;
+    
+                        img {
+                            height: 222px;
+                            width: 100%;
+                            object-fit: cover;
+                            border-radius: 15px 0 0 15px;
+                        }
+                    }
+    
+                    .tour-content {
+                        width: 66.67%;
+                        padding: 22px;
+                        display: flex;
+                        flex-direction: column;
+                        row-gap: 20px;
+    
+                        .tour-name {
+                            color: #1C5C80;
+                            font-size: 16px;
+    
+                        }
+    
+                        .tour-desc {
+                            display: flex;
+                            align-items: center;
+                            color: #565656;
+                            font-size: 16px;
+                        }
+    
+                        .list-info {
+                            display: flex;
+                            padding-right: 15px;
+                            align-items: center;
+                            color: #565656;
+                        }
+                        .item-info {
+                            margin-left: 20px;
+                            color: #1C5C80;
+                        }
+                        .item-info-price {
+                            margin-left: 180px;
+                            span{
+                                color: red;
+                                font-weight: 800;
+                                font-size: large;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+.tour-select-option {
+    display: flex;
+    gap: 30px;
+    color: rgb(63, 63, 161);
+    .option {
+        border: 1px solid blue;
+        padding: 5px;
+        background-color: rgb(230, 241, 238);
+    }
+}

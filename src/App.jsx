@@ -22,6 +22,9 @@ import './styles/reset.scss';
 import LoginForAdmin from './pages/admin/loginForAdmin';
 import TableCustomer from './components/Admin/Customer/TableCustomer';
 import TableCategory from './components/Admin/Category/TableCategory';
+import Tour from './components/Tour';
+import ListTour from './components/Tour/ListTour';
+
 
 
 const Layout = () => {
@@ -77,7 +80,11 @@ export default function App() {
         },
         {
           path: "tour",
-          element: <BookPage />,
+          element: <Tour />,
+        }, 
+        {
+          path: "listTour",
+          element: <ListTour />,
         },
       ],
     },
