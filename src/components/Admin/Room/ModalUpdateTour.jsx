@@ -14,10 +14,10 @@ import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
-import { callCreateNewRoom } from "../../../services/api";
+import { callUpdateTour } from "../../../services/api";
  
-  const ModalCreateRoom = (props) => {
-    const { open, setOpen, fetchGetRoomTour, setTypeRT } = props;
+  const ModalUpdateTour = (props) => {
+    const { open, setOpen, fetchGetRoomTour, setTypeRT, dataUpdateTour } = props;
     const [isSubmit, setIsSubmit] = useState(false);
     const [form] = Form.useForm();
     const { TextArea } = Input;
@@ -25,6 +25,15 @@ import { callCreateNewRoom } from "../../../services/api";
     const cates = useSelector(state => state.cate.category)
     const [logo, setLogo] = useState({});
     const [banner, setBanner] = useState({});
+
+    //const [initData, setInitData] = useState({})
+
+    useEffect(() => {
+        if(dataUpdateTour){
+            //setInitData(dataUpdateTour)
+            form.setFieldsValue(dataUpdateTour)
+        }
+    }, [dataUpdateTour]);
  
     //Select
     let options = cates?.map(item => {
@@ -37,10 +46,6 @@ import { callCreateNewRoom } from "../../../services/api";
     const handleUploadImg = (event, type) => {
       if (event.target && event.target.files && event.target.files[0] && type ==='logo') {
         setLogo(event.target.files[0]);
-      } 
-
-      if (event.target && event.target.files && event.target.files[0] && type === 'banner') {
-        setBanner(event.target.files[0]);
       } 
     }
 
@@ -68,43 +73,53 @@ import { callCreateNewRoom } from "../../../services/api";
           label: "Tour"
       }
   ]
+  //Select delete logo
+  let optionsDeleteLogo = [
+    {
+        value: true,
+        label: "true"
+    },
+    {
+        value: false,
+        label: "false"
+    }
+]
 
     const onFinish = async (value) => {
-      const {name, type_room, type ,cost, description, status} = value
+      const {id, name, type_room, type ,cost, description, status, start_date, end_date} = value
             setIsSubmit(true)
-            const res = await callCreateNewRoom(name, description, type, cost, logo, banner, status, type_room)
+            const res = await callUpdateTour(id, name, description, type, cost, logo, banner, status, type_room, start_date, end_date)
             setIsSubmit(false)
             if(res && res.data){
-                message.success('Tạo phòng mới thành công')
-                form.resetFields();
+                message.success('Update phòng mới thành công')
                 setOpen(false)
-                setTypeRT('&type_room[]=room')
+                setTypeRT('&type_room[]=tour')
                 await fetchGetRoomTour()
 
               }else{
                   notification.error({
                   message: 'Có lỗi xảy ra!!!',
-                  description:'Không thể tạo mới phòng',
+                  description:'Không thể update phòng',
                   duration: 3
               })
   
           //console.log("res check", res);
         }
       };
-    
+
+
   
     return (
       <>
         <Modal
-          title="Thêm mới Room"
-         
+          title="Update Tour"
           open={open}
           onOk={() => form.submit()}
           onCancel={() => {
             setOpen(false);
             form.resetFields()
           }}
-          okText="Tạo mới"
+          okText="Cập nhật"
           cancelText="Hủy"
           confirmLoading={isSubmit}
           width={'50vw'}
@@ -113,9 +128,19 @@ import { callCreateNewRoom } from "../../../services/api";
           <Divider/>
           <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
             <Row gutter={15}>
+             
+                <Form.Item
+                  hidden ={true}
+                  label="ID"
+                  name="id"
+                  labelCol={{ span: 24 }}
+                >
+                  <Input />
+                </Form.Item>
+              
               <Col span={12} style={{ padding: "0 10px" }}>
                 <Form.Item
-                  label="Name Room"
+                  label="Name Tour"
                   name="name"
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input name!"}]}
@@ -173,14 +198,20 @@ import { callCreateNewRoom } from "../../../services/api";
                   <input type="file" onChange={(e)=>handleUploadImg(e, 'logo')}/>
                 </Form.Item>
               </Col>
+              
               <Col span={8} style={{ padding: "0 10px" }}>
                 <Form.Item
-                  label="IMG Banner"
-              
+                  label="Confirm Delete Logo"
+                  name="logo_delete"
                   labelCol={{ span: 24 }}
-                  rules={[{ required: true, message: "Please input banner!" }]}
+                  rules={[{ required: true, message: "Please input status!" }]}
                 >
-                  <input type="file" onChange={(e)=>handleUploadImg(e,'banner')}/>
+                  <Select
+                    showSearch
+                    placeholder="Select a status"
+                    optionFilterProp="children"
+                    options={optionsDeleteLogo}
+                 />
                 </Form.Item>
               </Col>
               <Col span={8} style={{ padding: "0 10px" }}>
@@ -196,6 +227,28 @@ import { callCreateNewRoom } from "../../../services/api";
                     optionFilterProp="children"
                     options={optionsStatus}
                  />
+                </Form.Item>
+              </Col>
+
+              <Col span={12} style={{ padding: "0 10px" }}>
+                <Form.Item
+                  label="Date Start"
+                  name="start_date"
+                  labelCol={{ span: 24 }}
+                  rules={[{ required: true, message: "Please input start_date follow format YYYY-MM-DD" }]}
+                >
+                    <Input/>
+                </Form.Item>
+              </Col>
+
+              <Col span={12} style={{ padding: "0 10px" }}>
+                <Form.Item
+                  label="Date end"
+                  name="end_date"
+                  labelCol={{ span: 24 }}
+                  rules={[{ required: true, message: "Please input end_date follow format YYYY-MM-DD" }]}
+                >
+                    <Input/>
                 </Form.Item>
               </Col>
            
@@ -218,5 +271,5 @@ import { callCreateNewRoom } from "../../../services/api";
     );
   };
   
-  export default ModalCreateRoom;
+  export default ModalUpdateTour;
   

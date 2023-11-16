@@ -19,9 +19,11 @@ const Home = () => {
             <h1 className="homeTitle">Search your Holiday</h1>
           </div>
           <div className="cardDiv">
-            Test content
+            
             <div className="content">content 2</div>
             <div className="content">content 3</div>
+            <div className="content">content 3</div>
+         
           </div>
         </div>
       </div>
@@ -275,7 +277,7 @@ const Home = () => {
        
       </div>
     
-      <img src={`data:image/jpeg;base64,http://120.0.0.1:8000/storage/room/fruOWWi2Isu3FI4w.jpg`} />
+    
     </>
   );
 };

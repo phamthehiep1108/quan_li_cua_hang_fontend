@@ -95,9 +95,9 @@ export default function App() {
       children: [
         {
           index: true, element:
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <AdminPage />
-            </ProtectedRoute>
+            // </ProtectedRoute>
         },
         
         {
@@ -149,15 +149,15 @@ export default function App() {
   return (
     <>
       {
-           isLoading === false
-          || window.location.pathname === '/login'
-          || window.location.pathname === '/loginAdmin'
-          || window.location.pathname === '/register'
-          || window.location.pathname === '/'
-          ?
+         
+          //    window.location.pathname === '/login'
+          // || window.location.pathname === '/loginAdmin'
+          // || window.location.pathname === '/register'
+          // || window.location.pathname === '/'
+          // ?
           <RouterProvider router={router} />
-          :
-          <Loading />
+          // :
+          // <Loading />
       }
     </>
   )

@@ -18,7 +18,7 @@ import ModalUpdateTour from "./ModalUpdateTour";
 import ModalDeleteTR from "./ModalDeleteTR";
 
 
-const TableRoom = () => {
+const TableOrder = () => {
     const [form] = Form.useForm()
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState(1);
@@ -115,11 +115,6 @@ const TableRoom = () => {
               }}
             />
             
-            // <>
-            //   <div onClick={()=>{console.log('record tour >>>',record)}}>
-            //     {record.type_room}
-            //   </div>
-            // </>
           }
           </>)
         },
@@ -343,4 +338,4 @@ const handleDelete = async() => {
   );
 };
 
-export default TableRoom;
+export default TableOrder;

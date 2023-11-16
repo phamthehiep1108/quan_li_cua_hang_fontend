@@ -98,6 +98,59 @@ export const callCreateNewRoom = (name, description, type, cost, logo, banner, s
     
     return axios.post(`/api/v2/room/create-room`,data)
 }
+// create tour
+export const callCreateNewTour = (name, description, type, cost, logo, banner, status, type_room, start_date, end_date) => {
+    const data = new FormData();
+    data.append("name", name);
+    data.append("type", type);
+    data.append("description", description);
+    data.append("cost", cost);
+    data.append("logo", logo);
+    data.append("banner[]", banner);
+    data.append("status", status);
+    data.append("type_room", type_room);
+    data.append("start_date", start_date);
+    data.append("end_date", end_date);
+    
+    return axios.post(`/api/v2/room/create-room`,data)
+}
+
+//Update room
+export const callUpdateRoom = (id, name, description, type, cost, logo, logo_delete, status, type_room) => {
+    const data = new FormData();
+    data.append("name", name);
+    data.append("type", type);
+    data.append("description", description);
+    data.append("cost", cost);
+    data.append("logo", logo);
+    data.append("logo_delete", logo_delete);
+    data.append("status", status);
+    data.append("type_room", type_room);
+   
+    return axios.post(`/api/v2/room/update/${id}`,data)
+}
+
+export const callUpdateTour = (id, name, description, type, cost, logo, logo_delete, status, type_room, start_date, end_date) => {
+    const data = new FormData();
+    data.append("name", name);
+    data.append("type", type);
+    data.append("description", description);
+    data.append("cost", cost);
+    data.append("logo", logo);
+    data.append("logo_delete", logo_delete);
+    data.append("status", status);
+    data.append("type_room", type_room);
+    data.append("start_date", start_date);
+    data.append("end_date", end_date);
+
+    return axios.post(`/api/v2/room/update/${id}`,data)
+}
+
+// Delete Room Tour
+
+export const callDeleteRoomTour = (dataID) => {
+    return axios.delete(`/api/v2/room/multiple-delete`,{params:dataID})
+}
 
 
 

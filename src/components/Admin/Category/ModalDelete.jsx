@@ -21,7 +21,10 @@ const ModalDeleteCate = (props) => {
 
       const res = await callDeleteCategory(dataId)
       if(res){
-        
+        message.success("Xoa thanh cong")
+        await fetchListCate()
+      }else{
+        message.error("Co loi xay ra khi xoa")
       }
     };
     
@@ -44,7 +47,7 @@ const ModalDeleteCate = (props) => {
         width={'30vw'}
         maskClosable = {false}
         >
-            <p>Xac nhan Xoas Category</p>
+             <h2>Xác nhận xóa Category này</h2>
        
         </Modal>
         
