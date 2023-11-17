@@ -36,7 +36,7 @@ import { callUpdateRoom } from "../../../services/api";
     }, [dataUpdateRoom]);
  
     //Select
-    let options = cates?.map(item => {
+    const options = cates?.map(item => {
         return {
           value: `${item.id}`,
           label: `${item.name}`
@@ -51,7 +51,7 @@ import { callUpdateRoom } from "../../../services/api";
 
     //Cate status
 
-    let optionsStatus = [
+    const optionsStatus = [
       {
           value: "Public",
           label: "1"
@@ -63,7 +63,7 @@ import { callUpdateRoom } from "../../../services/api";
   ]
 
   // select type
-  let optionsType = [
+  const optionsType = [
       {
           value: "room",
           label: "Room"
@@ -74,7 +74,7 @@ import { callUpdateRoom } from "../../../services/api";
       }
   ]
   //Select delete logo
-  let optionsDeleteLogo = [
+  const optionsDeleteLogo = [
     {
         value: true,
         label: "true"

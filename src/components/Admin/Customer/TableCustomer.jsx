@@ -160,7 +160,7 @@ const TableCustomer = () => {
             </Popconfirm>
 
             <Popconfirm
-              title="Xác nhận thay đổi status customer"
+              title="Xác nhận thay đổi"
               placement="leftTop"
               description="Bạn có chắc chắn muốn thay đổi status customer này ?"
               onConfirm={() => handleChangeStatus(record?.id, record?.status)}

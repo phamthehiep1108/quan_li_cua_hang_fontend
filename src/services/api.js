@@ -80,11 +80,6 @@ export const callGetRoomTour = (query) => {
 }
 
 // --- /api/v2/room/index?page=1&perpage=10&type_room[]=room&type_room[]=tour&search=Ha Noi - HCM
-
-// --- room /api/v2/room/index?page=1&perpage=10&type_room[]=room&search=Spring
-
-// --- tour /api/v2/room/index?page=1&perpage=10&type_room[]=tour&search=Hà Nội  - HCM
-
 export const callCreateNewRoom = (name, description, type, cost, logo, banner, status, type_room) => {
     const data = new FormData();
     data.append("name", name);
@@ -147,10 +142,37 @@ export const callUpdateTour = (id, name, description, type, cost, logo, logo_del
 }
 
 // Delete Room Tour
-
 export const callDeleteRoomTour = (dataID) => {
     return axios.delete(`/api/v2/room/multiple-delete`,{params:dataID})
 }
+
+//Get order booking
+export const callGetListOrder = (query) => {
+    return axios.get(`/api/v2/order/${query}`)
+}
+//Update status order
+export const callUpdateStatusOrder = (idOrder, status) => {
+    console.log(idOrder, status);
+    return axios.post(`/api/v2/order/update-status/${idOrder}?status=${status}`)
+}
+
+
+
+
+
+
+
+
+
+
+//Customer get tour room
+
+export const callGetTourRoomHome = (query) => {
+    return axios.get(`/api/room?page=1&perpage=3&type[]=${query}&category[]=1`)
+}
+
+
+
 
 
 

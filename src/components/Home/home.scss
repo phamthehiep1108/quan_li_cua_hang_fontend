@@ -6,16 +6,15 @@
     margin: auto;
    
     .overlay{
-        position: relative;
-         right: 0;
-         left: 0;
-         height: 80px;
-         width: 100%;
-         top: 0;
-         z-index: 1;
+        height: 180px;
+        width: 100%;
+        margin: 0 auto;
+        z-index: 1;
+        margin-top: 80px;
 
          img{
             width: 100%;
+            height: 100%;
             object-fit: cover;
         }
     }
@@ -44,7 +43,7 @@
 //tour-----
 .home-tour-container{
     margin: 0 auto;
-    margin-top: 180px;
+    margin-top: 50px;
     //100% display// translate: 0 5%;
     max-width: 1170px;
     padding: 15px;
@@ -134,13 +133,16 @@
             grid-template-columns: 3fr 1fr;
             width: 100%;
             border-radius: 15px;
+            height: 278px;
+            
             .left-item{
                display: flex;
                width: 100%;
+               height: 278px;
                .media-tour{
                     width: 33.33%;
                    img{
-                       height: 222px;
+                       height: 100%;
                        width: 100%;
                        object-fit: cover;
                        border-radius: 15px 0 0 15px;
@@ -151,7 +153,10 @@
                     padding: 22px;
                     display: flex;
                     flex-direction: column;
-                    row-gap: 20px;
+
+                    row-gap: 35px;
+                   // justify-content: space-between;
+                   
                    .tour-name{
                         color: #1C5C80;
                         font-size: 16px;
@@ -221,7 +226,7 @@
 }
 //room-----
 .home-room-container{
-    margin-top: 225px;
+    margin-top: 150px;
     height: 70px;
     .banner-room{
         position: relative;
@@ -318,9 +323,32 @@
                         font-size: 14px;
                     }
                 }
+
+                
             }
-        }  
+        } 
+        
     }
+    
+}
+.view-more-room{
+    position: absolute;
+    translate: 0% 2400%; 
+    left: 0;
+    right: 0;
+    //top: 50px;
+    margin: 0 auto;
+    text-align: center;
+    
+
+
+        span{
+             border: none;
+             color: rgb(49, 246, 240);
+             text-decoration: underline;
+         }
+    
+ 
 }
 
 .btn-view-more{
@@ -342,3 +370,4 @@
    
     
 }
+

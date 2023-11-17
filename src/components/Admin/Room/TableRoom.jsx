@@ -115,11 +115,6 @@ const TableRoom = () => {
               }}
             />
             
-            // <>
-            //   <div onClick={()=>{console.log('record tour >>>',record)}}>
-            //     {record.type_room}
-            //   </div>
-            // </>
           }
           </>)
         },
@@ -159,7 +154,6 @@ const TableRoom = () => {
 
   //Search
   const handleQuerySearch = (searchInput) => {
-  
       setQuerySearch(searchInput)
   }
 

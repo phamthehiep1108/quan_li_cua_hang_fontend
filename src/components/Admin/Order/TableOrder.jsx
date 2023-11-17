@@ -1,22 +1,19 @@
-import {Table, Badge, Select, Button, Popconfirm, message, Form } from "antd";
+import {Table, Badge, Select, Button, Popconfirm, message, Form, Drawer } from "antd";
 import {
     RedoOutlined,
     DeleteTwoTone,
     EditTwoTone,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import "./TableManage.scss";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { callGetRoomTour } from "../../../services/api";
-import InputSearchRT from "./InputSearchRoom";
-import ModalCreateRoom from "./ModalCreateRoom";
-import ModalCreateTour from "./ModalCreateTour";
-import ModalUpdateRoom from "./ModalUpdateRoom";
-import ModalUpdateTour from "./ModalUpdateTour";
-import ModalDeleteTR from "./ModalDeleteTR";
-
+import { callGetListOrder, callGetRoomTour } from "../../../services/api";
+import InputSearchOrder from "./InputSearchOrder";
+import ViewDetailOrder from "./ViewDetailOrder";
+import ModalUpdateStatus from "./ModalUpdateStatus";
+// import InputSearchRT from "./InputSearchRoom";
 
 const TableOrder = () => {
     const [form] = Form.useForm()
@@ -25,22 +22,16 @@ const TableOrder = () => {
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
     const [isLoading, setIsLoading] = useState(false)
-    const [typeRT, setTypeRT] = useState("&type_room[]=room&type_room[]=tour")
+    const [typeRT, setTypeRT] = useState("")
+    const [statusOrder, setStatusOrder] = useState("")
     const [querySearch, setQuerySearch] = useState("")
-    const [listRoomTour, setListRoomTour] = useState([])
-    
+    const [listOrderRoomTour, setListOrderRoomTour] = useState([])
 
-    const [openCreateRoom, setOpenCreateRoom] = useState(false)
-    const [openUpdateRoom, setOpenUpdateRoom] = useState(false)
-    const [dataUpdateRoom, setDataUpdateRoom] = useState({})
-
-
-    const [openCreateTour, setOpenCreateTour] = useState(false)
-    const [openUpdateTour, setOpenUpdateTour] = useState(false)
-    const [dataUpdateTour, setDataUpdateTour] = useState({})
+    const [openViewModal, setOpenViewModal] = useState(false)
+    const [dataViewDetail, setDataViewDetail] = useState({})
     
-    
-    const [openDeleteModal, setOpenDeleteModal] = useState(false)
+    const [openModalUpdateStatus, setOpenModalUpdateStatus] = useState(false)
+    const [idOrder, setIdOrder] = useState(0)
 
   //Table Component--------------------------
   const columns = [
@@ -50,22 +41,23 @@ const TableOrder = () => {
       render: (text, record, index) => {
         return (
             <a onClick={()=>{
-              //setDataViewRoom(record)
+              setOpenViewModal(true)
+              setDataViewDetail(record)
             }}>{record?.id}</a>
         );
       },
+    },
+    {
+      title: "userID",
+      dataIndex: "user_id",
+      
     },
     {
       title: "Name",
       dataIndex: "name",
       
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      width:'400px',
-      
-    },
+    
     {
       title: "Type",
       dataIndex: "type_room",
@@ -74,48 +66,57 @@ const TableOrder = () => {
       title: "Cost",
       dataIndex: "cost",
     },
-    {
-      title: "Start date",
-      dataIndex: "start_date",
-    },
-    {
-      title: "End date",
-      dataIndex: "end_date",
-    },
+   
     {
       title: "Status",
       dataIndex: "status",
+      render : (text, record, index) => {
+        return (
+          <>
+          {record?.status === "pending"?
+           <span>
+            <Badge status="processing" /> {' '}
+            {record?.status}
+           </span>
+           :
+           record?.status === "access"?
+           <span>
+           <Badge status="success" /> {' '}
+           {record?.status}
+            </span>
+          :
+          record?.status === "ending"?
+          <span>
+          <Badge status="warning" /> {' '}
+          {record?.status}
+           </span>
+           :
+           <span>
+           <Badge status="error" /> {' '}
+           {record?.status}
+            </span>
+          }
+         
+          </>
+        )
+      }
     },
     {
         title: "Action",
         dataIndex: "action",
         width: 100,
         render: (text, record, index) => {
-          // console.log("record =>>>",record);
-
           return (
           <>  
-          {record?.type_room === "room" ?
-          
-          <EditTwoTone
-              twoToneColor="#3cc41a"
-              style={{ cursor: "pointer", marginLeft: "20px" }}
-              onClick={()=>{
-                  setOpenUpdateRoom(true)
-                  setDataUpdateRoom(record)
-              }}
-            />
-            :
             <EditTwoTone
-              twoToneColor="#3cc41a"
-              style={{ cursor: "pointer", marginLeft: "20px" }}
-              onClick={()=>{
-                  setOpenUpdateTour(true)
-                  setDataUpdateTour(record)
-              }}
+                twoToneColor="#3cc41a"
+                style={{ cursor: "pointer", marginLeft: "20px" }}
+                onClick={()=>{
+                    setOpenModalUpdateStatus(true)
+                    setIdOrder(record?.id)
+                }}
             />
-            
-          }
+           
           </>)
         },
       },
@@ -123,9 +124,8 @@ const TableOrder = () => {
   ];
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys >>> ", newSelectedRowKeys);
+    //console.log("selectedRowKeys >>> ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
@@ -135,7 +135,6 @@ const TableOrder = () => {
   };
 
   //pagination
-
   const onChange = (pagination, filters, sorter, extra) => {
     if (pagination && pagination.current !== currentPage) {
       setCurrentPage(pagination.current);
@@ -148,25 +147,27 @@ const TableOrder = () => {
   };
 
   // Selected
-  const handleChange = (value) => {
+  const handleChangeType = (value) => {
     setTypeRT(value)
   };
 
+  const handleChangeStatus = (value) => {
+    setStatusOrder(value)
+  }
+
   //Search
   const handleQuerySearch = (searchInput) => {
-  
       setQuerySearch(searchInput)
   }
 
-  //----------------------------------------------------------
-
+  //-----------------------Main Event--------------------------
   useEffect(() => {
-    fetchGetRoomTour();
-  }, [typeRT, currentPage, pageSize, querySearch]);
+    fetchGetOrderRoomTour();
+  }, [typeRT, currentPage, pageSize, querySearch, statusOrder]);
 
-
-  const fetchGetRoomTour = async () => {
+  const fetchGetOrderRoomTour = async () => {
     let queryRT= `index?page=${currentPage}&perpage=${pageSize}`
+   
     if(typeRT){
       queryRT += typeRT
     }
@@ -175,18 +176,18 @@ const TableOrder = () => {
       queryRT += querySearch  
     }
 
-    const res = await callGetRoomTour(queryRT);
+    if(statusOrder){
+      queryRT += statusOrder
+    }
+  //  console.log('query>>>', queryRT);
+    const res = await callGetListOrder(queryRT);
+    
     if (res && res?.data) {
-
-      setListRoomTour(res?.data?.data);
-      setTotal(res.data.total)
-     
-     // console.log("resAll",res);
+      setListOrderRoomTour(res?.data?.data)
+      setTotal(res?.data?.total)
+      //console.log("resAll",res);
     }
   };
-  
-  //console.log('dataListRT',listRoomTour);
-
 
 //Confirm Delete
 const handleDelete = async() => {
@@ -199,25 +200,9 @@ const handleDelete = async() => {
         
         <div className="header-table">
           <div className="title-table">
-            <InputSearchRT handleQuerySearch = {handleQuerySearch}/>
+            <InputSearchOrder handleQuerySearch = {handleQuerySearch}/>
           </div>
          
-            {typeRT === "&type_room[]=room"?
-            
-            <Button
-            type="primary"
-            onClick={() => {
-               setOpenCreateRoom(true)
-            }}
-            > New Room</Button>
-            : 
-            <Button
-            type="primary"
-            onClick={() => {
-              setOpenCreateTour(true)
-            }}
-            >New Tour</Button>
-            }
         </div>
         <div
           style={{
@@ -254,26 +239,42 @@ const handleDelete = async() => {
             return (
               <div className="selected-status" style={{display:"flex", justifyContent:'space-between'}}>
                 <span>
-                  Quản lý Room - Tour
+                  Quản lý Booking Room - Tour
                 </span>
-                <span>
-                <Select
-                  defaultValue="All"
-                  style={{ width: 120 }}
-                  onChange={handleChange}
-                  options={[
-                    { value: '&type_room[]=room&type_room[]=tour', label: 'All' },
-                    { value: '&type_room[]=room', label: 'Room' },
-                    { value: '&type_room[]=tour', label: 'Tour' },
-                  ]}
-                />
-                </span>
+                <div style={{display:"flex", gap:'30px'}}>
+                  <span>
+                  <Select
+                    showSearch
+                    placeholder="Select a status"
+                    optionFilterProp="children"
+                    onChange={handleChangeStatus}
+                    options={[
+                      { value: '&status[]=pending', label: 'Pending' },
+                      { value: '&status[]=access', label: 'Access' },
+                      { value: '&status[]=ending', label: 'Ending' },
+                      { value: '&status[]=cancel', label: 'Cancel' },
+                    ]}
+                 />
+                  </span>
+                  <span>
+                  <Select
+                    defaultValue="All"
+                    style={{ width: 120 }}
+                    onChange={handleChangeType}
+                    options={[
+                      { value: '&type[]=room&type[]=tour', label: 'All' },
+                      { value: '&type[]=room', label: 'Room' },
+                      { value: '&type[]=tour', label: 'Tour' },
+                    ]}
+                  />
+                  </span>
+                </div>
               </div>
             );
           }}
             rowSelection={rowSelection}
             columns={columns}
-            dataSource={listRoomTour}
+            dataSource={listOrderRoomTour}
 
             onChange={onChange}
             loading={isLoading}
@@ -293,47 +294,27 @@ const handleDelete = async() => {
             }}
         />
       </div>
-        
-      {/* {typeRT === "&type_room[]=room"?"New Room" : "New Tour"} */}
 
-
-      <ModalCreateRoom 
-        open = {openCreateRoom}
-        setOpen = {setOpenCreateRoom}
-        fetchGetRoomTour = {fetchGetRoomTour}
-        setTypeRT = {setTypeRT}
+      <ViewDetailOrder 
+        open = {openViewModal}
+        setOpen = {setOpenViewModal}
+        dataView = {dataViewDetail}
       />
 
-      <ModalUpdateRoom
-        dataUpdateRoom = {dataUpdateRoom} 
-        open = {openUpdateRoom}
-        setOpen = {setOpenUpdateRoom}
-        fetchGetRoomTour = {fetchGetRoomTour}
-        setTypeRT = {setTypeRT}
-
+      <ModalUpdateStatus
+        open = {openModalUpdateStatus}
+        setOpen = {setOpenModalUpdateStatus}
+        fetchGetOrderRoomTour = {fetchGetOrderRoomTour}
+        idOrder = {idOrder}
       />
 
-     <ModalCreateTour
-       open = {openCreateTour}
-       setOpen = {setOpenCreateTour}
-       fetchGetRoomTour = {fetchGetRoomTour}
-       setTypeRT = {setTypeRT}
-     />
 
-     <ModalUpdateTour
-        dataUpdateTour = {dataUpdateTour} 
-        open = {openUpdateTour}
-        setOpen = {setOpenUpdateTour}
-        fetchGetRoomTour = {fetchGetRoomTour}
-        setTypeRT = {setTypeRT}
-     />
-
-     <ModalDeleteTR
+     {/* <ModalDeleteTR
        open = {openDeleteModal}
        setOpen = {setOpenDeleteModal}
        fetchGetRoomTour = {fetchGetRoomTour}
        selectedRowKeys = {selectedRowKeys}
-     />
+     />  */}
     </>
   );
 };

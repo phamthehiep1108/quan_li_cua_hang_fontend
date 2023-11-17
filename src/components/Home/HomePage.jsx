@@ -12,7 +12,7 @@ import { Rate } from 'antd';
 import moment from "moment/moment";
 import { Link, useNavigate } from "react-router-dom";
 
-const Home = () => {
+const HomePage = () => {
   const navigate = useNavigate()
   const [listTour, setListTour] = useState([])
   const [listRoom, setListRoom] = useState([])
@@ -217,4 +217,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

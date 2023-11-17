@@ -1,6 +1,6 @@
 import { Col, Row, Input, Form, theme, Button } from "antd";
 
-const InputSearchRT = (props) => {
+const InputSearchOrder = (props) => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
   const {handleQuerySearch} = props
@@ -10,7 +10,7 @@ const InputSearchRT = (props) => {
     background: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
     padding: "10px",
-
+    
   };
 
   const onFinish = (value) => {
@@ -50,4 +50,4 @@ const InputSearchRT = (props) => {
   );
 };
 
-export default InputSearchRT;
+export default InputSearchOrder;

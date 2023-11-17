@@ -25,6 +25,7 @@ import TableCategory from './components/Admin/Category/TableCategory';
 import TableRoom from './components/Admin/Room/TableRoom';
 import Tour from './components/Tour';
 import ListTour from './components/Tour/ListTour';
+import TableOrder from './components/Admin/Order/TableOrder';
 
 const Layout = () => {
   return (
@@ -41,22 +42,7 @@ export default function App() {
   const isLoading = useSelector(state => state.account.isLoading)
   const isAuthenticated = useSelector(state => state.account.isAuthenticated)
 
-  // const getAccount = async () => {
-  //   if (
-  //     window.location.pathname === '/login'
-  //     || window.location.pathname === '/register'
-  //   )
-  //     return;
 
-  //   const res = await callFetchAccount();
-  //   if (res && res.data) {
-  //     dispatch(doGetAccountAction(res.data))
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getAccount();
-  // }, [])
 
   const router = createBrowserRouter([
     {
@@ -124,7 +110,7 @@ export default function App() {
         },
         {
           path: "order",
-          element: <BookPage />,
+          element: <TableOrder />,
         },
       ],
     },

@@ -82,7 +82,7 @@ const Header = () => {
                                 <a href="#" className='navLink'>Trang chủ</a>
                             </li>         
                             <li className='navItem'>
-                                <a href="#" className='navLink'>Nơi cư trú</a>
+                                <a href="#" className='navLink'>Room</a>
                             </li>         
                             <li className='navItem'>
                                 <a href="#" className='navLink'>Tour</a>
