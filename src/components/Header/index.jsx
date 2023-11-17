@@ -79,13 +79,13 @@ const Header = () => {
                     <div className="navBar">
                         <ul className="navList flex">
                             <li className='navItem'>
-                                <a href="#" className='navLink'>Trang chủ</a>
+                                <Link to={'/'} className='navLink'>Trang chủ</Link>
                             </li>         
                             <li className='navItem'>
                                 <a href="#" className='navLink'>Room</a>
                             </li>         
                             <li className='navItem'>
-                                <a href="#" className='navLink'>Tour</a>
+                                <Link to={'/tour'}  className='navLink'>Tour</Link>
                             </li>         
                             <li className='navItem'>
                                 <a href="#" className='navLink'>Tin Tức</a>

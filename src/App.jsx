@@ -12,7 +12,6 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import RegisterPage from './pages/register';
 import { useDispatch, useSelector } from 'react-redux';
-import { doGetAccountAction } from './redux/account/accountSlice';
 import Loading from './components/Loading';
 import NotFound from './components/NotFound';
 import AdminPage from './pages/admin';
@@ -23,9 +22,10 @@ import LoginForAdmin from './pages/admin/loginForAdmin';
 import TableCustomer from './components/Admin/Customer/TableCustomer';
 import TableCategory from './components/Admin/Category/TableCategory';
 import TableRoom from './components/Admin/Room/TableRoom';
-import Tour from './components/Tour';
+
 import ListTour from './components/Tour/ListTour';
 import TableOrder from './components/Admin/Order/TableOrder';
+
 
 const Layout = () => {
   return (
@@ -38,10 +38,9 @@ const Layout = () => {
 }
 
 export default function App() {
-  const dispatch = useDispatch();
+  
   const isLoading = useSelector(state => state.account.isLoading)
   const isAuthenticated = useSelector(state => state.account.isAuthenticated)
-
 
 
   const router = createBrowserRouter([
@@ -56,21 +55,14 @@ export default function App() {
           element: <ContactPage />,
         },
         {
-          path: "book",
-          element: <BookPage />,
-        },
-        {
           path: "room",
           element: <BookPage />,
         },
         {
           path: "tour",
-          element: <Tour />,
-        }, 
-        {
-          path: "listTour",
           element: <ListTour />,
-        },
+        }, 
+ 
       ],
     },
 
@@ -81,9 +73,9 @@ export default function App() {
       children: [
         {
           index: true, element:
-            // <ProtectedRoute>
+             <ProtectedRoute>
               <AdminPage />
-            // </ProtectedRoute>
+             </ProtectedRoute>
         },
         
         {
@@ -103,10 +95,6 @@ export default function App() {
         {
           path: "room",
           element: <TableRoom />,
-        },
-        {
-          path: "tour",
-          element: <BookPage />,
         },
         {
           path: "order",
@@ -135,15 +123,15 @@ export default function App() {
   return (
     <>
       {
-         
-          //    window.location.pathname === '/login'
-          // || window.location.pathname === '/loginAdmin'
-          // || window.location.pathname === '/register'
-          // || window.location.pathname === '/'
-          // ?
+             isLoading === true ||
+             window.location.pathname === '/login'
+          || window.location.pathname === '/loginAdmin'
+          || window.location.pathname === '/register'
+          || window.location.pathname === '/'
+          ?
           <RouterProvider router={router} />
-          // :
-          // <Loading />
+          :
+          <Loading />
       }
     </>
   )

@@ -5,59 +5,41 @@ import img2 from "../../assets/img2.jpg";
 import img3 from "../../assets/img3.jpg";
 import img4 from "../../assets/img4.jpg";
 import roomBanner from "../../assets/roomBanner.jpg";
-import roomItem from "../../assets/roomItem.jpg";
-import { callGetTourRoomHome } from "../../services/api";
+
 import { useEffect, useState } from "react";
 import { Rate } from 'antd';
 import moment from "moment/moment";
 import { Link, useNavigate } from "react-router-dom";
 
-const HomePage = () => {
+const HomePage = (props) => {
   const navigate = useNavigate()
-  const [listTour, setListTour] = useState([])
-  const [listRoom, setListRoom] = useState([])
-
-  useEffect(() => {
-      fetchListTourHome();
-      fetchListRoomHome();
-  }, []);
-
-  const fetchListTourHome = async() => {
-      const res = await callGetTourRoomHome("tour")
-      if(res && res?.data){
-          setListTour(res.data.data)
-        //  console.log("check res",res);
-      }
-  }
-  const fetchListRoomHome = async() => {
-    const res = await callGetTourRoomHome("room")
-    if(res && res?.data){
-        setListRoom(res.data.data)
-      //  console.log("check res",res);
-    }
-  }
-
+  const {listTour, listRoom} = props
+  
   //console.log( moment('2011-02-07 15:13:06').diff(moment('2011-02-01 12:14:06'),"days"));
 
   return (
     <>
       <div className="home">
+
         <div className="overlay">
           <img src={imageHome} alt="#img" />
         </div>
+
         <div className="homeContent container">
+
           <div className="textDiv">
             <span className="smallText">Our Packages</span>
             <h1 className="homeTitle">Search your Holiday</h1>
           </div>
+
           <div className="cardDiv">
-            
             <div className="content">content 2</div>
             <div className="content">content 3</div>
             <div className="content">content 3</div>
-         
           </div>
+
         </div>
+
       </div>
       <div className="home-tour-container">
         <div className="text-header">
@@ -149,7 +131,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className="btn-view-more">
-        <button>Xem thêm</button>
+        <button onClick={()=>navigate('/tour')}>Xem thêm</button>
       </div>
       <div className="home-room-container">
         <div className="banner-room">

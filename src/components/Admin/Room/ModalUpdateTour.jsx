@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { callUpdateTour } from "../../../services/api";
  
   const ModalUpdateTour = (props) => {
-    const { open, setOpen, fetchGetRoomTour, setTypeRT, dataUpdateTour } = props;
+    const { open, setOpen, fetchGetRoomTour, setTypeRT, dataUpdateTour, setDataUpdateTour } = props;
     const [isSubmit, setIsSubmit] = useState(false);
     const [form] = Form.useForm();
     const { TextArea } = Input;
@@ -117,7 +117,9 @@ import { callUpdateTour } from "../../../services/api";
           onOk={() => form.submit()}
           onCancel={() => {
             setOpen(false);
-            form.resetFields()
+            form.resetFields();
+            
+            setDataUpdateTour(null) //fix close modal lost data
           }}
           okText="Cập nhật"
           cancelText="Hủy"

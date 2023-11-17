@@ -305,6 +305,7 @@ const handleDelete = async() => {
 
       <ModalUpdateRoom
         dataUpdateRoom = {dataUpdateRoom} 
+        setDataUpdateRoom = {setDataUpdateRoom}
         open = {openUpdateRoom}
         setOpen = {setOpenUpdateRoom}
         fetchGetRoomTour = {fetchGetRoomTour}
@@ -321,6 +322,7 @@ const handleDelete = async() => {
 
      <ModalUpdateTour
         dataUpdateTour = {dataUpdateTour} 
+        setDataUpdateTour = {setDataUpdateTour}
         open = {openUpdateTour}
         setOpen = {setOpenUpdateTour}
         fetchGetRoomTour = {fetchGetRoomTour}

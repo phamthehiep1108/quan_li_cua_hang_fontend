@@ -1,15 +1,19 @@
 .home{
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: auto;
-   
+
+        position: relative;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+
     .overlay{
-        height: 180px;
+        height: 600px;
         width: 100%;
         margin: 0 auto;
-        z-index: 1;
         margin-top: 80px;
 
          img{
@@ -18,32 +22,32 @@
             object-fit: cover;
         }
     }
+
     .homeContent{
         width: 100%;
-        padding: 8rem 7rem 3rem;
-        z-index: 2;
-        
-        .textDiv{
+       
+       .textDiv{
+            translate: 11% -600%;
             color: #ffffff;
-            .homeTitle{
-               
-            }
-        }
-
+       }
         .cardDiv{
-            margin-top: 150px;
-            padding: 2rem 1rem;
+            margin: 0  auto;
             background-color: #ffffff;
             border-radius: 10px;
-            gap: 1rem;
+            width: 78%;
+            translate: 0% -300%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-     
     }
+
+    
 }
 //tour-----
 .home-tour-container{
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: -180px;
     //100% display// translate: 0 5%;
     max-width: 1170px;
     padding: 15px;
@@ -134,11 +138,13 @@
             width: 100%;
             border-radius: 15px;
             height: 278px;
+
+            padding: 12px;
             
             .left-item{
                display: flex;
                width: 100%;
-               height: 278px;
+               height: 245px;
                .media-tour{
                     width: 33.33%;
                    img{

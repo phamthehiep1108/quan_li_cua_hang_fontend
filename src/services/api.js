@@ -167,8 +167,8 @@ export const callUpdateStatusOrder = (idOrder, status) => {
 
 //Customer get tour room
 
-export const callGetTourRoomHome = (query) => {
-    return axios.get(`/api/room?page=1&perpage=3&type[]=${query}&category[]=1`)
+export const callGetTourRoomHome = (pageSize,type) => {
+    return axios.get(`/api/room?page=1&perpage=${pageSize}&type[]=${type}&category[]=1`)
 }
 
 

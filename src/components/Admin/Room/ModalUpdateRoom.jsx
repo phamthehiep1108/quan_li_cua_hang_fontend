@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { callUpdateRoom } from "../../../services/api";
  
   const ModalUpdateRoom = (props) => {
-    const { open, setOpen, fetchGetRoomTour, setTypeRT, dataUpdateRoom } = props;
+    const { open, setOpen, fetchGetRoomTour, setTypeRT, dataUpdateRoom, setDataUpdateRoom } = props;
     const [isSubmit, setIsSubmit] = useState(false);
     const [form] = Form.useForm();
     const { TextArea } = Input;
@@ -26,9 +26,12 @@ import { callUpdateRoom } from "../../../services/api";
     const [logo, setLogo] = useState({});
     const [banner, setBanner] = useState({});
 
-    //const [initData, setInitData] = useState({})
+    const [initData, setInitData] = useState({})
 
     useEffect(() => {
+        // initData = {
+
+        // }
         if(dataUpdateRoom){
             //setInitData(dataUpdateRoom)
             form.setFieldsValue(dataUpdateRoom)
@@ -119,6 +122,7 @@ import { callUpdateRoom } from "../../../services/api";
           onOk={() => form.submit()}
           onCancel={() => {
             setOpen(false);
+            setDataUpdateRoom(null)
             form.resetFields()
           }}
           okText="Cập nhật"
@@ -130,7 +134,6 @@ import { callUpdateRoom } from "../../../services/api";
           <Divider/>
           <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
             <Row gutter={15}>
-             
                 <Form.Item
                   hidden ={true}
                   label="ID"

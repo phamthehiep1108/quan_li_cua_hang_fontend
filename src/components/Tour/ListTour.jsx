@@ -1,15 +1,12 @@
 import imageHome from "../../assets/Banner.jpg";
 import "./listtour.scss";
 import img1 from "../../assets/img1.jpg";
-import img2 from "../../assets/img2.jpg";
-import img3 from "../../assets/img3.jpg";
-import img4 from "../../assets/img4.jpg";
-import roomBanner from "../../assets/roomBanner.jpg";
+import img5 from "../../assets/img5.jpg";
 import roomItem from "../../assets/roomItem.jpg";
 import { Checkbox } from 'antd';
 import { InputNumber } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Tooltip } from 'antd';
+import { Button } from 'antd';
 import { Select } from 'antd';
 
 
@@ -19,7 +16,7 @@ const ListTour = () => {
         <div className="listtour">
             <div className="home">
                 <div className="overlay">
-                    <img src={imageHome} alt="#img" />
+                    <img src={img5} alt="#img" />
                 </div>
                 <div className="homeContent container">
                     <div className="textDiv">
@@ -34,16 +31,20 @@ const ListTour = () => {
                 </div>
             </div>
             <div className="container-list-tour">
+                {/* col-left----- */}
                 <div className="filter-select-option">
                     <div className="inputPrice">
-                        <span className="title-select">Khoảng giá</span>
-                        <InputNumber defaultValue={1} />  -  <InputNumber defaultValue={1} />
-                            <Button type="primary" icon={<SearchOutlined />} className="btn-search">
+                        <span className="title-price">Khoảng giá</span>
+                        <div className="range-value">
+                            <InputNumber defaultValue={1} /> 
+                            <InputNumber defaultValue={1} />
+                        </div>
+                        <Button type="primary" icon={<SearchOutlined />} className="btn-search">
                                 Search
-                            </Button>
+                        </Button>   
                     </div>
-                    <div className="listcheckbox">
-                        <span className="title-select">Loại tour</span>
+                    <div className="list-checkbox">
+                            <span className="title-cate">Loại tour</span>
                             <div className="checkbox"><Checkbox defaultChecked={false}> Tất cả </Checkbox></div>
                             <div className="checkbox"><Checkbox defaultChecked={false}> Tất cả </Checkbox></div>
                             <div className="checkbox"><Checkbox defaultChecked={false}> Tất cả </Checkbox></div>
@@ -52,6 +53,7 @@ const ListTour = () => {
                             <div className="checkbox"><Checkbox defaultChecked={false}> Tất cả </Checkbox></div>
                     </div>
                 </div>
+                {/* col-right----- */}
                 <div className="container-data-tour">
                     <div className="select-price">
                         <span>Sắp xếp theo: </span>
@@ -86,15 +88,17 @@ const ListTour = () => {
                                             phong phú đa dạng bậc nhất Việt Nam.
                                         </p>
                                         <div className="list-info">
-                                            <div className="item-info">
-                                                <span>6 ngày</span>
-                                            </div>
-                                            <div className="item-info">
-                                                <span>20 người</span>
+                                            <div className="tour-info">
+                                                <span className="item-info">
+                                                    6 ngày
+                                                </span>
+                                                <span className="item-info">
+                                                    20 người
+                                                </span>
                                             </div>
                                             <div className="item-info-price">
-                                                <h3>Giá từ: </h3>
-                                                <span>1,000,000</span>
+                                                <span>Giá từ: </span>
+                                                <span className="price">1.000.000 VND</span>
                                             </div>
                                         </div>
                                     </div>

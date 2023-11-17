@@ -1,57 +1,92 @@
 
 .container-list-tour {
     margin: 0 auto;
-    margin-top: 150px;
-    //100% display// translate: 0 5%;
-     max-width: 1170px;
+    margin-top: -150px;
+    max-width: 1170px;
     padding: 15px;
     display: flex;
-}
-.inputPrice {
-    width: 250px;
-    height: 120px;
-    margin-bottom: 20px;
-    border: 1px solid rgb(233, 217, 217);
-    text-align: center;
-    border-radius: 15px;
+
+
+    .filter-select-option{
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        
+        .inputPrice {
+            width: 250px;
+            border: 1px solid rgb(224, 223, 223);
+            text-align: center;
+            border-radius: 15px;
+            background-color: #ffffff;
+            padding: 15px;
+    
+            .title-price {
+                font-size: 14px;
+                font-weight: 500;    
+            }          
+            
+            .range-value{
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+            }
+
+            .btn-search {
+                margin-top: 20px;
+            }
+            
+        }
+        
+        .list-checkbox {
+            width: 250px;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid rgb(224, 223, 223);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background-color: #ffffff;
+    
+            .title-cate{
+                font-size: 14px;
+                font-weight: 500;
+            }
+            
+            .checkbox {
+                display: flex;
+                margin: 10px;
+                flex-direction: column;
+            }
+        }
+    }
+    
+    .container-data-tour {
+        width: 75%;
+    
+        .select-price {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            align-items: center;
+            
+            span{
+                font-size: 14px;
+
+            }
+        }
+    }
+    
 }
 
-.listcheckbox {
-    width: 250px;
-    height: 250px;
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid rgb(233, 217, 217);
-    border-radius: 15px;
-    gap: 20px;
-}
-.listtour {
-    background-color: white !important;
-}
-.title-select {
-    font-size: 15px;
-    font-weight: 500;
-    margin: 40px;
-}
-.btn-search {
-    margin-top: 10px;
-}
-.checkbox {
-    display: flex;
-    margin: 10px;
-    flex-direction: column;
-}
-.container-data-tour {
-    width: 75%;
-}
-.filter-select-option{
-    width: 25%;
-}
-.select-price {
-    display: flex;
-    justify-content: flex-end;
-    gap: 30px;
-}
+
+
+
+
+
+
+
 .tour-list {
             margin-top: 20px;
             display: grid;
@@ -64,16 +99,18 @@
                 display: grid;
                 width: 100%;
                 border-radius: 15px;
+                padding: 15px;
     
                 .left-item {
                     display: flex;
                     width: 100%;
+                    height: 222px;
     
                     .media-tour {
                         width: 33.33%;
-    
+                        height: 100%;
                         img {
-                            height: 222px;
+                            height: 100%;
                             width: 100%;
                             object-fit: cover;
                             border-radius: 15px 0 0 15px;
@@ -82,10 +119,11 @@
     
                     .tour-content {
                         width: 66.67%;
-                        padding: 22px;
+                        padding: 0px 15px;
                         display: flex;
                         flex-direction: column;
-                        row-gap: 20px;
+                        justify-content: space-between;
+                        row-gap: 5px;
     
                         .tour-name {
                             color: #1C5C80;
@@ -102,34 +140,36 @@
     
                         .list-info {
                             display: flex;
-                            padding-right: 15px;
+                            justify-content: space-between;
                             align-items: center;
+                           // padding: 0 10px;
                             color: #565656;
-                        }
-                        .item-info {
-                            margin-left: 20px;
-                            color: #1C5C80;
-                        }
-                        .item-info-price {
-                            margin-left: 180px;
-                            span{
-                                color: red;
-                                font-weight: 800;
-                                font-size: large;
+                            .tour-info{
+                                display: flex;
+                                gap: 20px;
+                                .item-info {
+                                    color: #1C5C80;
+                                }
                             }
+                            
+                            .item-info-price {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                text-align: center;
+                                span{
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                }
+                                .price{
+                                    font-size: 20px;
+                                    font-weight: 600;
+                                    color: #E54141;
+                                }
+                        }
 
                         }
                     }
                 }
             }
         }
-.tour-select-option {
-    display: flex;
-    gap: 30px;
-    color: rgb(63, 63, 161);
-    .option {
-        border: 1px solid blue;
-        padding: 5px;
-        background-color: rgb(230, 241, 238);
-    }
-}
