@@ -25,6 +25,7 @@ import TableRoom from './components/Admin/Room/TableRoom';
 
 import ListTour from './components/Tour/ListTour';
 import TableOrder from './components/Admin/Order/TableOrder';
+import TourPage from './pages/tour';
 
 
 const Layout = () => {
@@ -42,6 +43,7 @@ export default function App() {
   const isLoading = useSelector(state => state.account.isLoading)
   const isAuthenticated = useSelector(state => state.account.isAuthenticated)
 
+ // console.log("check loading >>>",isLoading);
 
   const router = createBrowserRouter([
     {
@@ -61,6 +63,10 @@ export default function App() {
         {
           path: "tour",
           element: <ListTour />,
+        }, 
+        {
+          path: "tour/:id",
+          element: <TourPage />,
         }, 
  
       ],
@@ -123,7 +129,7 @@ export default function App() {
   return (
     <>
       {
-             isLoading === true ||
+             isLoading === false ||
              window.location.pathname === '/login'
           || window.location.pathname === '/loginAdmin'
           || window.location.pathname === '/register'

@@ -119,14 +119,16 @@ const TableCategory = () => {
     getAllCategory();
   }, [searchQuery, currentPage, pageSize]);
 
- useEffect(()=>{
-    const getCateForCreate = async() => {
-      const resOne =  await callGetCategory('index?');
-      if(resOne?.data?.data){
-        dispatch(doSaveCategoryAction(resOne.data.data))
+  useEffect(()=>{
+      const getCateForCreate = async() => {
+        const resOne =  await callGetCategory('index?');
+        if(resOne?.data?.data){
+          dispatch(doSaveCategoryAction(resOne.data.data))
+        }
+
       }
-  }
- },[])
+      getCateForCreate()
+  },[])
 
   const getAllCategory = async () => {
 

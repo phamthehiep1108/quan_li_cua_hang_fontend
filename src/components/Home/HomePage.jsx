@@ -7,7 +7,7 @@ import img4 from "../../assets/img4.jpg";
 import roomBanner from "../../assets/roomBanner.jpg";
 
 import { useEffect, useState } from "react";
-import { Rate } from 'antd';
+import { Rate, Input } from 'antd';
 import moment from "moment/moment";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const HomePage = (props) => {
   const navigate = useNavigate()
   const {listTour, listRoom} = props
   
-  //console.log( moment('2011-02-07 15:13:06').diff(moment('2011-02-01 12:14:06'),"days"));
+  console.log('listTour>>>',listTour);
 
   return (
     <>
@@ -33,9 +33,9 @@ const HomePage = (props) => {
           </div>
 
           <div className="cardDiv">
-            <div className="content">content 2</div>
-            <div className="content">content 3</div>
-            <div className="content">content 3</div>
+              <div className="content">
+                    <Input placeholder="Search your Holiday" className="input-search"/>
+              </div>
           </div>
 
         </div>
@@ -92,17 +92,17 @@ const HomePage = (props) => {
                         <div className="list-info">
                           <div className="item-info">
                             <span>
-                              {moment(`${tour.end_date}`).diff(moment(`${tour.start_date}`),"days")}
+                              {moment(`${tour.end_date}`).diff(moment(`${tour.start_date}`),"days")} ngày
                             </span>
                           </div>
                           <div className="item-info">
-                            <span>20 người</span>
+                            <span>{tour?.categories.number} người</span>
                           </div>
                           <div className="item-info">
                             <span>4 địa điểm</span>
                           </div>
                           <div className="item-info">
-                            <span>Tàu + Ô tô</span>
+                            <span>{tour?.can_order} Vé còn lại</span>
                           </div>
                         </div>
                       </div>

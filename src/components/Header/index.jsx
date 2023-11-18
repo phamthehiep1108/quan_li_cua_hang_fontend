@@ -18,7 +18,7 @@ const Header = () => {
     const user = useSelector((state)=> state.account.user)
     const role = useSelector((state)=> state.account.role)
    
-    console.log(role);
+   // console.log(role);
 
     const handleLogout = () => {
         dispatch(doLogoutAction());

@@ -171,6 +171,14 @@ export const callGetTourRoomHome = (pageSize,type) => {
     return axios.get(`/api/room?page=1&perpage=${pageSize}&type[]=${type}&category[]=1`)
 }
 
+// Cus get tour
+
+//  ---/api/room?page=1&perpage=10&type[]=tour&type[]=room&category[]=1&category[]=2&search=tour1&cost_min=12&cost_max=80&sort_cost=asc
+
+export const callGetTourRoomPage = (query) => {
+    return axios.get(`api/room?${query}`)
+}
+
 
 
 
