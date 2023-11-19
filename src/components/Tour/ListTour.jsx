@@ -9,15 +9,17 @@ import { Button, Row, Col, Form, InputNumber, Pagination, Input } from "antd";
 import { Select } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { useDispatch, useSelector } from "react-redux";
-import { callGetCategory, callGetTourRoomPage } from "../../services/api";
+import { callGetTourRoomPage, callGetCategoryForUser } from "../../services/api";
 import { doSaveCategoryAction } from "../../redux/categoryAD/categorySlice";
 import { useState, useEffect } from "react";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const ListTour = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const { Search } = Input;
+  const navigate = useNavigate()
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -30,15 +32,17 @@ const ListTour = () => {
   const [querySort, setQuerySort] = useState("");
 
   useEffect(() => {
-    const getCateForTourPage = async () => {
-      const resOne = await callGetCategory("index?");
-      if (resOne?.data?.data) {
-        dispatch(doSaveCategoryAction(resOne.data.data));
-        setListDataCate(resOne.data.data);
-      }
-    };
+    
     getCateForTourPage();
   }, []);
+
+  const getCateForTourPage = async () => {
+    const resOne = await callGetCategoryForUser();
+    if (resOne?.data) {
+      dispatch(doSaveCategoryAction(resOne.data));
+      setListDataCate(resOne.data);
+    }
+  };
 
   useEffect(() => {
     fetchListTour();
@@ -247,7 +251,7 @@ const ListTour = () => {
                   {listDataTour?.map((tour) => {
                     return (
                       <>
-                        <div className="tour-item">
+                        <div className="tour-item" onClick={()=>navigate(`/tour/${tour?.id}`)}>
                           <div className="left-item">
                             <div className="media-tour">
                               <img src={`${tour?.logo}`} alt="#imgTour" />

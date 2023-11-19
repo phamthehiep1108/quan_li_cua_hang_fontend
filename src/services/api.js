@@ -163,12 +163,15 @@ export const callUpdateStatusOrder = (idOrder, status) => {
 
 
 
-
-
 //Customer get tour room
 
 export const callGetTourRoomHome = (pageSize,type) => {
     return axios.get(`/api/room?page=1&perpage=${pageSize}&type[]=${type}&category[]=1`)
+}
+
+// Customer cate
+export const callGetCategoryForUser = () => {
+    return axios.get(`/api/category/index`)
 }
 
 // Cus get tour
@@ -179,6 +182,20 @@ export const callGetTourRoomPage = (query) => {
     return axios.get(`api/room?${query}`)
 }
 
+// Get tour/room detail
+export const callGetTourRoomDetail = (id) => {
+    return axios.get(`/api/room/detail/${id}`)
+}
+
+// Call Booking tour
+export const callBookingTour = (id_room, id_user) => {
+
+    const data = new FormData();
+    data.append("id_room", id_room);
+    data.append("id_user", id_user);
+
+    return axios.post(`/api/order/booking-tour`,data)
+}
 
 
 

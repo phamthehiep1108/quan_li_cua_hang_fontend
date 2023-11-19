@@ -29,12 +29,15 @@
         display: flex;
         gap: 35px;
         .navItem{
+            list-style: none;
             .navLink{
                 color: #ffffff;
                 font-size: 1rem;
                 text-transform: uppercase;
                 font-weight: 500;
                 cursor: pointer;
+
+               
 
                 &:hover{
                     color: rgb(241, 233, 18)
