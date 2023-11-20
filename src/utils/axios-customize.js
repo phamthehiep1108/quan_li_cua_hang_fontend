@@ -15,6 +15,8 @@ instance.defaults.headers.common = {
   accept:"application/json"
 };
 
+console.log('Auth',localStorage.getItem("access_token"));
+
 
 // Add a request interceptor
 instance.interceptors.request.use(

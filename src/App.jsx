@@ -26,6 +26,8 @@ import TableRoom from './components/Admin/Room/TableRoom';
 import ListTour from './components/Tour/ListTour';
 import TableOrder from './components/Admin/Order/TableOrder';
 import TourPage from './pages/tour';
+import HistoryLayout from './components/History/HistoryLayout';
+import HistoryPage from './pages/history';
 
 
 const Layout = () => {
@@ -68,6 +70,28 @@ export default function App() {
           path: "tour/:id",
           element: <TourPage />,
         }, 
+ 
+      ],
+    },
+    {
+      path: "/personal",
+      element: <HistoryLayout/>,
+      errorElement: <NotFound />,
+      children: [
+        { index: true, element: <HistoryPage/> },
+        {
+          path: "history",
+          element: <HistoryPage />,
+        },
+        {
+          path: "profile",
+          element: <ListTour />,
+        },
+        {
+          path: "change-pass",
+          element: <ListTour />,
+        }, 
+        
  
       ],
     },

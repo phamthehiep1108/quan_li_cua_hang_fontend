@@ -4,7 +4,7 @@ import img9 from "../../assets/img9.jpg";
 import { BsImage } from "react-icons/bs";
 import { GrOverview } from "react-icons/gr";
 import { MdOutlineRateReview } from "react-icons/md";
-import { Rate, DatePicker, Image } from 'antd';
+import { Rate, DatePicker, Image, Badge } from 'antd';
 import dayjs from 'dayjs';
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -20,7 +20,6 @@ const TourDetail = (props) => {
   let dateEnd =  tourDetail?.end_date?.substring(0, 10) 
 
   
-
   const handleBooking = () => {
     setOpenModalBook(true)
   }
@@ -28,8 +27,8 @@ const TourDetail = (props) => {
   
   return (
     <>
-      <div className="home">
-        <div className="overlay">
+      <div className="home-detail">
+        <div className="overlay-detail">
           <img src={tourDetail?.banner?.image_data ?? img9} alt="#img" />
         </div>
       </div>
@@ -154,6 +153,7 @@ const TourDetail = (props) => {
                     }).format(tourDetail?.cost ?? 0)} / Người
               </span>
               <h5 style={{marginTop:'15px'}}>Số người {tourDetail?.categories?.number}</h5>
+              <h5 style={{marginTop:'15px'}}><Badge status="processing" text={`Số vé còn lại ${tourDetail?.can_order}`} /></h5>
               <h5 style={{marginTop:'15px'}}>Số ngày {' '}
                           {moment(`${tourDetail?.end_date}`).diff(
                                 moment(`${tourDetail?.start_date}`),"days"

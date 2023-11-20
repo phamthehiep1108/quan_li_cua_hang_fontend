@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import {
     AppstoreOutlined,
     ExceptionOutlined,
-    HeartTwoTone,
-    TeamOutlined,
-    UserOutlined,
     DollarCircleOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -13,72 +10,49 @@ import {
 import { Layout, Menu, Dropdown, Space, message } from 'antd';
 import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import './layout.scss';
+import './layoutHis.scss';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { doLogoutAction } from '../../redux/account/accountSlice';
 
 const { Content, Footer, Sider } = Layout;
 
 const items = [
     {
-        label: <Link to='/admin'>Dashboard</Link>,
+        label: <Link to='/personal'>Dashboard Personal</Link>,
         key: 'dashboard',
         icon: <AppstoreOutlined />
     },
+   
     {
-        label: <span>Manage Users</span>,
-        // key: 'user',
-        icon: <UserOutlined />,
-        children: [
-            {
-                label: <Link to='/admin/customer'>Customer</Link>,
-                key: 'customer',
-                icon: <TeamOutlined />,
-            },
-            {
-                label: <Link to='/admin/staff'>Staff</Link>,
-                key: 'staff',
-                icon: <TeamOutlined />,
-            }
-        ]
-    },
-    {
-        label: <Link to='/admin/category'>Category</Link>,
-        key: 'category',
-        icon: <ExceptionOutlined />
-    },
-    {
-        label: <Link to='/admin/room'>Manage Room</Link>,
-        key: 'room',
-        icon: <ExceptionOutlined />
-    },
-    {
-        label: <Link to='/admin/room'>Manage Tour</Link>,
-        key: 'tour',
-        icon: <ExceptionOutlined />
-    },
-    {
-        label: <Link to='/admin/order'>Manage Orders</Link>,
-        key: 'order',
+        label: <Link to='/personal/history'>Lịch sử đặt hàng</Link>,
+        key: 'history',
         icon: <DollarCircleOutlined />
     },
+    {
+        label: <Link to='/personal/profile'>Thông tin cá nhân</Link>,
+        key: 'profile',
+        icon: <ExceptionOutlined />
+    },
+    {
+        label: <Link to='/personal/change-pass'>Đổi mật khẩu</Link>,
+        key: 'change-pass',
+        icon: <ExceptionOutlined />
+    },
+    
 
 ];
 
 //fuck
 
-const LayoutAdmin = () => {
+const HistoryLayout = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState('dashboard');
 
-    const userAdmin = useSelector(state => state.account.admin);
-    const role = userAdmin?.role;
+    const user = useSelector(state => state.account.user);
+  
 
-   // console.log(userAdmin);
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const handleLogout = async () => {
         dispatch(doLogoutAction());
@@ -114,7 +88,7 @@ const LayoutAdmin = () => {
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}>
                 <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
-                    Admin
+                    Công ty du lịch Việt Nam
                 </div>
                 <Menu
                     defaultSelectedKeys={[activeMenu]}
@@ -126,7 +100,7 @@ const LayoutAdmin = () => {
 
             
             <Layout>
-                <div className='admin-header'>
+                <div className='history-header'>
                     <span>
                         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             className: 'trigger',
@@ -136,7 +110,7 @@ const LayoutAdmin = () => {
                     <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                                Welcome Admin
+                                Welcome {user?.display_name}
                                 <DownOutlined />
                             </Space>
                         </a>
@@ -152,4 +126,4 @@ const LayoutAdmin = () => {
     );
 };
 
-export default LayoutAdmin;
+export default HistoryLayout;

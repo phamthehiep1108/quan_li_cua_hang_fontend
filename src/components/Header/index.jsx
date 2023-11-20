@@ -31,14 +31,14 @@ const Header = () => {
         
         {
           label: 
-            <label style={{cursor:'pointer'}} onClick={()=>navigate('/profile')}> 
+            <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/profile')}> 
                Quản lý profile
             </label>,
              key: 'profile',
         },
         {
           label: 
-          <label style={{cursor:'pointer'}} onClick={()=>navigate('/order')}>
+          <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/history')}>
                Lịch sử đặt hàng
             </label>,
           key: 'order',

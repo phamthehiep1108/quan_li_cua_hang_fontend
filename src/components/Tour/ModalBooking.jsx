@@ -1,11 +1,11 @@
 import { Modal, Form, Divider, Row, Col, Input, message, notification} from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { callBookingTour } from '../../services/api';
 
 
 const ModalBooking = (props) => {
-
+ 
     const {open, setOpen, tourId} = props
     const [form] = Form.useForm()
     const[isSubmit, setIsSubmit] = useState(false)
@@ -15,12 +15,21 @@ const ModalBooking = (props) => {
     const userID = `${accountUser?.id}`
     const tourID = `${tourId}`
 
-    const onFinish = async(value) => {
-        console.log("value >>>",value);
-        const { id_room, id_user} = value
-        const res = await callBookingTour(id_room, id_user);
+    useEffect(() => {
+      let initData = {
+        id_user: userID,
+        id_room: tourID
+      }
+      form.setFieldsValue(initData)
+    }, [userID, tourID]);
 
-       // console.log("res>>>",id_room, id_user);
+    const onFinish = async(value) => {
+        //console.log("value >>>",value);
+        const { id_room, id_user} = value
+
+        console.log("res>>>",id_room, id_user);
+
+        const res = await callBookingTour(id_room, id_user);
 
         if(res && res.data){
             message.success(res.message)
@@ -52,17 +61,20 @@ const ModalBooking = (props) => {
         width={"50vw"}
         maskClosable={false}
       >
+        <Row>
+            Bạn có chắc chắn muốn đặt tour này?
+        </Row>
         <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
           <Row gutter={15}>
             <Col span= {12}>
               <Form.Item
                 label="ID user"
                 name="id_user"
-                initialValue={userID}
-               //hidden = {true}
+               
+               hidden = {true}
                labelCol={{ span: 24 }}
               >
-                <Input/>
+                <Input />
               </Form.Item>
             </Col>
             
@@ -70,8 +82,9 @@ const ModalBooking = (props) => {
               <Form.Item
                 label="ID room"
                 name="id_room"
-                initialValue={tourID}
+              
                 labelCol={{ span: 24 }}
+                hidden = {true}
               >
                 <Input/>
               </Form.Item>
