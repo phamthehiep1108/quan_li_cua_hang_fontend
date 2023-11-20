@@ -61,7 +61,7 @@ const TourDetail = (props) => {
           <div className="center-content">
             <div className="header-info">
               <h2 className="tour-title">
-                 VINPEARL RESORT & SPA NHA TRANG BAY
+                 {tourDetail?.name}
               </h2>
               <div className="tour-rate">
                  <Rate disabled defaultValue={5} style={{fontSize:'16px'}}/>

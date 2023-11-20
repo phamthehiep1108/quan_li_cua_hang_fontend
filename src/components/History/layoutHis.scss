@@ -14,23 +14,35 @@
     padding: 15px;
 
     .history-option{
-        display: flex;
-        justify-content: space-between;
-
+        // display: flex;
+        // justify-content: space-between;
+        
         .title-history{
             font-size: 21px;
             font-weight: 600;
+            color: #3C3C3C;
+            display: block;
+            margin-bottom: 20px;
         }
         .option-filter{
             display: flex;
+            justify-content: space-between;
             gap: 20px;
             align-items: center;
 
+        }
+        .filter-status-order{
+            display: flex;
+            gap: 20px;
+            align-items: center;
         }
     }
 
     .list-order{
         margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
        .order-item{
         background-color: #ffffff;
         padding: 25px;
@@ -68,7 +80,23 @@
                 .tour-content{
                     display: flex;
                     flex-direction: column;
-                    
+                    padding-left: 50px;
+                    gap: 20px;
+                
+                    .title{
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: #3C3C3C;
+
+                    }
+                    .date-start, .tour-price{
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #3C3C3C;
+                    }
+                    .tour-price{
+                        color: #E54141;
+                    }
                 }
             }
        } 

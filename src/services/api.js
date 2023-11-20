@@ -197,6 +197,12 @@ export const callBookingTour = (id_room, id_user) => {
     return axios.post(`/api/order/booking-tour`,data)
 }
 
+// Call get order user
+export const callGetListOrderUser = (query) => {
+    return axios.get(`/api/order/list-order?${query}`)
+}
+
+
 
 
 

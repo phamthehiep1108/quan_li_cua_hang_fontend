@@ -6,8 +6,9 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     DownOutlined,
+    UserOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, Dropdown, Space, message } from 'antd';
+import { Layout, Menu, Dropdown, Space, message, Avatar } from 'antd';
 import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import './layoutHis.scss';
@@ -42,8 +43,6 @@ const items = [
 
 ];
 
-//fuck
-
 const HistoryLayout = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -51,9 +50,9 @@ const HistoryLayout = () => {
     const [activeMenu, setActiveMenu] = useState('dashboard');
 
     const user = useSelector(state => state.account.user);
+
+    console.log("check user his =>>>",user );
   
-
-
     const handleLogout = async () => {
         dispatch(doLogoutAction());
         message.success("Đã đăng xuất thành công")
@@ -110,7 +109,7 @@ const HistoryLayout = () => {
                     <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                                Welcome {user?.display_name}
+                            <Avatar size="large" icon={<UserOutlined />} /> Welcome {user?.display_name}
                                 <DownOutlined />
                             </Space>
                         </a>
