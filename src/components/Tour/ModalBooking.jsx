@@ -2,6 +2,7 @@ import { Modal, Form, Divider, Row, Col, Input, message, notification} from 'ant
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { callBookingTour } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 
 const ModalBooking = (props) => {
@@ -11,6 +12,7 @@ const ModalBooking = (props) => {
     const[isSubmit, setIsSubmit] = useState(false)
 
     const accountUser = useSelector(state => state.account.user)
+    const navigate = useNavigate()
 
     const userID = `${accountUser?.id}`
     const tourID = `${tourId}`
@@ -31,11 +33,13 @@ const ModalBooking = (props) => {
 
         const res = await callBookingTour(id_room, id_user);
 
-        if(res && res.data){
+        if(res && res.data && res.status === 200){
             message.success(res.message)
             setOpen(false)
             console.log("res>>>",res);
-        }else{
+        }  
+        else{
+            navigate('/login')
             notification.error({
                 message:'Có lỗi xảy ra',
                 description:'Không thể booking tour'

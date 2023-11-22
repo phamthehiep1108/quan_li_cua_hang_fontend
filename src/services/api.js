@@ -111,30 +111,30 @@ export const callCreateNewTour = (name, description, type, cost, logo, banner, s
 }
 
 //Update room
-export const callUpdateRoom = (id, name, description, type, cost, logo, logo_delete, status, type_room) => {
+export const callUpdateRoom = (id, name, description, type, cost, logo, status) => {
     const data = new FormData();
     data.append("name", name);
     data.append("type", type);
     data.append("description", description);
     data.append("cost", cost);
     data.append("logo", logo);
-    data.append("logo_delete", logo_delete);
+    data.append("logo_delete", true);
     data.append("status", status);
-    data.append("type_room", type_room);
+    data.append("type_room", "room");
    
     return axios.post(`/api/v2/room/update/${id}`,data)
 }
 
-export const callUpdateTour = (id, name, description, type, cost, logo, logo_delete, status, type_room, start_date, end_date) => {
+export const callUpdateTour = (id, name, description, type, cost, logo, status,  start_date, end_date) => {
     const data = new FormData();
     data.append("name", name);
     data.append("type", type);
     data.append("description", description);
     data.append("cost", cost);
     data.append("logo", logo);
-    data.append("logo_delete", logo_delete);
+    data.append("logo_delete", true);
     data.append("status", status);
-    data.append("type_room", type_room);
+    data.append("type_room", "tour");
     data.append("start_date", start_date);
     data.append("end_date", end_date);
 
