@@ -1,9 +1,15 @@
 import "./tourDetail.scss";
 import img1 from "../../assets/img1.jpg";
 import img9 from "../../assets/img9.jpg";
+import tourDao1 from "../../assets/tour-dao1.jpg";
+import tourDao4 from "../../assets/tour-dao4.jpg";
+import tourDao5 from "../../assets/tour-dao5.jpg";
+import tourDao2 from "../../assets/tour-dao2.jpg";
+import tourDao3 from "../../assets/tour-dao3.jpg";
 import { BsImage } from "react-icons/bs";
 import { GrOverview } from "react-icons/gr";
 import { MdOutlineRateReview } from "react-icons/md";
+import { MdOutlineDescription } from "react-icons/md";
 import { Rate, DatePicker, Image, Badge } from 'antd';
 import dayjs from 'dayjs';
 import moment from "moment";
@@ -13,13 +19,20 @@ import ModalBooking from "./ModalBooking";
 const TourDetail = (props) => {
 
   const {tourDetail, id} = props
+  console.log(tourDetail);
   const [openModalBook, setOpenModalBook] = useState(false)
 
  
   let dateStart =  tourDetail?.start_date?.substring(0, 10) 
   let dateEnd =  tourDetail?.end_date?.substring(0, 10) 
 
-  
+
+  // const can_order = tourDetail.can_order
+  // useEffect(()=>{
+   
+  // },[can_order])
+
+
   const handleBooking = () => {
     setOpenModalBook(true)
   }
@@ -43,6 +56,12 @@ const TourDetail = (props) => {
               <div className="type">
                 <span><GrOverview  className="icon" /></span>
                 <span className="title-icon">Giới thiệu</span>
+              </div>
+            </div>
+            <div className="left-item">
+              <div className="type">
+                <span><MdOutlineDescription  className="icon" /></span>
+                <span className="title-icon">Mô tả</span>
               </div>
             </div>
             <div className="left-item">
@@ -76,34 +95,40 @@ const TourDetail = (props) => {
                   {tourDetail?.description}
                 </p>
               </div>
+              <div className="tour-intro">
+                <h3>Mô tả</h3>
+                <p className="tour-description">
+                  {tourDetail?.categories?.description}
+                </p>
+              </div>
               <div className="tour-media">
                 <h3>Hình ảnh</h3>
                   <div className="list-media">
                     <div className="media-item">
                     <Image
                       width={138}
-                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                      src={img1}
                       style={{borderRadius:'6px'}}
                     />
                     </div>
                     <div className="media-item">
                     <Image
                       width={138}
-                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                      src={tourDao4}
                       style={{borderRadius:'6px'}}
                     />
                     </div>
                     <div className="media-item">
                     <Image
                       width={138}
-                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                      src={tourDao5}
                       style={{borderRadius:'6px'}}
                     />
                     </div>
                     <div className="media-item">
                     <Image
                       width={138}
-                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                      src={tourDao3}
                       style={{borderRadius:'6px'}}
                     />
                     </div>

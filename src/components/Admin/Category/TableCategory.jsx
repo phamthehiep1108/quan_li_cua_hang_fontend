@@ -189,7 +189,7 @@ const handleDelete = async() => {
                   cursor:'pointer'
                 }}
               >
-                <span style={{ padding: "5px 8px", border: "1px solid black" }}>
+                <span style={{ padding: "5px 8px", border: "1px solid black", borderRadius:'5px' }}>
                   {`Selected ${selectedRowKeys.length} items`}
                 </span>
                

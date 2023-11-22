@@ -16,17 +16,17 @@ const Home = () => {
   }, []);
 
   const fetchListTourHome = async() => {
-      const res = await callGetTourRoomHome("3","tour")
+      const res = await callGetTourRoomHome("3","tour","1")
       if(res && res?.data){
           setListTour(res.data.data)
         //  console.log("check res",res);
       }
   }
   const fetchListRoomHome = async() => {
-    const res = await callGetTourRoomHome("3","room")
+    const res = await callGetTourRoomHome("3","room","10")
     if(res && res?.data){
         setListRoom(res.data.data)
-      //  console.log("check res",res);
+       console.log("check resRoom",res);
     }
   }
 

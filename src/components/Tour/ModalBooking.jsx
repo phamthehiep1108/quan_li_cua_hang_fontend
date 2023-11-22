@@ -47,7 +47,7 @@ const ModalBooking = (props) => {
         <>
        <Modal
         forceRender
-        title="Xác nhận đặt tour"
+        title="Xác Nhận Đặt Tour"
         open={open}
         onOk={() => form.submit()}
         onCancel={() => {
@@ -58,7 +58,7 @@ const ModalBooking = (props) => {
         okText="Đặt tour"
         cancelText="Hủy"
         confirmLoading={isSubmit}
-        width={"50vw"}
+        //width={"25vw"}
         maskClosable={false}
       >
         <Row>

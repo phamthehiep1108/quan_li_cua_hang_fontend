@@ -86,10 +86,11 @@ import { callUpdateTour } from "../../../services/api";
 ]
 
     const onFinish = async (value) => {
-      const {id, name, type_room, type ,cost, description, status, start_date, end_date} = value
-            setIsSubmit(true)
-            const res = await callUpdateTour(id, name, description, type, cost, logo, banner, status, type_room, start_date, end_date)
-            setIsSubmit(false)
+      const {id, name, type_room, type ,cost, description, status, start_date, end_date, logo_delete} = value
+      console.log("logo_delete>>",logo_delete);
+          //  setIsSubmit(true)
+            const res = await callUpdateTour(id, name, description, type, cost, logo, logo_delete, status, type_room, start_date, end_date)
+          //  setIsSubmit(false)
             if(res && res.data){
                 message.success('Update phòng mới thành công')
                 setOpen(false)
@@ -207,12 +208,14 @@ import { callUpdateTour } from "../../../services/api";
                   name="logo_delete"
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input status!" }]}
+                  
                 >
                   <Select
                     showSearch
                     placeholder="Select a status"
                     optionFilterProp="children"
                     options={optionsDeleteLogo}
+                    defaultValue={true}
                  />
                 </Form.Item>
               </Col>

@@ -155,6 +155,14 @@ export const callUpdateStatusOrder = (idOrder, status) => {
     console.log(idOrder, status);
     return axios.post(`/api/v2/order/update-status/${idOrder}?status=${status}`)
 }
+//Get list request cancel
+export const callGetListRequestCancel = (query) => {
+    return axios.get(`/api/v2/request-cancel/index?${query}`)
+}
+//Get list request cancel
+export const callUpdateRequestCancel = (idRequest, status) => {
+    return axios.post(`/api/v2/request-cancel/update-status/${idRequest}?status=${status}`)
+}
 
 
 
@@ -165,8 +173,8 @@ export const callUpdateStatusOrder = (idOrder, status) => {
 
 //Customer get tour room
 
-export const callGetTourRoomHome = (pageSize,type) => {
-    return axios.get(`/api/room?page=1&perpage=${pageSize}&type[]=${type}&category[]=1`)
+export const callGetTourRoomHome = (pageSize,type,cateNumber) => {
+    return axios.get(`/api/room?page=1&perpage=${pageSize}&type[]=${type}&category[]=${cateNumber}`)
 }
 
 // Customer cate
@@ -201,6 +209,33 @@ export const callBookingTour = (id_room, id_user) => {
 export const callGetListOrderUser = (query) => {
     return axios.get(`/api/order/list-order?${query}`)
 }
+// cancel order
+export const callCancelOrderUser = (id) => {
+    return axios.post(`/api/order/cancel/${id}`)
+}
+
+//get detail order
+export const callGetDetailOrder = (id) => {
+    return axios.get(`/api/order/show/${id}`)
+}
+//get detail info user
+export const callGetInfoUser = (id) => {
+    return axios.get(`/api/user/show/${id}`)
+}
+// update info user
+export const callUpdateInfoUser = (id, display_name, phone_number, detail_address, avatar) => {
+
+    const data = new FormData();
+    data.append("display_name", display_name);
+    data.append("phone_number", phone_number);
+    data.append("detail_address", detail_address);
+    data.append("image_delete", true);
+    data.append("image_data", avatar? avatar : "");
+
+    return axios.post(`/api/user/update/${id}`,data)
+}
+
+
 
 
 

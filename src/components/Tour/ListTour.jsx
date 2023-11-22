@@ -72,6 +72,8 @@ const ListTour = () => {
       setListDataTour(res.data.data);
       setTotal(res.data.total);
     }
+
+    console.log("listTour>>>", res.data);
   };
 
   // Selected
@@ -80,6 +82,7 @@ const ListTour = () => {
     console.log("value sort>>>", value);
     if(value){
         setQuerySort(value)
+        setCurrentPage(1)
     }
   };
 
@@ -109,6 +112,7 @@ const ListTour = () => {
       let queryByCheckCate = checkedValues.join("");
       setQueryCheckbox(queryByCheckCate);
       //console.log('checked => ', queryByCheckCate);
+      setCurrentPage(1)
     } else {
       setQueryCheckbox("");
     }
@@ -120,6 +124,7 @@ const ListTour = () => {
     if (values) {
       let queryRange = `&cost_min=${values.range.from}&cost_max=${values.range.to}`;
       setQueryInputRange(queryRange);
+      setCurrentPage(1)
     }
   };
   return (
@@ -259,7 +264,7 @@ const ListTour = () => {
                             <div className="tour-content">
                               <h5 className="tour-name">{tour?.name}</h5>
                               <p className="tour-desc">
-                                {tour?.categories.description}
+                                {tour?.description}
                               </p>
                               <div className="list-info">
                                 <div className="tour-info">

@@ -43,6 +43,16 @@ export const accountSlice = createSlice({
 
         },
 
+        doUpdateInfoAction: (state, action) => {
+          
+            state.isAuthenticated = true;
+            state.isLoading = false;
+
+            state.user = action.payload;
+           
+
+        },
+
          //for admin/staff
         doLoginAdminAction: (state, action) => {
            
@@ -89,7 +99,7 @@ export const accountSlice = createSlice({
     },
 });
 
-export const { doLoginAction, doGetAccountAction, doLogoutAction, doLoginAdminAction } = accountSlice.actions;
+export const { doLoginAction, doLogoutAction, doLoginAdminAction, doUpdateInfoAction } = accountSlice.actions;
 
 
 export default accountSlice.reducer;

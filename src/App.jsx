@@ -28,6 +28,12 @@ import TableOrder from './components/Admin/Order/TableOrder';
 import TourPage from './pages/tour';
 import HistoryLayout from './components/History/HistoryLayout';
 import HistoryPage from './pages/history';
+import HistoryDetail from './components/History/HistoryDetail';
+import HistoriesList from './components/History/HistoriesList';
+import CancelRequest from './components/Admin/CancelRequest/CancelRequest';
+import ListRoom from './components/Room/ListRoom';
+import RoomPage from './pages/room';
+import UpdateInfo from './components/InfoUser/UpdateProfile';
 
 
 const Layout = () => {
@@ -60,7 +66,11 @@ export default function App() {
         },
         {
           path: "room",
-          element: <BookPage />,
+          element: <ListRoom />,
+        },
+        {
+          path: "room/:id",
+          element: <RoomPage />,
         },
         {
           path: "tour",
@@ -78,14 +88,18 @@ export default function App() {
       element: <HistoryLayout/>,
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <HistoryPage/> },
+        { index: true, element: <HistoriesList/> },
         {
           path: "history",
+          element: <HistoriesList />,
+        },
+        {
+          path: "history/:id",
           element: <HistoryPage />,
         },
         {
           path: "profile",
-          element: <ListTour />,
+          element: <UpdateInfo />,
         },
         {
           path: "change-pass",
@@ -122,10 +136,17 @@ export default function App() {
           path: "category",
           element: <TableCategory/>,
         },
+
         {
           path: "room",
           element: <TableRoom />,
         },
+
+        {
+          path: "cancel-request",
+          element: <CancelRequest/>,
+        },
+
         {
           path: "order",
           element: <TableOrder />,

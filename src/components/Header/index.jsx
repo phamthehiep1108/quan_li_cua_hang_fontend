@@ -18,7 +18,7 @@ const Header = () => {
     const user = useSelector((state)=> state.account.user)
     const role = useSelector((state)=> state.account.role)
    
-   // console.log(role);
+    //console.log('user>>>',user);
 
     const handleLogout = () => {
         dispatch(doLogoutAction());
@@ -29,6 +29,13 @@ const Header = () => {
     //Dropdown
     const items = [
         
+        {
+          label: 
+            <label style={{cursor:'pointer'}} onClick={()=>navigate('/login')}> 
+               Đăng nhập
+            </label>,
+             key: 'login',
+        },
         {
           label: 
             <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/profile')}> 
@@ -82,7 +89,7 @@ const Header = () => {
                                 <Link to={'/'} className='navLink'>Trang chủ</Link>
                             </li>         
                             <li className='navItem'>
-                                <a href="#" className='navLink'>Room</a>
+                                <Link to={'/room'} className='navLink'>Room</Link>
                             </li>         
                             <li className='navItem'>
                                 <Link to={'/tour'}  className='navLink'>Tour</Link>
@@ -106,7 +113,7 @@ const Header = () => {
                             >
                                 <a onClick={(e) => e.preventDefault()}>
                                 <Space>
-                                    {user?.display_name}
+                                   {user?.display_name}
                                     <DownOutlined />
                                 </Space>
                                 </a>

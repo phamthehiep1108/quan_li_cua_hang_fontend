@@ -71,7 +71,7 @@ const TableRoom = () => {
       dataIndex: "type_room",
     },
     {
-      title: "Cost",
+      title: "Cost(VND)",
       dataIndex: "cost",
     },
     {
@@ -82,10 +82,20 @@ const TableRoom = () => {
       title: "End date",
       dataIndex: "end_date",
     },
+   
     {
-      title: "Status",
-      dataIndex: "status",
+      title: "Category",
+      dataIndex: "category",
+      render: (text, record, index) => {
+        return (
+            <span>{record?.categories.name}</span>
+        );
+      },
     },
+    // {
+    //   title: "Status",
+    //   dataIndex: "status",
+    // },
     {
         title: "Action",
         dataIndex: "action",
@@ -235,7 +245,7 @@ const handleDelete = async() => {
                   cursor:'pointer'
                 }}
               >
-                <span style={{ padding: "5px 8px", border: "1px solid black" }}>
+                <span style={{ padding: "5px 8px", border: "1px solid black", borderRadius:'5px' }}>
                   {`Selected ${selectedRowKeys.length} items`}
                 </span>
                

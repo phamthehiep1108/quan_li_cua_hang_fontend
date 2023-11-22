@@ -49,13 +49,13 @@ const items = [
         icon: <ExceptionOutlined />
     },
     {
-        label: <Link to='/admin/room'>Manage Room</Link>,
+        label: <Link to='/admin/room'>Manage Tour</Link>,
         key: 'room',
         icon: <ExceptionOutlined />
     },
     {
-        label: <Link to='/admin/room'>Manage Tour</Link>,
-        key: 'tour',
+        label: <Link to='/admin/cancel-request'>Cancel Request</Link>,
+        key: 'request',
         icon: <ExceptionOutlined />
     },
     {

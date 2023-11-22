@@ -31,10 +31,14 @@
             align-items: center;
 
         }
-        .filter-status-order{
+        .filter-right{
             display: flex;
             gap: 20px;
-            align-items: center;
+            .filter-status-order{
+                display: flex;
+                gap: 20px;
+                align-items: center;
+            }
         }
     }
 
@@ -67,6 +71,7 @@
             }
             .content-item{
                 display: flex;
+                cursor: pointer;
                 .media-content{
                     width: 320px;
                     height: 200px;
@@ -97,9 +102,17 @@
                     .tour-price{
                         color: #E54141;
                     }
+                    
                 }
             }
        } 
     }
 
+}
+
+
+//dropDown
+
+.anticon-down{
+    visibility: hidden;
 }

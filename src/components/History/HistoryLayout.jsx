@@ -6,8 +6,10 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     DownOutlined,
-    UserOutlined
+    UserOutlined,
+    DownCircleTwoTone
 } from '@ant-design/icons';
+
 import { Layout, Menu, Dropdown, Space, message, Avatar } from 'antd';
 import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -51,7 +53,7 @@ const HistoryLayout = () => {
 
     const user = useSelector(state => state.account.user);
 
-    console.log("check user his =>>>",user );
+    //onsole.log("check user his =>>>",user );
   
     const handleLogout = async () => {
         dispatch(doLogoutAction());
@@ -62,18 +64,27 @@ const HistoryLayout = () => {
 
     const itemsDropdown = [
         {
-            label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
+            label: <a style={{ cursor: 'pointer' }} onClick={()=>navigate('/')}> Trang chủ</a>,
             key: 'account',
         },
         {
-            label: <label
+            type: 'divider',
+        },
+        {
+            label: <a style={{ cursor: 'pointer' }}>Quản lý tài khoản</a>,
+            key: 'account',
+        },
+        {
+            label: <a
                 style={{ cursor: 'pointer' }}
                 onClick={() => handleLogout()}
-            >Đăng xuất</label>,
+            >Đăng xuất</a>,
             key: 'logout',
         },
 
     ];
+
+   
 
 
     return (
@@ -82,11 +93,12 @@ const HistoryLayout = () => {
             className="layout-admin"
         >
             <Sider
+                width={255}
                 theme='light'
                 collapsible
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}>
-                <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
+                <div style={{ height: 40, margin: 16, textAlign: 'center' }}>
                     Công ty du lịch Việt Nam
                 </div>
                 <Menu
@@ -106,14 +118,21 @@ const HistoryLayout = () => {
                             onClick: () => setCollapsed(!collapsed),
                         })}
                     </span>
-                    <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
-                        <a onClick={(e) => e.preventDefault()}>
-                            <Space>
-                            <Avatar size="large" icon={<UserOutlined />} /> Welcome {user?.display_name}
+                    <Dropdown 
+                    menu={{ items: itemsDropdown }} 
+                    trigger={['click']} 
+                    arrow={false} 
+                    
+                    
+                    >
+                        <a onClick={(e) => e.preventDefault()} style={{padding:'0 20px'}}>
+                            <Avatar size="large" src={user?.avatar} /> {user?.display_name}
+                            <Space >
                                 <DownOutlined />
                             </Space>
                         </a>
                     </Dropdown>
+                    
                 </div>
                 <Content>
                     <Outlet />

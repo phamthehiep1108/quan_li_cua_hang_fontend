@@ -89,9 +89,9 @@ import { callUpdateRoom } from "../../../services/api";
 ]
 
     const onFinish = async (value) => {
-      const {id, name, type_room, type ,cost, description, status} = value
+      const {id, name, type_room, type ,cost, description, status, logo_delete} = value
             setIsSubmit(true)
-            const res = await callUpdateRoom(id, name, description, type, cost, logo, banner, status, type_room)
+            const res = await callUpdateRoom(id, name, description, type, cost, logo, logo_delete, status, type_room)
             setIsSubmit(false)
             if(res && res.data){
                 message.success('Update phòng mới thành công')
@@ -216,6 +216,7 @@ import { callUpdateRoom } from "../../../services/api";
                     placeholder="Select a status"
                     optionFilterProp="children"
                     options={optionsDeleteLogo}
+                    defaultValue={true}
                  />
                 </Form.Item>
               </Col>
