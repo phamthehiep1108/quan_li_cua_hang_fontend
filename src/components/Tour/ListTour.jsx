@@ -73,7 +73,7 @@ const ListTour = () => {
       setTotal(res.data.total);
     }
 
-    console.log("listTour>>>", res.data);
+    //console.log("listTour>>>", res.data);
   };
 
   // Selected

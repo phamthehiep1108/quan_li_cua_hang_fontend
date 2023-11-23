@@ -1,0 +1,27 @@
+.contact-container{
+    .contact-info{
+       padding: 0 10px;
+        .contact-title{
+            font-size: 16px;
+            font-weight: 600;
+            color: #343434;
+        }
+        .contact-detail{
+            margin-top: 85px;
+            .contact-item{
+                cursor: pointer;
+                span{
+                    font-weight: 500;
+                }
+                .item-one{
+                    font-size: 16;
+                    font-weight: 600;
+                    color: red;
+                }
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                margin-top: 15px;
+            }
+        }
+    }
+}

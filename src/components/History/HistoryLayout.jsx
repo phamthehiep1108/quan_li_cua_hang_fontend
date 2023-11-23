@@ -10,7 +10,7 @@ import {
     DownCircleTwoTone
 } from '@ant-design/icons';
 
-import { Layout, Menu, Dropdown, Space, message, Avatar } from 'antd';
+import { Layout, Menu, Dropdown, Space, message, Avatar, Tag } from 'antd';
 import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import './layoutHis.scss';
@@ -70,10 +70,10 @@ const HistoryLayout = () => {
         {
             type: 'divider',
         },
-        {
-            label: <a style={{ cursor: 'pointer' }}>Quản lý tài khoản</a>,
-            key: 'account',
-        },
+        // {
+        //     label: <a style={{ cursor: 'pointer' }}>Quản lý tài khoản</a>,
+        //     key: 'account',
+        // },
         {
             label: <a
                 style={{ cursor: 'pointer' }}
@@ -98,8 +98,12 @@ const HistoryLayout = () => {
                 collapsible
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}>
-                <div style={{ height: 40, margin: 16, textAlign: 'center' }}>
-                    Công ty du lịch Việt Nam
+                <div style={{ height: 60, marginTop: 28, textAlign: 'center' }}>
+                    
+                    <Tag color="geekblue" style={{ fontSize: "14px" }}>
+                        Công ty du lịch Việt Nam
+                    </Tag>
+
                 </div>
                 <Menu
                     defaultSelectedKeys={[activeMenu]}

@@ -1,14 +1,18 @@
-import { Modal, Form, Divider, Row, Col, Input, message, notification} from 'antd';
+import { Modal, Form, Divider, Row, Col, Input, message, notification, DatePicker} from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { callBookingTour } from '../../services/api';
+import { callBookingRoom, callBookingTour } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 
-const ModalBooking = (props) => {
+
+const ModalBookingRoom = (props) => {
  
     const {open, setOpen, tourId} = props
     const [form] = Form.useForm()
     const[isSubmit, setIsSubmit] = useState(false)
+
+    const[startDate, setStartDate] = useState(false)
+    const[endDate, setEndDate] = useState(false)
 
     const accountUser = useSelector(state => state.account.user)
     const navigate = useNavigate()
@@ -24,22 +28,31 @@ const ModalBooking = (props) => {
       form.setFieldsValue(initData)
     }, [userID, tourID]);
 
+    const onChangeStart = (date, dateString) => {
+     // console.log('start>>>', dateString);
+      setStartDate(dateString)
+    };
+    const onChangeEnd = (date, dateString) => {
+      //console.log('end>>>',date, dateString);
+      setEndDate(dateString)
+    };
+
     const onFinish = async(value) => {
         const { id_room, id_user} = value
 
         //console.log("res>>>",id_room, id_user);
 
-        const res = await callBookingTour(id_room, id_user);
-        console.log("checkRes >>>",res);
+        const res = await callBookingRoom(id_room, id_user, startDate, endDate);
+       // console.log("checkRes >>>",res);
         if(res && res.data && res.status === 200){
             message.success(res.message)
             setOpen(false)
-           // console.log("res>>>",res);
+            console.log("res>>>",res);
         }else{
            navigate('/login')
             notification.error({
                 message:'Có lỗi xảy ra',
-                description:'Không thể booking tour'
+                description:'Không thể booking room'
             })
         }
     }
@@ -62,9 +75,7 @@ const ModalBooking = (props) => {
         //width={"25vw"}
         maskClosable={false}
       >
-        <Row>
-            Bạn có chắc chắn muốn đặt room này?
-        </Row>
+        
         <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
           <Row gutter={15}>
             <Col span= {12}>
@@ -90,6 +101,28 @@ const ModalBooking = (props) => {
                 <Input/>
               </Form.Item>
             </Col>
+
+            <Col span={12} style={{ padding: "0 10px" }}>
+              <Form.Item
+                label="Ngày khởi hành"
+                name="start_date"
+                labelCol={{ span: 24 }}
+               
+              >
+                 <DatePicker onChange={onChangeStart} />
+              </Form.Item>
+            </Col>
+
+            <Col span={12} style={{ padding: "0 10px" }}>
+              <Form.Item
+                label="Ngày kết thúc"
+                name="end_date"
+                labelCol={{ span: 24 }}
+               
+              >
+                <DatePicker onChange={onChangeEnd} />
+              </Form.Item>
+            </Col>
           </Row>
         </Form>
       </Modal>
@@ -97,4 +130,4 @@ const ModalBooking = (props) => {
      );
 }
  
-export default ModalBooking;
+export default ModalBookingRoom;

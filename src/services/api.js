@@ -206,14 +206,16 @@ export const callBookingTour = (id_room, id_user) => {
 
     return axios.post(`/api/order/booking-tour`,data)
 }
-// Call Booking Roommmmm
-export const callBookingRoom = (id_room, id_user) => {
+// Call Booking Room
+export const callBookingRoom = (id_room, id_user, start_date, end_date) => {
 
     const data = new FormData();
     data.append("id_room", id_room);
     data.append("id_user", id_user);
+    data.append("start_date", start_date);
+    data.append("end_date", end_date);
 
-    return axios.post(`/api/order/booking-tour`,data)
+    return axios.post(`/api/order/booking-room`,data)
 }
 
 // Call get order user

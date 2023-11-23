@@ -16,12 +16,12 @@ import { Rate, DatePicker, Image, Badge } from 'antd';
 import dayjs from 'dayjs';
 import moment from "moment";
 import { useEffect, useState } from "react";
-import ModalBooking from "./ModalBooking";
+import ModalBookingRoom from "./ModalBookingRoom";
 
 const RoomDetail = (props) => {
 
   const {tourDetail, id} = props
-  console.log(tourDetail);
+ // console.log(tourDetail);
   const [openModalBook, setOpenModalBook] = useState(false)
 
  
@@ -190,7 +190,7 @@ const RoomDetail = (props) => {
         </div>
       </div>
 
-      <ModalBooking
+      <ModalBookingRoom
           open = {openModalBook}
           setOpen = {setOpenModalBook}
           tourId = {id}

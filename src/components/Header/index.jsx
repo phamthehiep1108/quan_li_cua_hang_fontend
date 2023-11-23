@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
 import { doLogoutAction } from '../../redux/account/accountSlice';
 import './header.scss';
 import { Link } from 'react-router-dom';
+import ContactPage from '../../pages/contact';
 
 const Header = () => {
     const navigate = useNavigate()
@@ -19,6 +20,7 @@ const Header = () => {
     const role = useSelector((state)=> state.account.role)
    
     //console.log('user>>>',user);
+    const [openModalContact, setOpenModalContact] = useState(false)
 
     const handleLogout = () => {
         dispatch(doLogoutAction());
@@ -97,7 +99,7 @@ const Header = () => {
                             <li className='navItem'>
                                 <a href="#" className='navLink'>Tin Tức</a>
                             </li>         
-                            <li className='navItem'>
+                            <li className='navItem' onClick={()=>setOpenModalContact(true)}>
                                 <a href="#" className='navLink'>Liên hệ</a>
                             </li>         
                         </ul>
@@ -122,6 +124,10 @@ const Header = () => {
                     </div>
 
             </header>  
+            <ContactPage
+                open = {openModalContact}
+                setOpen = {setOpenModalContact}
+            />
           </div> 
         </>
     )

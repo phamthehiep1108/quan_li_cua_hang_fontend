@@ -270,12 +270,7 @@ const ListRoom = () => {
                               </p>
                               <div className="list-info">
                                 <div className="tour-info">
-                                  <span className="item-info">
-                                    {moment(`${tour.end_date}`).diff(
-                                      moment(`${tour.start_date}`),
-                                      "days"
-                                    )} ngày
-                                  </span>
+                                  
                                   <span className="item-info">
                                     {tour?.categories.number} người
                                   </span>

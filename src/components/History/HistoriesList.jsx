@@ -188,7 +188,7 @@ const HistoriesList = () => {
                         <span className="code-order">{`Mã đơn hàng: ĐH200${item?.id}`}</span>
                         <span className="info-tag">
                           {item?.status === "pending" ? (
-                            <Tag color="orange" style={{ fontSize: "13px" }}>
+                            <Tag color="gold" style={{ fontSize: "13px" }}>
                               Chờ thanh toán
                             </Tag>
                           ) : item?.status === "access" ? (
@@ -230,7 +230,11 @@ const HistoriesList = () => {
                       </div>
                       <div className="tour-content">
                         <span className="title">{item?.name}</span>
-                        <span className="date-start">{`Ngày bắt đầu: ${item?.start_date?.substring(
+                        <span className="date-start">{`Ngày khởi hành: ${item?.start_date?.substring(
+                          0,
+                          10
+                        )}`}</span>
+                        <span className="date-start">{`Ngày kết thúc: ${item?.end_date?.substring(
                           0,
                           10
                         )}`}</span>
