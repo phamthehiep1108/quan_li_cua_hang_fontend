@@ -308,13 +308,13 @@ const handleDelete = async() => {
         idOrder = {idOrder}
       />
 
-
      {/* <ModalDeleteTR
        open = {openDeleteModal}
        setOpen = {setOpenDeleteModal}
        fetchGetRoomTour = {fetchGetRoomTour}
        selectedRowKeys = {selectedRowKeys}
      />  */}
+     
     </>
   );
 };

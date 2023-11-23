@@ -2,7 +2,7 @@ import "./roomDetail.scss";
 import img1 from "../../assets/img1.jpg";
 import img9 from "../../assets/img9.jpg";
 import room9 from "../../assets/room9.jpg";
-import room8 from "../../assets/room8.jpg";
+import room10 from "../../assets/room10.jpg";
 import tourDao1 from "../../assets/tour-dao1.jpg";
 import tourDao4 from "../../assets/tour-dao4.jpg";
 import tourDao5 from "../../assets/tour-dao5.jpg";
@@ -39,7 +39,7 @@ const RoomDetail = (props) => {
     <>
       <div className="home-detail">
         <div className="overlay-detail">
-          <img src={tourDetail?.banner?.image_data ?? room8} alt="#img" />
+          <img src={tourDetail?.banner?.image_data ?? room10} alt="#img" />
         </div>
       </div>
  
@@ -176,11 +176,11 @@ const RoomDetail = (props) => {
               </span>
               <h5 style={{marginTop:'15px'}}>Số người {tourDetail?.categories?.number}</h5>
               <h5 style={{marginTop:'15px'}}><Badge status="processing" text={`Số vé còn lại ${tourDetail?.can_order}`} /></h5>
-              <h5 style={{marginTop:'15px'}}>Số ngày {' '}
+              {/* <h5 style={{marginTop:'15px'}}>Số ngày {' '}
                           {moment(`${tourDetail?.end_date}`).diff(
                                 moment(`${tourDetail?.start_date}`),"days"
                           )} 
-              </h5>
+              </h5> */}
               <div className="contact-info">
                 <span className="title-contact">Liên hệ ngay</span>
                 <span className="phone">Gọi 0389059185</span>

@@ -25,17 +25,16 @@ const ModalBooking = (props) => {
     }, [userID, tourID]);
 
     const onFinish = async(value) => {
-        //console.log("value >>>",value);
         const { id_room, id_user} = value
 
-        console.log("res>>>",id_room, id_user);
+        //console.log("res>>>",id_room, id_user);
 
         const res = await callBookingTour(id_room, id_user);
-
+        console.log("checkRes >>>",res);
         if(res && res.data && res.status === 200){
             message.success(res.message)
             setOpen(false)
-            console.log("res>>>",res);
+           // console.log("res>>>",res);
         }else{
            navigate('/login')
             notification.error({

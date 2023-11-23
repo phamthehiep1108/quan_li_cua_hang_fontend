@@ -19,18 +19,12 @@ import ModalBooking from "./ModalBooking";
 const TourDetail = (props) => {
 
   const {tourDetail, id} = props
-  console.log(tourDetail);
+  //console.log(tourDetail);
   const [openModalBook, setOpenModalBook] = useState(false)
 
  
   let dateStart =  tourDetail?.start_date?.substring(0, 10) 
   let dateEnd =  tourDetail?.end_date?.substring(0, 10) 
-
-
-  // const can_order = tourDetail.can_order
-  // useEffect(()=>{
-   
-  // },[can_order])
 
 
   const handleBooking = () => {

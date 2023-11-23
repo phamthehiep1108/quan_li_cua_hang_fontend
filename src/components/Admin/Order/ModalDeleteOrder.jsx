@@ -1,7 +1,17 @@
-const ModalDeleteOrder = () => {
-    return ( 
-        <></>
-     );
-}
- 
-export default ModalDeleteOrder;
+
+
+const ModalDeleteOrder = (props) => {
+   
+    
+  
+    return (
+      <>
+
+
+        
+      </>
+    );
+  };
+  
+  export default ModalDeleteOrder;
+  

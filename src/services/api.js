@@ -155,6 +155,7 @@ export const callUpdateStatusOrder = (idOrder, status) => {
     console.log(idOrder, status);
     return axios.post(`/api/v2/order/update-status/${idOrder}?status=${status}`)
 }
+
 //Get list request cancel
 export const callGetListRequestCancel = (query) => {
     return axios.get(`/api/v2/request-cancel/index?${query}`)
@@ -163,6 +164,7 @@ export const callGetListRequestCancel = (query) => {
 export const callUpdateRequestCancel = (idRequest, status) => {
     return axios.post(`/api/v2/request-cancel/update-status/${idRequest}?status=${status}`)
 }
+
 
 
 
@@ -204,6 +206,15 @@ export const callBookingTour = (id_room, id_user) => {
 
     return axios.post(`/api/order/booking-tour`,data)
 }
+// Call Booking Roommmmm
+export const callBookingRoom = (id_room, id_user) => {
+
+    const data = new FormData();
+    data.append("id_room", id_room);
+    data.append("id_user", id_user);
+
+    return axios.post(`/api/order/booking-tour`,data)
+}
 
 // Call get order user
 export const callGetListOrderUser = (query) => {
@@ -233,6 +244,15 @@ export const callUpdateInfoUser = (id, display_name, phone_number, detail_addres
     data.append("image_data", avatar? avatar : "");
 
     return axios.post(`/api/user/update/${id}`,data)
+}
+
+//update password user
+export const callChangePassUser = (id, password, newPassword) => {
+    const data = new FormData();
+    data.append("password", password);
+    data.append("newPassword", newPassword);
+    
+    return axios.post(`/api/user/updatePs/${id}`,data)
 }
 
 

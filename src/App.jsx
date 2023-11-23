@@ -34,6 +34,7 @@ import CancelRequest from './components/Admin/CancelRequest/CancelRequest';
 import ListRoom from './components/Room/ListRoom';
 import RoomPage from './pages/room';
 import UpdateInfo from './components/InfoUser/UpdateProfile';
+import UpdatePass from './components/InfoUser/UpdatePass';
 
 
 const Layout = () => {
@@ -103,10 +104,9 @@ export default function App() {
         },
         {
           path: "change-pass",
-          element: <ListTour />,
+          element: <UpdatePass />,
         }, 
         
- 
       ],
     },
 
