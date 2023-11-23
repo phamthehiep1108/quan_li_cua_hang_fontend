@@ -12,6 +12,7 @@ import { doLogoutAction } from '../../redux/account/accountSlice';
 import './header.scss';
 import { Link } from 'react-router-dom';
 import ContactPage from '../../pages/contact';
+import imgReplace from '../../assets/tour-dao1.jpg'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Header = () => {
     const user = useSelector((state)=> state.account.user)
     const role = useSelector((state)=> state.account.role)
    
-    //console.log('user>>>',user);
+    console.log('user>>>',user);
     const [openModalContact, setOpenModalContact] = useState(false)
 
     const handleLogout = () => {
@@ -108,14 +109,14 @@ const Header = () => {
                     <div className="toggleNavbar">
                         <Space>
 
-                            <Avatar icon={<UserOutlined/>} className='icon'/>
+                            <Avatar src={user?.avatar || imgReplace} className='icon'/>
                             <Dropdown
                                 menu={{items}}
                                 trigger={['click']}
                             >
                                 <a onClick={(e) => e.preventDefault()}>
                                 <Space>
-                                   {user?.display_name}
+                                   {user?.display_name }
                                     <DownOutlined />
                                 </Space>
                                 </a>

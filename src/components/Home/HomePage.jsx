@@ -6,6 +6,11 @@ import img3 from "../../assets/img3.jpg";
 import img4 from "../../assets/img4.jpg";
 import roomBanner from "../../assets/roomBanner.jpg";
 
+import { IoLocationSharp } from "react-icons/io5";
+import { IoIosTime } from "react-icons/io";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { IoTicket } from "react-icons/io5";
+
 import { useEffect, useState } from "react";
 import { Rate, Input } from 'antd';
 import moment from "moment/moment";
@@ -90,18 +95,27 @@ const HomePage = (props) => {
                          {tour.categories.description}
                         </p>
                         <div className="list-info">
-                          <div className="item-info">
+                          <div className="item-info" style={{display:'flex', alignItems:'center'}}>
+                              <IoIosTime />
                             <span>
                               {moment(`${tour.end_date}`).diff(moment(`${tour.start_date}`),"days")} ngày
                             </span>
                           </div>
-                          <div className="item-info">
-                            <span>{tour?.categories.number} người</span>
+                          <div className="item-info" style={{display:'flex', alignItems:'center'}}>
+                            
+                              <BsFillPeopleFill />
+                            <span>
+                              {tour?.categories.number} người
+                            </span>
                           </div>
-                          <div className="item-info">
-                            <span>4 địa điểm</span>
+                          <div className="item-info" style={{display:'flex', alignItems:'center'}}>
+                            <IoLocationSharp />
+                            <span>
+                              4 địa điểm
+                            </span>
                           </div>
-                          <div className="item-info">
+                          <div className="item-info" style={{display:'flex', alignItems:'center'}}>
+                            <IoTicket />
                             <span>{tour?.can_order} Vé còn lại</span>
                           </div>
                         </div>
@@ -120,7 +134,9 @@ const HomePage = (props) => {
                           currency: "VND",
                         }).format(tour.cost ?? 0)} / Người
                       </span>
-                      <button className="btn-booking">Đặt ngay</button>
+                      <button className="btn-booking"
+                        onClick={()=>navigate(`/tour/${tour?.id}`)}
+                      >Đặt ngay</button>
                     </div>
                   </div>
                 </>
@@ -144,7 +160,7 @@ const HomePage = (props) => {
           listRoom?.map(room => {
             return (
               <>
-                <div className="room-item">
+                <div className="room-item" onClick={()=>navigate(`/room/${room?.id}`)}>
                   <div className="room-media">
                     <img src={`${room.logo}`} alt="#roomImg" />
                   </div>

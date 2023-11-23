@@ -1,13 +1,14 @@
 import "./roomDetail.scss";
-import img1 from "../../assets/img1.jpg";
-import img9 from "../../assets/img9.jpg";
+
 import room9 from "../../assets/room9.jpg";
 import room10 from "../../assets/room10.jpg";
-import tourDao1 from "../../assets/tour-dao1.jpg";
-import tourDao4 from "../../assets/tour-dao4.jpg";
-import tourDao5 from "../../assets/tour-dao5.jpg";
-import tourDao2 from "../../assets/tour-dao2.jpg";
-import tourDao3 from "../../assets/tour-dao3.jpg";
+
+
+import room2 from "../../assets/room2.jpg";
+import room3 from "../../assets/room3.jpg";
+
+
+
 import { BsImage } from "react-icons/bs";
 import { GrOverview } from "react-icons/gr";
 import { MdOutlineRateReview } from "react-icons/md";
@@ -104,28 +105,28 @@ const RoomDetail = (props) => {
                     <div className="media-item">
                     <Image
                       width={138}
-                      src={img1}
+                      src={room2}
                       style={{borderRadius:'6px'}}
                     />
                     </div>
                     <div className="media-item">
                     <Image
                       width={138}
-                      src={tourDao4}
+                      src={room3}
                       style={{borderRadius:'6px'}}
                     />
                     </div>
                     <div className="media-item">
                     <Image
                       width={138}
-                      src={tourDao5}
+                      src={room9}
                       style={{borderRadius:'6px'}}
                     />
                     </div>
                     <div className="media-item">
                     <Image
                       width={138}
-                      src={tourDao3}
+                      src={room10}
                       style={{borderRadius:'6px'}}
                     />
                     </div>
@@ -175,7 +176,7 @@ const RoomDetail = (props) => {
                     }).format(tourDetail?.cost ?? 0)} / Người
               </span>
               <h5 style={{marginTop:'15px'}}>Số người {tourDetail?.categories?.number}</h5>
-              <h5 style={{marginTop:'15px'}}><Badge status="processing" text={`Số vé còn lại ${tourDetail?.can_order}`} /></h5>
+              {/* <h5 style={{marginTop:'15px'}}><Badge status="processing" text={`Số vé còn lại ${tourDetail?.can_order}`} /></h5> */}
               {/* <h5 style={{marginTop:'15px'}}>Số ngày {' '}
                           {moment(`${tourDetail?.end_date}`).diff(
                                 moment(`${tourDetail?.start_date}`),"days"
