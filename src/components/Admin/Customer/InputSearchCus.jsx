@@ -6,8 +6,8 @@ const InputSearchCus = (props) => {
   const {handleQuerySearch} = props
   
   const formStyle = {
-    maxWidth: "750px",
-    background: token.colorFillAlter,
+    maxWidth: "600px",
+   // background: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
     padding: "10px",
     marginBottom:'40px'

@@ -165,6 +165,16 @@ export const callUpdateRequestCancel = (idRequest, status) => {
     return axios.post(`/api/v2/request-cancel/update-status/${idRequest}?status=${status}`)
 }
 
+//Get list staff and admin
+export const callGetListStaff = (query) => {
+    // -- /api/v2/staff/index?page=1&perpage=10&search=&role_id[]=1&role_id[]=3
+    return axios.get(`api/v2/staff/index?${query}`)
+}
+
+
+
+
+
 
 
 

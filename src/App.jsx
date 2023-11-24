@@ -35,6 +35,7 @@ import ListRoom from './components/Room/ListRoom';
 import RoomPage from './pages/room';
 import UpdateInfo from './components/InfoUser/UpdateProfile';
 import UpdatePass from './components/InfoUser/UpdatePass';
+import TableStaff from './components/Admin/Staff/TableStaff';
 
 
 const Layout = () => {
@@ -124,7 +125,7 @@ export default function App() {
         
         {
           path: "staff",
-          element: <ContactPage />,
+          element: <TableStaff />,
         },
 
         {

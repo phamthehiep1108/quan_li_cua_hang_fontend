@@ -8,6 +8,7 @@
    width: 100%;
    padding: 1rem;
    z-index: 1000;
+   overflow-x: hidden;
 
    .logoDiv{
         .logo{
@@ -28,6 +29,7 @@
     .navList{
         display: flex;
         gap: 35px;
+       
         .navItem{
             list-style: none;
             .navLink{

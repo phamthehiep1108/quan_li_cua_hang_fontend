@@ -7,7 +7,7 @@ const InputSearchCate = (props) => {
   
   const formStyle = {
     maxWidth: "750px",
-    background: token.colorFillAlter,
+    //background: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
     padding: 20,
   };

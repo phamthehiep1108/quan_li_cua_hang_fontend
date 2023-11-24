@@ -45,7 +45,7 @@ const CancelRequest = () => {
       dataIndex: "id",
       render: (text, record, index) => {
         return (
-           <Link to= {'/'}>{record?.id}</Link>
+           <Link to= {'/admin/cancel-request'}>{record?.id}</Link>
         );
       },
     },

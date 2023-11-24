@@ -12,15 +12,16 @@ import { doLogoutAction } from '../../redux/account/accountSlice';
 import './header.scss';
 import { Link } from 'react-router-dom';
 import ContactPage from '../../pages/contact';
-import imgReplace from '../../assets/tour-dao1.jpg'
+import imgReplace from '../../assets/img6.jpg'
 
 const Header = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = useSelector((state)=> state.account.user)
+    const admin = useSelector((state)=> state.account.admin)
     const role = useSelector((state)=> state.account.role)
    
-    console.log('user>>>',user);
+    console.log('admin >>>',admin);
     const [openModalContact, setOpenModalContact] = useState(false)
 
     const handleLogout = () => {
@@ -39,28 +40,53 @@ const Header = () => {
             </label>,
              key: 'login',
         },
-        {
-          label: 
-            <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/profile')}> 
-               Quản lý profile
-            </label>,
-             key: 'profile',
-        },
-        {
-          label: 
-          <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/history')}>
-               Lịch sử đặt hàng
-            </label>,
-          key: 'order',
-        },
-        {
-          label: 
-          <label style={{cursor:'pointer'}} onClick={()=>handleLogout()}>
-                Đăng xuất
-        </label>,
-          key: 'logout',
-        },
+        // {
+        //   label: 
+        //     <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/profile')}> 
+        //        Quản lý profile
+        //     </label>,
+        //      key: 'profile',
+        // },
+        // {
+        //   label: 
+        //   <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/history')}>
+        //        Lịch sử đặt hàng
+        //     </label>,
+        //   key: 'order',
+        // },
+        // {
+        //   label: 
+        //   <label style={{cursor:'pointer'}} onClick={()=>handleLogout()}>
+        //         Đăng xuất
+        // </label>,
+        //   key: 'logout',
+        // },
     ];
+
+
+    if(role === 'user'){
+        items.unshift({
+            label: 
+              <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/profile')}> 
+                 Quản lý profile
+              </label>,
+               key: 'profile',
+          },
+          {
+            label: 
+            <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/history')}>
+                 Lịch sử đặt hàng
+              </label>,
+            key: 'order',
+          },
+          {
+            label: 
+            <label style={{cursor:'pointer'}} onClick={()=>handleLogout()}>
+                  Đăng xuất
+          </label>,
+            key: 'logout',
+          },)
+    }
 
     if(role === 'admin' || role === 'staff'){
         items.unshift({
@@ -69,7 +95,29 @@ const Header = () => {
                   Trang quản trị
           </label>,
             key: 'adminPage',
-        })
+        },
+        {
+            label: 
+              <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/profile')}> 
+                 Quản lý profile
+              </label>,
+               key: 'profile',
+          },
+          {
+            label: 
+            <label style={{cursor:'pointer'}} onClick={()=>navigate('/personal/history')}>
+                 Lịch sử đặt hàng
+              </label>,
+            key: 'order',
+          },
+          {
+            label: 
+            <label style={{cursor:'pointer'}} onClick={()=>handleLogout()}>
+                  Đăng xuất
+          </label>,
+            key: 'logout',
+          },
+        )
     }
    
     return (
@@ -108,15 +156,14 @@ const Header = () => {
 
                     <div className="toggleNavbar">
                         <Space>
-
-                            <Avatar src={user?.avatar || imgReplace} className='icon'/>
+                            <Avatar src={user?.avatar || admin?.avatar ||imgReplace} className='icon'/>
                             <Dropdown
                                 menu={{items}}
                                 trigger={['click']}
                             >
                                 <a onClick={(e) => e.preventDefault()}>
                                 <Space>
-                                   {user?.display_name }
+                                   {user?.display_name || admin?.display_name || "BookingUltimate" }
                                     <DownOutlined />
                                 </Space>
                                 </a>

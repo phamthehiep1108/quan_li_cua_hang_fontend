@@ -7,7 +7,7 @@ const InputSearchOrder = (props) => {
   
   const formStyle = {
     maxWidth: "550px",
-    background: token.colorFillAlter,
+    //background: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
     padding: "10px",
     

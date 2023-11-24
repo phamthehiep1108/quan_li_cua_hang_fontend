@@ -55,7 +55,9 @@ const ContactPage = (props) => {
                                             Facebook:
                                         </div>
                                     </span>
-                                    <span>0362 334 912 - 0333 999 555</span>
+                                    <span>
+                                    facebook.com/BookingUltimate
+                                    </span>
                                 </div>
                                 
                             </div>

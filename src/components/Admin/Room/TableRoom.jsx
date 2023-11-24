@@ -16,6 +16,7 @@ import ModalCreateTour from "./ModalCreateTour";
 import ModalUpdateRoom from "./ModalUpdateRoom";
 import ModalUpdateTour from "./ModalUpdateTour";
 import ModalDeleteTR from "./ModalDeleteTR";
+import ModalViewDetail from "./ModalViewDetail";
 
 
 const TableRoom = () => {
@@ -42,23 +43,39 @@ const TableRoom = () => {
     
     const [openDeleteModal, setOpenDeleteModal] = useState(false)
 
+    const [openViewModal, setOpenViewModal] = useState(false);
+    const [dataViewDetail, setDataViewDetail] = useState({});
+
   //Table Component--------------------------
   const columns = [
     {
       title: "ID",
       dataIndex: "id",
+      width:'200px',
       render: (text, record, index) => {
         return (
-            <a onClick={()=>{
-              //setDataViewRoom(record)
-            }}>{record?.id}</a>
+          <>
+          <div 
+            style={{display:'flex', gap:'15px', alignItems:'center', cursor:'pointer'}}
+            onClick={()=>{
+              setDataViewDetail(record)
+              setOpenViewModal(true)
+            }}
+          >
+            <a>{record?.id}</a>
+            <div className="imgPreview">
+              <img src={record?.logo} alt="#imgPreview" />
+            </div>
+          </div>
+          
+          </>
         );
       },
     },
     {
       title: "Name",
       dataIndex: "name",
-      
+      width:'150px',
     },
     {
       title: "Description",
@@ -344,6 +361,13 @@ const handleDelete = async() => {
        setOpen = {setOpenDeleteModal}
        fetchGetRoomTour = {fetchGetRoomTour}
        selectedRowKeys = {selectedRowKeys}
+     />
+
+     <ModalViewDetail
+        open = {openViewModal}
+        setOpen = {setOpenViewModal}
+        dataView = {dataViewDetail}
+        setDataView = {setDataViewDetail}
      />
     </>
   );

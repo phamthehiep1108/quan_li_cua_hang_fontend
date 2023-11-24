@@ -49,7 +49,7 @@ const TableCategory = () => {
       dataIndex: "id",
       render: (text, record, index) => {
         return (
-            <Link to= {'/'}>{record?.id}</Link>
+            <Link to= {'/admin/category'}>{record?.id}</Link>
         );
       },
     },

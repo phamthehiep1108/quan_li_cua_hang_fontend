@@ -221,12 +221,13 @@ const TableCustomer = () => {
     <>
       <Row className="table-user">
         <Col span={24}>
+        <InputSearchCus/>
           <Table
             rowKey={(record) => record.id}
             title={() => {
               return (
                 <>
-                  <InputSearchCus/>
+                
                   <div className="header-table">
                     <div className="title-table">Quản lý Customer</div>
                     

@@ -83,7 +83,7 @@ const HomePage = (props) => {
             listTour?.map(tour => {
               return (
                 <>
-                  <div className="tour-item">
+                  <div className="tour-item" onClick={()=>navigate(`/tour/${tour?.id}`)}>
                     <div className="left-item">
                       <div className="media-tour">
                         <img src={`${tour.logo}`} alt="#imgTour" />
@@ -197,18 +197,19 @@ const HomePage = (props) => {
             )
           })   
           }
+          <div className="view-more-room">
+           
+           <Link>
+             <span>
+               Xem thêm
+             </span>
+           </Link>
+      
+         </div>
         </div>
        
       </div>
-            <div className="view-more-room">
-           
-              <Link>
-                <span>
-                  Xem thêm
-                </span>
-              </Link>
-         
-            </div>
+            
     
     
     </>
