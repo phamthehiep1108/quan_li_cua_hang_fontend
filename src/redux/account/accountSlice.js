@@ -94,9 +94,6 @@ export const accountSlice = createSlice({
 
     },
     
-    extraReducers: (builder) => {
-
-    },
 });
 
 export const { doLoginAction, doLogoutAction, doLoginAdminAction, doUpdateInfoAction } = accountSlice.actions;

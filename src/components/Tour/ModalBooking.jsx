@@ -11,7 +11,9 @@ const ModalBooking = (props) => {
     const [form] = Form.useForm()
     const[isSubmit, setIsSubmit] = useState(false)
 
+    const isAuthenticated = useSelector(state => state.account.isAuthenticated)
     const accountUser = useSelector(state => state.account.user)
+    //console.log('isAuthenticated',isAuthenticated);
     const navigate = useNavigate()
 
     const userID = `${accountUser?.id}`
@@ -26,25 +28,24 @@ const ModalBooking = (props) => {
     }, [userID, tourID]);
 
     const onFinish = async(value) => {
+
+      console.log('isAuthenticated>>>',isAuthenticated);
+      if(isAuthenticated === false){
+          navigate('/login')
+          notification.error({
+              message:'Bạn chưa đăng nhập',
+              description:'Không thể thực hiện booking tour'
+          })
+      }
        
         const { id_room, id_user} = value
-
-       //console.log("Auth>>>",accountUser.isAuthenticated);
-
         const res = await callBookingTour(id_room, id_user);
        // console.log("res>>>",res);
         if(res && res.data && res.status === 200){
             message.success(res.message)
             setOpen(false)
-            //console.log("res>>>",res);
-        }  
-        if(accountUser.isAuthenticated === undefined || accountUser.isAuthenticated=== false){
-            navigate('/login')
-            notification.error({
-                message:'Có lỗi xảy ra',
-                description:'Không thể booking tour'
-            })
-        }
+        } 
+        
     }
 
     return ( 

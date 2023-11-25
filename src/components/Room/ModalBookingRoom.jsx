@@ -14,6 +14,7 @@ const ModalBookingRoom = (props) => {
     const[startDate, setStartDate] = useState(false)
     const[endDate, setEndDate] = useState(false)
 
+    const isAuthenticated = useSelector(state => state.account.isAuthenticated)
     const accountUser = useSelector(state => state.account.user)
     const navigate = useNavigate()
 
@@ -38,9 +39,15 @@ const ModalBookingRoom = (props) => {
     };
 
     const onFinish = async(value) => {
-        const { id_room, id_user} = value
 
-        //console.log("res>>>",id_room, id_user);
+      if(isAuthenticated === false){
+        navigate('/login')
+        notification.error({
+            message:'Bạn chưa đăng nhập',
+            description:'Không thể thực hiện booking tour'
+        })
+      }
+        const { id_room, id_user} = value
 
         const res = await callBookingRoom(id_room, id_user, startDate, endDate);
        // console.log("checkRes >>>",res);
@@ -48,12 +55,6 @@ const ModalBookingRoom = (props) => {
             message.success(res.message)
             setOpen(false)
             console.log("res>>>",res);
-        }else{
-           navigate('/login')
-            notification.error({
-                message:'Có lỗi xảy ra',
-                description:'Không thể booking room'
-            })
         }
     }
 

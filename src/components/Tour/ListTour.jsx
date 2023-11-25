@@ -30,6 +30,7 @@ const ListTour = () => {
   const [queryCheckbox, setQueryCheckbox] = useState("");
   const [queryInputRange, setQueryInputRange] = useState("");
   const [querySort, setQuerySort] = useState("");
+  const [querySearch, setQuerySearch] = useState("");
 
   useEffect(() => {
     
@@ -46,11 +47,14 @@ const ListTour = () => {
 
   useEffect(() => {
     fetchListTour();
-  }, [queryCheckbox, currentPage, pageSize, queryInputRange, querySort]);
+  }, [queryCheckbox, currentPage, pageSize, queryInputRange, querySort, querySearch]);
 
   const fetchListTour = async () => {
     // `page=1&perpage=10&type[]=tour&type[]=room&category[]=1&category[]=2&search=tour1&cost_min=12&cost_max=80&sort_cost=asc`
     let tourQuery = `page=${currentPage}&perpage=${pageSize}&type[]=tour`;
+    if(querySearch){
+      tourQuery += querySearch;
+    }
 
     if (queryCheckbox) {
       tourQuery += queryCheckbox;
@@ -127,6 +131,13 @@ const ListTour = () => {
       setCurrentPage(1)
     }
   };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if(e.target.dataSearch){
+      setQuerySearch(`&search=${e.target.dataSearch.value}`);
+    }
+  }
   return (
     <>
       <div className="list-tour">
@@ -139,14 +150,22 @@ const ListTour = () => {
               <span className="smallText">Our Packages</span>
               <h1 className="homeTitle">Search your Holiday</h1>
             </div>
-            <div className="cardDiv">
+            <div className="cardDiv-room">
               <div className="content">
-                <Input
-                  placeholder="Search your Holiday"
-                  className="input-search"
-                />
+                <form onSubmit={(e)=>handleSearch(e)} >
+                      <Input 
+                        placeholder="Search your Holiday" 
+                        className="input-search-room" 
+                        name="dataSearch"
+                        />
+                   
+                     <div className="btn-search-room">
+                      <button className="btn-search-holiday" >Search Holiday</button>
+                    </div>
+                   
+                </form>
               </div>
-            </div>
+          </div>
           </div>
         </div>
         <div className="container-list-tour">

@@ -3,7 +3,8 @@ import "./home.scss";
 import img1 from "../../assets/img1.jpg";
 import img2 from "../../assets/img2.jpg";
 import img3 from "../../assets/img3.jpg";
-import img4 from "../../assets/img4.jpg";
+import img4 from "../../assets/tour-dao6.jpg";
+import imgCol1 from "../../assets/halong.jpg";
 import roomBanner from "../../assets/roomBanner.jpg";
 
 import { IoLocationSharp } from "react-icons/io5";
@@ -11,15 +12,14 @@ import { IoIosTime } from "react-icons/io";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { IoTicket } from "react-icons/io5";
 
-import { useEffect, useState } from "react";
-import { Rate, Input } from 'antd';
+import { Rate, Input, Button, Form } from 'antd';
 import moment from "moment/moment";
 import { Link, useNavigate } from "react-router-dom";
 
 const HomePage = (props) => {
   const navigate = useNavigate()
+  const { Search } = Input;
   const {listTour, listRoom} = props
-  
   console.log('listTour>>>',listTour);
 
   return (
@@ -38,9 +38,15 @@ const HomePage = (props) => {
           </div>
 
           <div className="cardDiv">
+              
               <div className="content">
-                    <Input placeholder="Search your Holiday" className="input-search"/>
+               
+                      <Input placeholder="Search your Holiday" className="input-search" />
+                   
               </div>
+          </div>
+          <div className="btn-search">
+              <Button type="primary">Search Holiday</Button>
           </div>
 
         </div>
@@ -57,7 +63,7 @@ const HomePage = (props) => {
         <div className="layout-intro">
           <div className="list-img">
             <div className="img-item">
-              <img src={img2} alt="#" />
+              <img src={imgCol1} alt="#" />
             </div>
             <div className="img-item">
               <img src={img1} alt="#" />

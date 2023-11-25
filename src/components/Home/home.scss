@@ -28,15 +28,15 @@
         width: 100%;
        
        .textDiv{
-            translate: 11% -600%;
+            translate: 12% -600%;
             color: #ffffff;
        }
         .cardDiv{
             margin: 0  auto;
-            background-color: #ffffff;
+          //  background-color: #ffffff;
             border-radius: 10px;
             width: 76%;
-            translate: 0% -350%;
+            translate: 0% -450%;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -48,6 +48,9 @@
                 }
 
             }
+        }
+        .btn-search{
+            translate: 78% -1140%;
         }
     }
 
