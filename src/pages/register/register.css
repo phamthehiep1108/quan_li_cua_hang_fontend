@@ -17,7 +17,7 @@
 
 .register-page {
   color: var(--color-black);
-  background: var(--color-light);
+  background: var(--color-white);
 }
 .register-page .container {
   display: flex;

@@ -26,7 +26,6 @@
 }
 
 
-
 .container-detail-page{
     margin: 0 auto;
     margin-top: 30px;
@@ -36,9 +35,9 @@
         display: grid;
         grid-template-columns: 1fr 3.25fr 1.38fr;
         column-gap: 25px;
-
+        margin-top: 55px;
         .left-content{
-            translate: 0% -15%;
+            translate: 0% 15% ;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -114,6 +113,37 @@
                     display: flex;
                     justify-content: space-between;
                     border-radius: 6px;
+                }
+            }
+            .tour-review{
+                margin-top: 60px;
+               // background-color: #ffffff;
+                .tour-review-item{
+                    background-color: #ffffff;
+                    border-radius: 12px;
+                    .review-main{
+                     margin-top: 15px;
+                     padding: 25px 20px;
+                    
+                     .content-review{
+                         margin-top: 10px;
+                     }
+                     .media-review{
+                        margin-top: 20px;
+                        .list-media-comment{
+                            display: flex;
+                            gap: 10px;
+                        }
+                     }
+                    }
+                     .right-info-review{
+                         display: flex;
+                         flex-direction: column;
+                         span{
+                            font-size: 14px;
+                            font-weight: 600;
+                         }
+                     }
                 }
             }
         }

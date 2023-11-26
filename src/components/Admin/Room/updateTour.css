@@ -1,0 +1,27 @@
+.handle-logo-tour {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+.handle-logo-tour .media-tour {
+  width: 400px;
+  height: 200px;
+}
+.handle-logo-tour .media-tour img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.handle-logo-tour .input-tour .btn-change-tour {
+  cursor: pointer;
+  border: 1px solid red;
+  padding: 8px 10px;
+  border-radius: 5px;
+  color: red;
+  font-weight: 500;
+  font-size: 13px;
+}/*# sourceMappingURL=updateTour.css.map */

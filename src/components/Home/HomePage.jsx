@@ -98,7 +98,7 @@ const HomePage = (props) => {
                       <div className="tour-content">
                         <h5 className="tour-name">{tour.name}</h5>
                         <p className="tour-desc">
-                         {tour.categories.description}
+                         {tour.description}
                         </p>
                         <div className="list-info">
                           <div className="item-info" style={{display:'flex', alignItems:'center'}}>

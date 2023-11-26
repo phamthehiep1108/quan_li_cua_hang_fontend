@@ -267,6 +267,11 @@ export const callChangePassUser = (id, password, newPassword) => {
     return axios.post(`/api/user/updatePs/${id}`,data)
 }
 
+//Get list comment
+export const callGetListCommentTour = (id) => {
+    return axios.get(`/api/review/${id}`)
+}
+
 
 
 
