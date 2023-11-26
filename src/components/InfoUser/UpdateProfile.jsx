@@ -76,7 +76,7 @@ const UpdateInfo = () => {
           <Divider />
           <div className="form-update-info">
             <Form form={form} onFinish={onFinish}>
-              <Row gutter={[20]}>
+              <Row gutter={[]}>
                 <Col span={16}>
                   <Row gutter={[20]}>
                     <Col span={12}>
@@ -137,7 +137,7 @@ const UpdateInfo = () => {
                 </Col>
                 <Col span={8}>
                   <Row>
-                    <div className="media-avatar">
+                    <div className="media-avatar-profile">
                       <img src={previewImg || avatarImg} alt="#avatar" />
                     </div>
                     <div className="input-avatar">

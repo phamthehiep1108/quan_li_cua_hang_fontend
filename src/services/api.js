@@ -272,6 +272,19 @@ export const callGetListCommentTour = (id) => {
     return axios.get(`/api/review/${id}`)
 }
 
+//create comment
+export const callCreateReview = (user_id, room_id, rate, content, images) => {
+    const data = new FormData();
+    data.append("user_id", user_id);
+    data.append("room_id", room_id);
+    data.append("rate", rate);
+    data.append("content", content);
+    data.append("images[]", images);
+    
+    return axios.post(`/api/review/create`,data)
+}
+
+
 
 
 

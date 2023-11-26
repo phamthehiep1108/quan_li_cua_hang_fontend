@@ -36,7 +36,7 @@ const UpdatePass = () => {
             <span style={{fontSize:'13px'}}>Vui lòng không chia sẻ mật khẩu để đảm bảo an toàn cho tài khoản</span>
           </div>
           <Divider />
-          <div className="form-update-info">
+          <div className="form-update-info-pass">
             <Form form={form} onFinish={onFinish}>
                     <Col span={12}>
                       <Form.Item

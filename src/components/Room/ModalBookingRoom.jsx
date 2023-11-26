@@ -18,7 +18,7 @@ const ModalBookingRoom = (props) => {
     const accountUser = useSelector(state => state.account.user)
     const navigate = useNavigate()
 
-    const userID = `${accountUser?.id}`
+    const userID = accountUser?.id
     const tourID = `${tourId}`
 
     useEffect(() => {
