@@ -1,5 +1,8 @@
 import axios from '../utils/axios-customize';
 
+
+//-------------------------- ADMIN --------------------------
+
 //Login Admin/Staff
 export const callLoginAdmin = (email, password) => {
     return axios.post('/api/v2/auth/login', { email, password })
@@ -171,6 +174,13 @@ export const callGetListStaff = (query) => {
     return axios.get(`api/v2/staff/index?${query}`)
 }
 
+//Get list review 
+
+
+export const callGetListReview = (query) => {
+    // /api/v2/review/index?page=1&perpage=10&rate[]=4&room_id[]=33&user_id[]=5
+    return axios.get(`/api/v2/review/index?${query}`)
+}
 
 
 
@@ -180,8 +190,7 @@ export const callGetListStaff = (query) => {
 
 
 
-
-
+// ----------- USER-CUSTOMER ----------------------//
 
 //Customer get tour room
 
@@ -283,6 +292,8 @@ export const callCreateReview = (user_id, room_id, rate, content, images) => {
     images?.files?.forEach((file) => data.append('images[]', file))
     return axios.post(`/api/review/create`,data)
 }
+
+
 
 
 

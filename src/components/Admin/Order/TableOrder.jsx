@@ -272,6 +272,7 @@ const handleDelete = async() => {
               </div>
             );
           }}
+          
             rowSelection={rowSelection}
             columns={columns}
             dataSource={listOrderRoomTour}
