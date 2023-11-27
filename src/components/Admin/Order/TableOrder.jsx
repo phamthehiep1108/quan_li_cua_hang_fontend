@@ -166,6 +166,7 @@ const TableOrder = () => {
   }, [typeRT, currentPage, pageSize, querySearch, statusOrder]);
 
   const fetchGetOrderRoomTour = async () => {
+    setIsLoading(true);
     let queryRT= `index?page=${currentPage}&perpage=${pageSize}`
    
     if(typeRT){
@@ -187,6 +188,7 @@ const TableOrder = () => {
       setTotal(res?.data?.total)
       //console.log("resAll",res);
     }
+    setIsLoading(false);
   };
 
 //Confirm Delete

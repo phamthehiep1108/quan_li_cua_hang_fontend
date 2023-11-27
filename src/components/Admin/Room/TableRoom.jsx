@@ -192,6 +192,7 @@ const TableRoom = () => {
 
 
   const fetchGetRoomTour = async () => {
+    setIsLoading(true);
     let queryRT= `index?page=${currentPage}&perpage=${pageSize}`
     if(typeRT){
       queryRT += typeRT
@@ -209,6 +210,8 @@ const TableRoom = () => {
      
      // console.log("resAll",res);
     }
+
+    setIsLoading(false);
   };
   
   //console.log('dataListRT',listRoomTour);

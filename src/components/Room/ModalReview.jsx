@@ -87,27 +87,6 @@ const ModalReview = (props) => {
 
         <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
           <Row gutter={15}>
-            {/* <Col span={12}>
-              <Form.Item
-                label="ID user"
-                name="user_id"
-                hidden={true}
-                labelCol={{ span: 24 }}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-
-            <Col span={12} style={{ padding: "0 10px" }}>
-              <Form.Item
-                label="ID room"
-                name="room_id"
-                labelCol={{ span: 24 }}
-                hidden={true}
-              >
-                <Input />
-              </Form.Item>
-            </Col> */}
 
             <Col span={24} style={{ padding: "0 10px" }}>
               <Form.Item

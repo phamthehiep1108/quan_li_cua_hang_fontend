@@ -22,6 +22,7 @@ const CancelRequest = () => {
   
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [idRequest, setIdRequest] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
  
 
@@ -134,7 +135,7 @@ const CancelRequest = () => {
 
   const fetchListCancelRequest = async () => {
     //page=1&perpage=10&status[]=pending&type[]=tour
-
+    setIsLoading(true);
     let queryRequest = `page=${currentPage}&perpage=${pageSize}`;
 
     if(typeRoom){
@@ -152,6 +153,7 @@ const CancelRequest = () => {
     }
 
     console.log('check res >>>',res);
+    setIsLoading(false);
   };
 
   return (
@@ -203,8 +205,9 @@ const CancelRequest = () => {
               </div>
             );
           }}
+          loading = {isLoading}
           columns={columns}
-           dataSource={listCancelRequest}
+          dataSource={listCancelRequest}
           onChange={onChange}
           pagination={{
             current: currentPage,

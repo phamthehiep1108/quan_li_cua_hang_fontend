@@ -131,7 +131,7 @@ const TableCategory = () => {
   },[])
 
   const getAllCategory = async () => {
-
+    setIsLoading(true);
     let queryCate = `index?page=${currentPage}&perpage=${pageSize}`
     if(searchQuery){
       queryCate += searchQuery
@@ -144,7 +144,8 @@ const TableCategory = () => {
       setTotal(res.data.total)
      
     }
-     console.log('dataList',res.data.data);
+    // console.log('dataList',res.data.data);
+     setIsLoading(false);
 };
 
 //console.log("dataUpdate", dataUpdate);

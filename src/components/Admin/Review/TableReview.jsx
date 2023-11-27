@@ -66,6 +66,7 @@ const TableReview = () => {
   let data = [];
 
   const fetchListReview = async () => {
+    setLoading(true);
     // /api/v2/review/index?page=1&perpage=10&rate[]=4&room_id[]=33&user_id[]=5
     let queryReview = `page=${currentPage}&perpage=${pageSize}`;
 
@@ -90,10 +91,11 @@ const TableReview = () => {
         });
       });
 
-    //  console.log("data foreach", data);
+   
       setListReview(data);
       setTotal(res?.data?.total)
     }
+    setLoading(false);
   };
 
  
@@ -205,6 +207,7 @@ const TableReview = () => {
               </>
             );
           }}
+          loading = {loading}
           rowKey={(record) => record.id}
           rowSelection={rowSelection}
           columns={columns}

@@ -72,7 +72,7 @@ export const callUpdateCategory = (id,name, number, description) => {
 // Delete category
 export const callDeleteCategory = (dataID) => {
 
-    console.log('dataID',{...dataID});
+    //console.log('dataID',{...dataID});
 
     return axios.delete(`/api/v2/category/multiple-delete`,{params:dataID})
 }
@@ -96,7 +96,7 @@ export const callCreateNewRoom = (name, description, type, cost, logo, banner, s
     
     return axios.post(`/api/v2/room/create-room`,data)
 }
-// create tour
+// create new tour
 export const callCreateNewTour = (name, description, type, cost, logo, banner, status, type_room, start_date, end_date) => {
     const data = new FormData();
     data.append("name", name);
@@ -104,7 +104,8 @@ export const callCreateNewTour = (name, description, type, cost, logo, banner, s
     data.append("description", description);
     data.append("cost", cost);
     data.append("logo", logo);
-    data.append("banner[]", banner);
+    banner?.files?.forEach((file) => data.append('banner[]', file))
+    //data.append("banner[]", banner);
     data.append("status", status);
     data.append("type_room", type_room);
     data.append("start_date", start_date);
@@ -181,6 +182,7 @@ export const callGetListReview = (query) => {
     // /api/v2/review/index?page=1&perpage=10&rate[]=4&room_id[]=33&user_id[]=5
     return axios.get(`/api/v2/review/index?${query}`)
 }
+
 // Delete review - admin
 export const callDeleteReview = (ids) => {
     return axios.delete(`/api/v2/review/multiple-delete`,{params:ids})

@@ -25,11 +25,10 @@ const TableCustomer = () => {
   const [statusCustomer,setStatusCustomer] = useState("");
  
 
-  const [dataViewUser, setDataViewUser] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
-  const [openUploadFileModal, setOpenUploadFileModal] = useState(false);
-  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+
 
   //Delete
   const handleDeleteCustomer = async (id) => {
@@ -51,7 +50,7 @@ const TableCustomer = () => {
           duration: 3,
         });
     }
-    console.log('check res delete =>',res);
+    //console.log('check res delete =>',res);
   };
 
   // Change status
@@ -187,6 +186,9 @@ const TableCustomer = () => {
   const fetchCustomerWithPaginate = async () => {
     setIsLoading(true);
     let query = `index?page=${currentPage}&perpage=${pageSize}`;
+    if(searchQuery){
+      query+=searchQuery;
+    }
   
     const res = await callGetAllCustomer(query);
     if (res && res?.data) {
@@ -201,7 +203,7 @@ const TableCustomer = () => {
 
   useEffect(() => {
     fetchCustomerWithPaginate();
-  }, [currentPage, pageSize, statusCustomer]);
+  }, [currentPage, pageSize, statusCustomer, searchQuery]);
 
   const onChange = (pagination, filters, sorter, extra) => {
     //  console.log('params', pagination.current);
@@ -215,13 +217,17 @@ const TableCustomer = () => {
     }
   };
 
+  const handleQuerySearch = (searchQr) => {
+      //console.log(searchQr);
+      setSearchQuery(searchQr);
+  }
 
 
   return (
     <>
       <Row className="table-user">
         <Col span={24}>
-        <InputSearchCus/>
+        <InputSearchCus handleQuerySearch={handleQuerySearch}/>
           <Table
             rowKey={(record) => record.id}
             title={() => {

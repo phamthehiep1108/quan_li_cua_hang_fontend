@@ -9,7 +9,7 @@ import {
     Select,
     message,
     notification,
-    Calendar, theme
+    DatePicker, theme
   } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
@@ -24,8 +24,13 @@ import { callCreateNewTour } from "../../../services/api";
     const { TextArea } = Input;
     
     const cates = useSelector(state => state.cate.category)
-    const [logo, setLogo] = useState({});
-    const [banner, setBanner] = useState({});
+    const [logo, setLogo] = useState(null);
+    const [logoPreview, setLogoPreview] = useState(null);
+    const [banner, setBanner] = useState([]);
+    const [bannerPreview, setBannerPreview] = useState([]);
+
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
 
 
     //Select cate
@@ -36,25 +41,30 @@ import { callCreateNewTour } from "../../../services/api";
         }
     })
 
-    const handleUploadImg = (event, type) => {
-      if (event.target && event.target.files && event.target.files[0] && type ==='logo') {
-        setLogo(event.target.files[0]);
-      } 
+    const handleFileBanner = (e) => {
 
-      if (event.target && event.target.files && event.target.files[0] && type === 'banner') {
-        setBanner(event.target.files[0]);
-      } 
+      const files = [...banner]; 
+      files.push(...e.target.files); 
+      setBanner({files});
+      setBannerPreview({files});
     }
+
+    const handleFileLogo = (event) => {
+      if (event.target && event.target.files && event.target.files[0]) {
+        setLogo(event.target.files[0]);
+        setLogoPreview(URL.createObjectURL(event.target.files[0]))
+      } 
+    };
     //Cate status
 
     let optionsStatus = [
         {
             value: "1",
-            label: "1"
+            label: "Public"
         },
         {
             value: "0",
-            label: "0"
+            label: "UnPublic"
         }
     ]
 
@@ -71,9 +81,9 @@ import { callCreateNewTour } from "../../../services/api";
 
 
     const onFinish = async (value) => {
-      const {name, type_room, type ,cost, description, status, start_date, end_date} = value
+      const {name, type_room, type ,cost, description, status} = value
             setIsSubmit(true)
-            const res = await callCreateNewTour(name, description, type, cost, logo, banner, status, type_room, start_date, end_date)
+            const res = await callCreateNewTour(name, description, type, cost, logo, banner, status, type_room, startDate, endDate)
             setIsSubmit(false)
             if(res && res.data){
                 console.log("res check", res);
@@ -93,8 +103,18 @@ import { callCreateNewTour } from "../../../services/api";
             }
             //console.log("res check", value);
       };
-    
-  
+
+
+      const onChangeStart = (date, dateString) => {
+        // console.log('start>>>', dateString);
+         setStartDate(dateString)
+       };
+       const onChangeEnd = (date, dateString) => {
+         //console.log('end>>>',date, dateString);
+         setEndDate(dateString)
+       };
+
+
     return (
       <>
         <Modal
@@ -104,7 +124,11 @@ import { callCreateNewTour } from "../../../services/api";
           onOk={() => form.submit()}
           onCancel={() => {
             setOpen(false);
-            form.resetFields()
+            form.resetFields();
+            setBanner([])
+            setBannerPreview([])
+            setLogo(null)
+            setLogoPreview(null)
           }}
           okText="Tạo mới"
           cancelText="Hủy"
@@ -168,44 +192,87 @@ import { callCreateNewTour } from "../../../services/api";
               <Col span={12} style={{ padding: "0 10px" }}>
                 <Form.Item
                   label="Date Start"
-                  name="start_date"
+                 // name="start_date"
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input start_date follow format YYYY-MM-DD" }]}
                 >
-                    <Input/>
+                    {/* <Input/> */}
+                    <DatePicker onChange={onChangeStart} />
                 </Form.Item>
               </Col>
               <Col span={12} style={{ padding: "0 10px" }}>
                 <Form.Item
                   label="Date end"
-                  name="end_date"
+                 // name="end_date"
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input end_date follow format YYYY-MM-DD" }]}
                 >
-                    <Input/>
+                    {/* <Input/> */}
+                    <DatePicker onChange={onChangeEnd} />
                 </Form.Item>
               </Col>
               <Col span={8} style={{ padding: "0 10px" }}>
                 <Form.Item
-                  label="IMG Logo"
-                 
+                  label="Logo"
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input logo!" }]}
                 >
-                  <input type="file" onChange={(e)=>handleUploadImg(e, 'logo')}/>
+
+                  {/* <input type="file" onChange={(e)=>handleUploadImg(e, 'logo')}/> */}
+
+                  <div style={{marginTop:'15px'}}>
+                    <label for="fileUpload" className="upload-files">
+                        Upload Logo
+                    </label>
+                 </div>
+                 <input
+                  id="fileUpload"
+                  type={"file"}
+                  onChange={handleFileLogo}
+                  style={{ visibility: "hidden" }}
+                />
+                <div className="list-img-review">
+                      <div className="img-review-item">
+                         <img src={logoPreview} alt="#imgLogo" />
+                      </div> 
+                </div>
+
                 </Form.Item>
               </Col>
-              <Col span={8} style={{ padding: "0 10px" }}>
+              <Col span={16} style={{ padding: "0 10px" }}>
                 <Form.Item
-                  label="IMG Banner"
-              
+                  label="Banner"
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input banner!" }]}
                 >
-                  <input type="file" onChange={(e)=>handleUploadImg(e,'banner')}/>
+                  {/* <input type="file" onChange={(e)=>handleUploadImg(e,'banner')}/> */}
+                  <div style={{marginTop:'15px'}}>
+                    <label for="fileBanner" className="upload-files">
+                        Upload Banner
+                    </label>
+                </div>
+                <input
+                  id="fileBanner"
+                  type={"file"}
+                  onChange={handleFileBanner}
+                  multiple
+                  style={{ visibility: "hidden" }}
+                />
+                <div className="list-img-review">
+                  {bannerPreview && bannerPreview?.files?.map(file => {
+                      return (
+                        <>
+                          <div className="img-review-item">
+                              <img src={URL.createObjectURL(file)} alt="#imgBanner" />
+                          </div>
+                        </>
+                      )
+                  })}
+                    
+                </div>
                 </Form.Item>
               </Col>
-              <Col span={8} style={{ padding: "0 10px" }}>
+              <Col span={12} style={{ padding: "0 10px" }}>
                 <Form.Item
                   label="Status"
                   name="status"
