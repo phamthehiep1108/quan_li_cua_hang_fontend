@@ -1,4 +1,4 @@
-import "./tourDetail.scss";
+import "../Room/modalReview.scss";
 import img1 from "../../assets/img1.jpg";
 import img9 from "../../assets/img9.jpg";
 
@@ -15,11 +15,14 @@ import { UserOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import ModalBooking from "./ModalBooking";
+import ModalReview from "./ModalReview";
 
 const TourDetail = (props) => {
-  const { tourDetail, id, tourComment } = props;
+  const { tourDetail, id, tourComment, getListComment } = props;
   console.log("tourComment>>>", tourComment);
   const [openModalBook, setOpenModalBook] = useState(false);
+  const [openModalReview, setOpenModalReview] = useState(false)
+
 
   let dateStart = tourDetail?.start_date?.substring(0, 10);
   let dateEnd = tourDetail?.end_date?.substring(0, 10);
@@ -181,6 +184,20 @@ const TourDetail = (props) => {
                                           src={item?.image[0]?.image_data}
                                         />
                                       </div>
+                                      <div className="media-cmt-item">
+                                      
+                                        <Image
+                                          width={140}
+                                          src={item?.image[1]?.image_data}
+                                        />
+                                      </div>
+                                      <div className="media-cmt-item">
+                                      
+                                        <Image
+                                          width={140}
+                                          src={item?.image[2]?.image_data}
+                                        />
+                                      </div>
                                       
                                     </div>
                                   </div>
@@ -198,7 +215,7 @@ const TourDetail = (props) => {
                           ĐẶT TOUR NGAY
                         </a>
 
-                        <a className="btn-review">VIẾT BÌNH LUẬN</a>
+                        <a className="btn-review" onClick={()=> setOpenModalReview(true)}>VIẾT BÌNH LUẬN</a>
                       </div>
                       <div className="tour-info">
                         <span className="title">Ngày khởi hành</span>
@@ -268,6 +285,13 @@ const TourDetail = (props) => {
         open={openModalBook}
         setOpen={setOpenModalBook}
         tourId={id}
+      />
+      <ModalReview
+          open = {openModalReview}
+          setOpen = {setOpenModalReview}
+          tourDetail = {tourDetail}
+          room_id = {id}
+          getListComment = {getListComment}
       />
     </>
   );

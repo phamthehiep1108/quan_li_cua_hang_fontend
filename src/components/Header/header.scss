@@ -27,6 +27,8 @@
    }
 
    .navBar{
+   
+
     .navList{
         display: flex;
         gap: 35px;
@@ -45,10 +47,16 @@
                 &:hover{
                     color: rgb(241, 233, 18)
                 }
+
+
             }
 
 
+            .active{
+                color: rgb(241, 233, 18)
+            }
         }
+
     }
 }
 

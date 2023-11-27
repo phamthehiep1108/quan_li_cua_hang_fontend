@@ -59,6 +59,11 @@ const items = [
         icon: <ExceptionOutlined />
     },
     {
+        label: <Link to='/admin/review'>Manage Review</Link>,
+        key: 'review',
+        icon: <ExceptionOutlined />
+    },
+    {
         label: <Link to='/admin/order'>Manage Orders</Link>,
         key: 'order',
         icon: <DollarCircleOutlined />

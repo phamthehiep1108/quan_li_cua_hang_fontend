@@ -37,6 +37,7 @@ const TourPage = () => {
                 tourDetail = {tourDetail}
                 id = {id}
                 tourComment = {listComment}
+                getListComment = {getListCommentTour}
             />
         </>
      );

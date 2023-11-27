@@ -36,6 +36,7 @@ import RoomPage from './pages/room';
 import UpdateInfo from './components/InfoUser/UpdateProfile';
 import UpdatePass from './components/InfoUser/UpdatePass';
 import TableStaff from './components/Admin/Staff/TableStaff';
+import TableReview from './components/Admin/Review/TableReview';
 
 
 const Layout = () => {
@@ -119,7 +120,7 @@ export default function App() {
         {
           index: true, element:
              <ProtectedRoute>
-              <AdminPage />
+              <TableRoom />
              </ProtectedRoute>
         },
         
@@ -151,6 +152,10 @@ export default function App() {
         {
           path: "order",
           element: <TableOrder />,
+        },
+        {
+          path: "review",
+          element: <TableReview />,
         },
       ],
     },

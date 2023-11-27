@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { doLogoutAction } from '../../redux/account/accountSlice';
 import './header.scss';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ContactPage from '../../pages/contact';
 import imgReplace from '../../assets/img6.jpg'
 
@@ -135,17 +135,17 @@ const Header = () => {
 
                     <div className="navBar">
                         <ul className="navList flex">
-                            <li className='navItem'>
-                                <Link to={'/'} className='navLink'>Trang chủ</Link>
+                            <li className='navItem '>
+                                <NavLink to={'/'} className='navLink' activeClassName="active">Trang chủ</NavLink>
                             </li>         
                             <li className='navItem'>
-                                <Link to={'/room'} className='navLink'>Room</Link>
+                                <NavLink to={'/room'} className='navLink' activeClassName="active">Room</NavLink>
                             </li>         
                             <li className='navItem'>
-                                <Link to={'/tour'}  className='navLink'>Tour</Link>
+                                <NavLink to={'/tour'}  className='navLink' activeClassName="active">Tour</NavLink>
                             </li>         
                             <li className='navItem'>
-                                <a href="#" className='navLink'>Tin Tức</a>
+                                <a href="#" className='navLink' >Tin Tức</a>
                             </li>         
                             <li className='navItem' onClick={()=>setOpenModalContact(true)}>
                                 <a href="#" className='navLink'>Liên hệ</a>
