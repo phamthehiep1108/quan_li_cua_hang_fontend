@@ -21,7 +21,7 @@ const Header = () => {
     const admin = useSelector((state)=> state.account.admin)
     const role = useSelector((state)=> state.account.role)
    
-    console.log('admin >>>',admin);
+   //console.log('admin >>>',admin);
     const [openModalContact, setOpenModalContact] = useState(false)
 
     const handleLogout = () => {
@@ -32,7 +32,6 @@ const Header = () => {
 
     //Dropdown
     const items = [
-        
         {
           label: 
             <label style={{cursor:'pointer'}} onClick={()=>navigate('/login')}> 

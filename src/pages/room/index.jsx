@@ -1,18 +1,20 @@
 import { useParams } from "react-router-dom";
 import TourDetail from "../../components/Tour/TourDetail";
-import { callGetTourRoomDetail } from "../../services/api";
+import { callGetTourRoomDetail, callGetListCommentTour } from "../../services/api";
 import { useEffect, useState } from "react";
 import RoomDetail from "../../components/Room/RoomDetail";
 
 const RoomPage = () => {
    
     const [tourDetail, setTourDetail] = useState([])
+    const [listComment, setListComment] = useState([])
     const params = useParams(); 
     let id = params?.id
     
 
     useEffect(() => {
-        getTourDetail()
+        getTourDetail();
+        getListCommentTour();
     }, [id]);
 
     const getTourDetail = async() => {
@@ -23,11 +25,20 @@ const RoomPage = () => {
         }
     }
 
+    const getListCommentTour = async() => {
+        const res = await callGetListCommentTour(id)
+        if(res && res?.data && res?.data?.data){
+            setListComment(res.data.data)
+        }
+    }
+
     return ( 
         <>
             <RoomDetail
                 tourDetail = {tourDetail}
                 id = {id}
+                tourComment = {listComment}
+                getListComment = {getListCommentTour}
             />
         </>
      );

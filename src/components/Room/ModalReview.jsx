@@ -1,141 +1,170 @@
-import { Modal, Form, Divider, Row, Col, Input, message, notification, Rate} from 'antd';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { callCreateReview } from '../../services/api';
+import {
+  Modal,
+  Form,
+  Divider,
+  Row,
+  Col,
+  Input,
+  message,
+  notification,
+  Rate,
+  Avatar
+} from "antd";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { callCreateReview } from "../../services/api";
+import './modalReview.scss'
 
 const ModalReview = (props) => {
-    const {open, setOpen, id, tourDetail} = props
-    const [form] = Form.useForm();
-    const { TextArea } = Input;
+  const { open, setOpen, room_id, tourDetail, getListComment } = props;
+  const [form] = Form.useForm();
+  const { TextArea } = Input;
 
-    const isAuthenticated = useSelector(state => state.account.isAuthenticated)
-    const accountUser = useSelector(state => state.account.user)
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
+  const accountUser = useSelector((state) => state.account.user);
+  const user_id = accountUser?.id
 
-    const [imgPreview, setImgPreview] = useState("")
-    const [images, setImages] = useState([])
+  const [imgPreview, setImgPreview] = useState([]);
+  const [images, setImages] = useState([]);
 
-    // Rating star
-    const [rate, setRate] = useState(3);
-    const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+  // Rating star
+  const [rate, setRate] = useState(3);
+  const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 
+  //upload file
+  const handleFile = (e) => {
 
-    const onFinish = async(value) => {
+      const files = [...images]; // Spread syntax creates a shallow copy
+      files.push(...e.target.files); // Spread again to push each selected file individually
+      setImages({files});
+      setImgPreview({files});
+     //images?.files?.forEach((file) => data.append('images[]', file))
+  };
 
-        // if(isAuthenticated === false){
-        
-        //   notification.error({
-        //       message:'Bạn chưa đăng nhập',
-        //       description:'Không thể thực hiện review'
-        //   })
-        //   return;
-        // }
-
-
-  
-        // const res = await callBookingRoom(id_room, id_user, startDate, endDate);
-        // if(res && res.data && res.status === 200){
-        //       message.success(res.message)
-        //       setOpen(false)
-        //       console.log("res>>>",res);
-        // }
-    }
-   // console.log("check rate", rate);
-
-    const handleFile = (event) => {
-
+  //onfinish
+  const onFinish = async (value) => {
+    const {content } = value
+    console.log("value",value);
+    if(isAuthenticated === false){
+      notification.error({
+          message:'Bạn chưa đăng nhập',
+          description:'Không thể thực hiện review'
+      })
+      return;
     }
 
-    return ( 
-     <>
-     <Modal
+    const res = await callCreateReview( user_id, room_id, rate, content, images);
+    if(res && res.data && res.status === 200){
+          message.success(res.message)
+          setOpen(false)
+          await getListComment();
+          console.log("res>>>",res);
+    }
+    };
+
+
+
+  return (
+    <>
+      <Modal
         title="Đánh giá"
         open={open}
         onOk={() => form.submit()}
         onCancel={() => {
           setOpen(false);
           form.resetFields();
+          setImages([])
+          setImgPreview([])
         }}
-
         okText="Đánh giá"
         cancelText="Hủy"
-       // confirmLoading={isSubmit}
+        // confirmLoading={isSubmit}
         width={"45vw"}
         maskClosable={false}
       >
-        <div>Viện Hải Dương Học Khánh Hòa</div>
-        <Divider/>
-        
+        <span>{tourDetail?.name}</span>
+        <Divider />
+
         <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
           <Row gutter={15}>
-            <Col span= {12}>
+            {/* <Col span={12}>
               <Form.Item
                 label="ID user"
                 name="user_id"
-               
-               hidden = {true}
-               labelCol={{ span: 24 }}
+                hidden={true}
+                labelCol={{ span: 24 }}
               >
                 <Input />
               </Form.Item>
             </Col>
-            
+
             <Col span={12} style={{ padding: "0 10px" }}>
               <Form.Item
                 label="ID room"
                 name="room_id"
-              
                 labelCol={{ span: 24 }}
-                hidden = {true}
+                hidden={true}
               >
-                <Input/>
+                <Input />
               </Form.Item>
-            </Col>
+            </Col> */}
 
             <Col span={24} style={{ padding: "0 10px" }}>
               <Form.Item
                 label="Chất lượng"
                 name="rate"
-               // labelCol={{ span: 24 }}
-               
+                // labelCol={{ span: 24 }}
               >
-                 <Rate tooltips={desc} onChange={setRate} value={rate} />
-                        {rate ? <span>{` ${desc[rate - 1]}`}</span> : ' '}
-                 </Form.Item>
-            </Col> 
+                <Rate tooltips={desc} onChange={setRate} value={rate} />
+                {rate ? <span>{` ${desc[rate - 1]}`}</span> : " "}
+              </Form.Item>
+            </Col>
 
             <Col span={24} style={{ padding: "0 10px" }}>
               <Form.Item
                 label="Nội dung"
                 name="content"
                 labelCol={{ span: 24 }}
-               
               >
-                  <TextArea 
-                    rows={4} 
-                    placeholder='Chia sẻ những cảm nhận của bạn với những người khác...'
-                  />
+                <TextArea
+                  rows={4}
+                  placeholder="Chia sẻ những cảm nhận của bạn với những người khác..."
+                />
               </Form.Item>
             </Col>
             <Col span={24} style={{ padding: "0 10px" }}>
-              <Form.Item
-                label="Images"
-                name="images"
-                labelCol={{ span: 24 }}
-               
-              >
-               
-                  <label for="fileUpload" style={{visibility:"hidden"}} onChange={handleFile} multiple>
-                        <input id="fileUpload"  type={"file"} />
+              <Form.Item label="Hình ảnh" name="images" labelCol={{ span: 24 }}>
+                <div className="list-img-review">
+                  {imgPreview && imgPreview?.files?.map(file => {
+                      return (
+                        <>
+                          <div className="img-review-item">
+                              <img src={URL.createObjectURL(file)} alt="#imgRv" />
+                          </div>
+                        </>
+                      )
+                  })}
+                    
+                </div>
+                <div style={{marginTop:'15px'}}>
+                    <label for="fileUpload" className="upload-files">
                         Upload Image
                     </label>
+                </div>
+                <input
+                  id="fileUpload"
+                  type={"file"}
+                  onChange={handleFile}
+                  multiple
+                  style={{ visibility: "hidden" }}
+                />
               </Form.Item>
             </Col>
           </Row>
         </Form>
       </Modal>
-     </>
-            
-     );
-}
- 
+    </>
+  );
+};
+
 export default ModalReview;

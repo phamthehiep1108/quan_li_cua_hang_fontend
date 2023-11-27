@@ -7,13 +7,11 @@ import room10 from "../../assets/room10.jpg";
 import room2 from "../../assets/room2.jpg";
 import room3 from "../../assets/room3.jpg";
 
-
-
 import { BsImage } from "react-icons/bs";
 import { GrOverview } from "react-icons/gr";
 import { MdOutlineRateReview } from "react-icons/md";
 import { MdOutlineDescription } from "react-icons/md";
-import { Rate, DatePicker, Image, Badge } from 'antd';
+import { Rate, DatePicker, Image, Badge, Avatar } from 'antd';
 import dayjs from 'dayjs';
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -22,7 +20,7 @@ import ModalReview from "./ModalReview";
 
 const RoomDetail = (props) => {
 
-  const {tourDetail, id} = props
+  const {tourDetail, id, tourComment, getListComment} = props
  // console.log(tourDetail);
   const [openModalBook, setOpenModalBook] = useState(false)
   const [openModalReview, setOpenModalReview] = useState(false)
@@ -139,6 +137,75 @@ const RoomDetail = (props) => {
                       />
                       </div>
                     </div>
+                    <div className="tour-review">
+                      <h3>Đánh giá và bình luận</h3>
+                      {tourComment.length > 0 &&
+                        tourComment?.map((item) => {
+                          return (
+                            <>
+                              <div className="tour-review-item">
+                                <div className="review-main">
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      gap: "5px",
+                                    }}
+                                  >
+                                    <div>
+                                      <Avatar size={40} src={item?.user?.avatar} />
+                                    </div>
+                                    <div>
+                                      <div className="right-info-review">
+                                        <span>{item?.user?.display_name}</span>
+                                        <Rate
+                                          disabled
+                                          defaultValue={item?.rate}
+                                          style={{ fontSize: "15px" }}
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="content-review">
+                                    <p>
+                                      {item?.content}
+                                    </p>
+                                  </div>
+                                  <div className="media-review">
+                                    <div className="list-media-comment">
+                                      {/* <div className="media-item-cmt">
+                                        <img src="" alt="" />
+                                    </div> */}
+                                      <div className="media-cmt-item">
+                                      
+                                        <Image
+                                          width={140}
+                                          src={item?.image[0]?.image_data}
+                                        />
+                                      </div>
+                                      <div className="media-cmt-item">
+                                      
+                                        <Image
+                                          width={140}
+                                          src={item?.image[1]?.image_data}
+                                        />
+                                      </div>
+                                      <div className="media-cmt-item">
+                                      
+                                        <Image
+                                          width={140}
+                                          src={item?.image[2]?.image_data}
+                                        />
+                                      </div>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        })}
+                    </div>
                 </div>
 
             </div>
@@ -209,7 +276,8 @@ const RoomDetail = (props) => {
           open = {openModalReview}
           setOpen = {setOpenModalReview}
           tourDetail = {tourDetail}
-          tourId = {id}
+          room_id = {id}
+          getListComment = {getListComment}
       />
     </>
   );
