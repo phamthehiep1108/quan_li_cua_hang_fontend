@@ -7,8 +7,6 @@ const ModalDeleteOrder = (props) => {
     return (
       <>
 
-
-        
       </>
     );
   };

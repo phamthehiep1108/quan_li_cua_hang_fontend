@@ -1,7 +1,7 @@
-import { Button, Table, Select } from "antd";
+import { Button, Table, Select, Popconfirm, message } from "antd";
 import { EditTwoTone } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { callGetListReview } from "../../../services/api";
+import { callDeleteReview, callGetListReview } from "../../../services/api";
 
 const TableReview = () => {
   const columns = [
@@ -29,37 +29,39 @@ const TableReview = () => {
       title: "Phone Number",
       dataIndex: "phone",
     },
-    {
-      title: "Action",
-      dataIndex: "action",
-      width: 100,
-      render: (text, record, index) => {
-        return (
-          <>
-            <EditTwoTone
-              twoToneColor="#3cc41a"
-              style={{ cursor: "pointer", marginLeft: "20px" }}
-              onClick={() => {
-                // setOpenModalUpdateStatus(true)
-                // setIdOrder(record?.id)
-              }}
-            />
-          </>
-        );
-      },
-    },
+    // {
+    //   title: "Action",
+    //   dataIndex: "action",
+    //   width: 100,
+    //   render: (text, record, index) => {
+    //     return (
+    //       <>
+    //         <EditTwoTone
+    //           twoToneColor="#3cc41a"
+    //           style={{ cursor: "pointer", marginLeft: "20px" }}
+    //           onClick={() => {
+    //             // setOpenModalUpdateStatus(true)
+    //             // setIdOrder(record?.id)
+    //           }}
+    //         />
+    //       </>
+    //     );
+    //   },
+    // },
   ];
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(6);
   const [total, setTotal] = useState(10);
 
   const [listReview, setListReview] = useState([]);
+  const [rateQuery, setRateQuery] = useState('');
+ 
 
   useEffect(() => {
     fetchListReview();
-  }, [currentPage, pageSize]);
+  }, [currentPage, pageSize, rateQuery]);
 
   let data = [];
 
@@ -67,11 +69,15 @@ const TableReview = () => {
     // /api/v2/review/index?page=1&perpage=10&rate[]=4&room_id[]=33&user_id[]=5
     let queryReview = `page=${currentPage}&perpage=${pageSize}`;
 
+    if(rateQuery){
+      queryReview += rateQuery;
+    }
+
     const res = await callGetListReview(queryReview);
 
     if (res && res?.data?.data) {
-      //setListReview(res?.data?.data);
-      console.log("dataRes >>>", res?.data?.total);
+     
+      //console.log("dataRes >>>", res?.data?.total);
       res?.data?.data.forEach((item) => {
         return data.push({
           id: item?.id,
@@ -93,9 +99,10 @@ const TableReview = () => {
  
 
   const onSelectChange = (newSelectedRowKeys) => {
-    //console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
+
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
@@ -104,8 +111,9 @@ const TableReview = () => {
 
   // select rate
 
-  const handleSelectRate = () => {
-
+  const handleSelectRate = (value) => {
+     // console.log('value',value);
+      setRateQuery(value)
   }
 
   const onChange = (pagination, filters, sorter, extra) => {
@@ -120,13 +128,50 @@ const TableReview = () => {
     }
   };
 
+  //handle delete
+  const confirm = async(e) => {
+   // console.log("hello world");
+   // message.success('Click on Yes');
+   const idsDelete = {
+      ids: [...selectedRowKeys]
+   }
+
+   const res = await callDeleteReview(idsDelete)
+      console.log('check res>>>',res);
+      if(res && res.status === 200){
+        message.success("Xóa thành công");
+        await fetchListReview();
+        setSelectedRowKeys([]);
+      }else{
+        message.error("Có lỗi xảy ra!!!")
+      }
+  };
+
   return (
     <>
       <div style={{ padding: "25px 35px" }}>
         <div style={{ marginBottom: 16 }}>
           <span style={{ marginLeft: 8 }}>
-            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
+            {hasSelected ? 
+            <div style={{display:'flex',gap:'20px'}}>
+              <span>{`Selected ${selectedRowKeys.length} items` }</span>
+              
+              <Popconfirm
+                title="Delete the task"
+                description="Are you sure to delete this task?"
+                okText="Yes"
+                cancelText="No"
+                onConfirm={confirm}
+              >
+                <Button type="primary" danger>Delete</Button>
+              </Popconfirm>
+            </div>
+            
+            : 
+            ""
+            }
           </span>
+         
         </div>
         <Table
           title={() => {
@@ -139,28 +184,19 @@ const TableReview = () => {
                   <span>Quản lý Comment Review</span>
                   <div style={{ display: "flex", gap: "30px" }}>
                     <span>
-                      <Select
-                        showSearch
-                        placeholder="Select a status"
-                        optionFilterProp="children"
-                        onChange={handleSelectRate}
-                        options={[
-                          { value: "&status[]=pending", label: "Pending" },
-                          { value: "&status[]=access", label: "Access" },
-                          { value: "&status[]=ending", label: "Ending" },
-                          { value: "&status[]=cancel", label: "Cancel" },
-                        ]}
-                      />
+                      
                     </span>
                     <span>
                       <Select
-                        defaultValue="All"
+                        defaultValue="5 Star"
                         style={{ width: 120 }}
-                      //  onChange={handleChangeType}
+                        onChange={handleSelectRate}
                         options={[
-                          { value: "&type[]=room&type[]=tour", label: "All" },
-                          { value: "&type[]=room", label: "Room" },
-                          { value: "&type[]=tour", label: "Tour" },
+                          { value: "&rate[]=5", label: "5 Star" },
+                          { value: "&rate[]=4", label: "4 Star" },
+                          { value: "&rate[]=3", label: "3 Star" },
+                          { value: "&rate[]=2", label: "2 Star" },
+                          { value: "&rate[]=1", label: "1 Star" },
                         ]}
                       />
                     </span>

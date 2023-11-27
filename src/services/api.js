@@ -174,12 +174,16 @@ export const callGetListStaff = (query) => {
     return axios.get(`api/v2/staff/index?${query}`)
 }
 
-//Get list review 
+//Get list review admin
 
 
 export const callGetListReview = (query) => {
     // /api/v2/review/index?page=1&perpage=10&rate[]=4&room_id[]=33&user_id[]=5
     return axios.get(`/api/v2/review/index?${query}`)
+}
+// Delete review - admin
+export const callDeleteReview = (ids) => {
+    return axios.delete(`/api/v2/review/multiple-delete`,{params:ids})
 }
 
 

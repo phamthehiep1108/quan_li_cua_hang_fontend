@@ -47,7 +47,7 @@ const ModalDeleteCate = (props) => {
         width={'30vw'}
         maskClosable = {false}
         >
-             <h2>Xác nhận xóa Category này</h2>
+             <h4>Xác nhận xóa Category này</h4>
        
         </Modal>
         

@@ -44,7 +44,7 @@ const ModalDeleteTR = (props) => {
             width={'30vw'}
             maskClosable = {false}
             >
-                <h2>Xác nhận xóa</h2>
+                <h4>Xác nhận xóa</h4>
         
             </Modal>
         </>
