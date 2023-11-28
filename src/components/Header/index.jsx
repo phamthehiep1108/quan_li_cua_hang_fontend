@@ -145,7 +145,7 @@ const Header = () => {
                                 <NavLink to={'/tour'}  className='navLink' activeClassName="active">Tour</NavLink>
                             </li>         
                             <li className='navItem'>
-                                <a href="#" className='navLink' >Tin Tức</a>
+                                <NavLink to={'/news'} className='navLink' activeClassName="active">Tin Tức</NavLink>
                             </li>         
                             <li className='navItem' onClick={()=>setOpenModalContact(true)}>
                                 <a href="#" className='navLink'>Liên hệ</a>

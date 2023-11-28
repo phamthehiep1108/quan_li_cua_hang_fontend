@@ -26,7 +26,7 @@ const TableReview = () => {
       dataIndex: "email",
     },
     {
-      title: "Phone Number",
+      title: "Phone",
       dataIndex: "phone",
     },
     // {

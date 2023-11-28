@@ -37,6 +37,7 @@ import UpdateInfo from './components/InfoUser/UpdateProfile';
 import UpdatePass from './components/InfoUser/UpdatePass';
 import TableStaff from './components/Admin/Staff/TableStaff';
 import TableReview from './components/Admin/Review/TableReview';
+import NewPage from './pages/news';
 
 
 const Layout = () => {
@@ -66,6 +67,10 @@ export default function App() {
         {
           path: "contact",
           element: <ContactPage />,
+        },
+        {
+          path: "news",
+          element: <NewPage />,
         },
         {
           path: "room",
