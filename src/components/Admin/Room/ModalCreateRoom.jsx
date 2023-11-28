@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 import { callCreateNewRoom } from "../../../services/api";
- 
+import imgUpload from '../../../assets/img-upload.jpg'
   const ModalCreateRoom = (props) => {
     const { open, setOpen, fetchGetRoomTour, setTypeRT } = props;
     const [isSubmit, setIsSubmit] = useState(false);
@@ -196,7 +196,7 @@ import { callCreateNewRoom } from "../../../services/api";
                 />
                 <div className="list-img-review">
                       <div className="img-review-item">
-                         <img src={logoPreview} alt="#imgLogo" />
+                         <img src={logoPreview || imgUpload} alt="#imgLogo" />
                       </div> 
                 </div>
                 </Form.Item>
@@ -226,7 +226,7 @@ import { callCreateNewRoom } from "../../../services/api";
                       return (
                         <>
                           <div className="img-review-item">
-                              <img src={URL.createObjectURL(file)} alt="#imgBanner" />
+                              <img src={URL.createObjectURL(file) || imgUpload} alt="#imgBanner" />
                           </div>
                         </>
                       )

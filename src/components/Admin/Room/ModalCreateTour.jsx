@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import { useSelector } from "react-redux";
 import { callCreateNewTour } from "../../../services/api";
+import imgUpload from '../../../assets/img-upload.jpg'
  
   const ModalCreateTour = (props) => {
     const { open, setOpen, fetchGetRoomTour, setTypeRT } = props;
@@ -233,7 +234,7 @@ import { callCreateNewTour } from "../../../services/api";
                 />
                 <div className="list-img-review">
                       <div className="img-review-item">
-                         <img src={logoPreview} alt="#imgLogo" />
+                         <img src={logoPreview || imgUpload} alt="#imgLogo" />
                       </div> 
                 </div>
 
@@ -259,11 +260,11 @@ import { callCreateNewTour } from "../../../services/api";
                   style={{ visibility: "hidden" }}
                 />
                 <div className="list-img-review">
-                  {bannerPreview && bannerPreview?.files?.map(file => {
+                  { bannerPreview?.files?.map(file => {
                       return (
                         <>
                           <div className="img-review-item">
-                              <img src={URL.createObjectURL(file)} alt="#imgBanner" />
+                              <img src={URL.createObjectURL(file) || imgUpload} alt="#imgBanner" />
                           </div>
                         </>
                       )

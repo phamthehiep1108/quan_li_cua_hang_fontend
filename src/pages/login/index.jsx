@@ -17,23 +17,23 @@ const LoginPage = () => {
     const onFinish = async (values) => {
 
         const { email, password } = values;
-       // setIsSubmit(true);
+      //  setIsSubmit(true);
         const res = await callLoginUser(email, password, "xxx111xxx");
-        console.log("check res",res);
-       setIsSubmit(false);
-        if (res?.data) {
+        console.log("res login>>>",res);
+        if (res?.data && res.status === 200) {
             localStorage.setItem('access_token', res.data.token);
             dispatch(doLoginAction(res.data))
             message.success('Đăng nhập tài khoản thành công!');
             navigate('/')
-        } else {
+        }else if(res?.status !== 200) {
             notification.error({
                 message: "Có lỗi xảy ra",
                 description:
-                    "Có lỗi xảy ra khi đăng nhập, vui lòng kiểm tra lại thông tin",
+                "Có lỗi xảy ra khi đăng nhập, vui lòng kiểm tra lại thông tin",
                 duration: 3
             })
         }
+        setIsSubmit(false);
     };
 
 

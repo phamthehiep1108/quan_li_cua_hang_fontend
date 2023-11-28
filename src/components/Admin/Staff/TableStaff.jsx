@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { callGetListStaff } from "../../../services/api";
+import ModalCreateStaff from "./ModalCreateStaff";
 //import InputSearchRequest from "./InputSearchRequest";
 
 
@@ -19,18 +20,40 @@ const TableStaff = () => {
   const [typeRole, setTypeRole] = useState("&role_id[]=1");
  
   const [listStaff, setListStaff] = useState([]);
-  const [openModalUpdate, setOpenModalUpdate] = useState(false);
+  const [openModalCreate, setOpenModalCreate] = useState(false);
 
 
 
   const handleQuerySearch = (query) => {
     //console.log('query',query);
-    setSearchQuery(query);
+   // setSearchQuery(query);
   };
 
   //Handle select
   const handleChangeType = (value) => {
     setTypeRole(value)
+  };
+
+  const handleDeleteStaff = async (id) => {
+    //console.log('id',id);
+    const idDelete = {
+      "ids":[id]
+    }
+
+    //  console.log(idDelete);
+    //  const res = await callDeleteCustomer(idDelete);
+
+    //  if (res && res.data && res.status === 200) {
+    //     message.success("Đã xóa thành công!");
+    //     await fetchCustomerWithPaginate();
+    // } else {
+    //     notification.error({
+    //       message: "Có lỗi xảy ra",
+    //       description: "Có lỗi xảy ra",
+    //       duration: 3,
+    //     });
+    // }
+    //console.log('check res delete =>',res);
   };
 
 
@@ -78,14 +101,21 @@ const TableStaff = () => {
       render: (text, record, index) => {
         return (
           <>
-            <EditTwoTone
-              twoToneColor="#3cc41a"
-              style={{ cursor: "pointer", marginLeft: "20px" }}
-              onClick={() => {
-                //  setOpenModalUpdate(true)
-                //  setIdRequest(record?.id)
-              }}
-            />
+           
+            <Popconfirm
+              title="Xác nhận xóa staff"
+              placement="leftTop"
+              description="Bạn có chắc chắn muốn xóa staff này ?"
+              onConfirm={() => handleDeleteStaff(record?.id)}
+              okText={"Xác nhận"}
+              cancelText={"Hủy"}
+              key={index}
+            >
+              <DeleteTwoTone
+                twoToneColor="#eb2f96"
+                style={{ cursor: "pointer" }}
+              />
+            </Popconfirm>
           </>
         );
       },
@@ -163,7 +193,7 @@ const TableStaff = () => {
                     />
                   </span>
                   <span>
-                    <Button type="primary">New Staff</Button>
+                    <Button type="primary" onClick={()=>setOpenModalCreate(true)}>New Staff</Button>
                   </span>
                 </div>
               </div>
@@ -188,6 +218,11 @@ const TableStaff = () => {
           }}
         />
       </div>
+      <ModalCreateStaff
+        open = {openModalCreate}
+        setOpen = {setOpenModalCreate}
+        fetchListStaff = {fetchListStaff}
+      />
       
     </>
   );

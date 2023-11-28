@@ -32,7 +32,6 @@ const ModalUpdateRoom = (props) => {
 
   const cates = useSelector((state) => state.cate.category);
   const [logo, setLogo] = useState({});
-  const [banner, setBanner] = useState({});
 
   const [previewLogo, setPreviewLogo] = useState(null);
 

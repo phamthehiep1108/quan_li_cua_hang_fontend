@@ -83,6 +83,7 @@ export const callGetRoomTour = (query) => {
 }
 
 // --- /api/v2/room/index?page=1&perpage=10&type_room[]=room&type_room[]=tour&search=Ha Noi - HCM
+// create new room admin
 export const callCreateNewRoom = (name, description, type, cost, logo, banner, status, type_room) => {
     const data = new FormData();
     data.append("name", name);
@@ -96,7 +97,7 @@ export const callCreateNewRoom = (name, description, type, cost, logo, banner, s
     
     return axios.post(`/api/v2/room/create-room`,data)
 }
-// create new tour
+// create new tour admin
 export const callCreateNewTour = (name, description, type, cost, logo, banner, status, type_room, start_date, end_date) => {
     const data = new FormData();
     data.append("name", name);
@@ -169,10 +170,24 @@ export const callUpdateRequestCancel = (idRequest, status) => {
     return axios.post(`/api/v2/request-cancel/update-status/${idRequest}?status=${status}`)
 }
 
-//Get list staff and admin
+//Get list staff and admin--------------
 export const callGetListStaff = (query) => {
     // -- /api/v2/staff/index?page=1&perpage=10&search=&role_id[]=1&role_id[]=3
     return axios.get(`api/v2/staff/index?${query}`)
+}
+
+// Create new staff
+export const callCreateNewStaff = (email, password, display_name, phone_number, detail_address, role_id, image_data) => {
+    const data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
+    data.append("display_name", display_name);
+    data.append("phone_number", phone_number);
+    data.append("detail_address", detail_address);
+    data.append("role_id", role_id);
+    data.append("image_data", image_data);
+    
+    return axios.post(`/api/v2/staff/create`,data)
 }
 
 //Get list review admin
@@ -187,6 +202,7 @@ export const callGetListReview = (query) => {
 export const callDeleteReview = (ids) => {
     return axios.delete(`/api/v2/review/multiple-delete`,{params:ids})
 }
+
 
 
 
