@@ -23,8 +23,11 @@ import { callCreateNewRoom } from "../../../services/api";
     const { TextArea } = Input;
     
     const cates = useSelector(state => state.cate.category)
-    const [logo, setLogo] = useState({});
-    const [banner, setBanner] = useState({});
+    const [logo, setLogo] = useState(null);
+    const [logoPreview, setLogoPreview] = useState(null);
+    const [banner, setBanner] = useState([]);
+    const [bannerPreview, setBannerPreview] = useState([]);
+
  
     //Select
     let options = cates?.map(item => {
@@ -34,15 +37,20 @@ import { callCreateNewRoom } from "../../../services/api";
         }
     })
 
-    const handleUploadImg = (event, type) => {
-      if (event.target && event.target.files && event.target.files[0] && type ==='logo') {
-        setLogo(event.target.files[0]);
-      } 
 
-      if (event.target && event.target.files && event.target.files[0] && type === 'banner') {
-        setBanner(event.target.files[0]);
-      } 
+    const handleFileBanner = (e) => {
+      const files = [...banner]; 
+      files.push(...e.target.files); 
+      setBanner({files});
+      setBannerPreview({files});
     }
+
+    const handleFileLogo = (event) => {
+      if (event.target && event.target.files && event.target.files[0]) {
+        setLogo(event.target.files[0]);
+        setLogoPreview(URL.createObjectURL(event.target.files[0]))
+      } 
+    };
 
     //Cate status
 
@@ -73,14 +81,13 @@ import { callCreateNewRoom } from "../../../services/api";
       const {name, type_room, type ,cost, description, status} = value
             setIsSubmit(true)
             const res = await callCreateNewRoom(name, description, type, cost, logo, banner, status, type_room)
-            setIsSubmit(false)
             if(res && res.data){
-                message.success('Tạo phòng mới thành công')
-                form.resetFields();
-                setOpen(false)
+              message.success('Tạo phòng mới thành công')
+              form.resetFields();
+              setOpen(false)
                 setTypeRT('&type_room[]=room')
                 await fetchGetRoomTour()
-
+                
               }else{
                   notification.error({
                   message: 'Có lỗi xảy ra!!!',
@@ -88,9 +95,10 @@ import { callCreateNewRoom } from "../../../services/api";
                   duration: 3
               })
   
+          setIsSubmit(false)
           //console.log("res check", res);
         }
-      };
+    };
     
   
     return (
@@ -102,7 +110,11 @@ import { callCreateNewRoom } from "../../../services/api";
           onOk={() => form.submit()}
           onCancel={() => {
             setOpen(false);
-            form.resetFields()
+            form.resetFields();
+            setBanner([]);
+            setBannerPreview([]);
+            setLogo(null);
+            setLogoPreview(null);
           }}
           okText="Tạo mới"
           cancelText="Hủy"
@@ -170,20 +182,61 @@ import { callCreateNewRoom } from "../../../services/api";
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input logo!" }]}
                 >
-                  <input type="file" onChange={(e)=>handleUploadImg(e, 'logo')}/>
+                  {/* <input type="file" onChange={(e)=>handleUploadImg(e, 'logo')}/> */}
+                  <div style={{marginTop:'15px'}}>
+                    <label for="fileUpload" className="upload-files">
+                        Upload Logo
+                    </label>
+                 </div>
+                 <input
+                  id="fileUpload"
+                  type={"file"}
+                  onChange={handleFileLogo}
+                  style={{ visibility: "hidden" }}
+                />
+                <div className="list-img-review">
+                      <div className="img-review-item">
+                         <img src={logoPreview} alt="#imgLogo" />
+                      </div> 
+                </div>
                 </Form.Item>
               </Col>
-              <Col span={8} style={{ padding: "0 10px" }}>
+              <Col span={16} style={{ padding: "0 10px" }}>
                 <Form.Item
                   label="IMG Banner"
               
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input banner!" }]}
                 >
-                  <input type="file" onChange={(e)=>handleUploadImg(e,'banner')}/>
+                  {/* <input type="file" onChange={(e)=>handleUploadImg(e,'banner')}/> */}
+                  <div style={{marginTop:'15px'}}>
+                    <label for="fileBanner" className="upload-files">
+                        Upload Banner
+                    </label>
+                </div>
+                <input
+                  id="fileBanner"
+                  type={"file"}
+                  onChange={handleFileBanner}
+                  multiple
+                  style={{ visibility: "hidden" }}
+                />
+                <div className="list-img-review">
+                  {bannerPreview && bannerPreview?.files?.map(file => {
+                      return (
+                        <>
+                          <div className="img-review-item">
+                              <img src={URL.createObjectURL(file)} alt="#imgBanner" />
+                          </div>
+                        </>
+                      )
+                  })}
+                    
+                </div>
                 </Form.Item>
               </Col>
-              <Col span={8} style={{ padding: "0 10px" }}>
+
+              <Col span={12} style={{ padding: "0 10px" }}>
                 <Form.Item
                   label="Status"
                   name="status"

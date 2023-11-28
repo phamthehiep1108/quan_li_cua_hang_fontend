@@ -205,7 +205,7 @@ const HomePage = (props) => {
           }
           <div className="view-more-room">
            
-           <Link>
+           <Link to={'/room'}>
              <span>
                Xem thêm
              </span>

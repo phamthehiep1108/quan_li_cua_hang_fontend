@@ -90,7 +90,7 @@ export const callCreateNewRoom = (name, description, type, cost, logo, banner, s
     data.append("description", description);
     data.append("cost", cost);
     data.append("logo", logo);
-    data.append("banner[]", banner);
+    banner?.files?.forEach((file) => data.append('banner[]', file));
     data.append("status", status);
     data.append("type_room", type_room);
     
@@ -105,7 +105,7 @@ export const callCreateNewTour = (name, description, type, cost, logo, banner, s
     data.append("cost", cost);
     data.append("logo", logo);
     banner?.files?.forEach((file) => data.append('banner[]', file))
-    //data.append("banner[]", banner);
+   
     data.append("status", status);
     data.append("type_room", type_room);
     data.append("start_date", start_date);

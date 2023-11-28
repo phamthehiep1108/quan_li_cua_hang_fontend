@@ -308,7 +308,7 @@ const ListRoom = () => {
                                     {new Intl.NumberFormat("vi-VN", {
                                       style: "currency",
                                       currency: "VND",
-                                    }).format(tour.cost ?? 0)}
+                                    }).format(tour.cost ?? 0)}/ngày
                                   </span>
                                 </div>
                               </div>
