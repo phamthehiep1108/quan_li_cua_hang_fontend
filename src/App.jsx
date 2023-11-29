@@ -38,6 +38,7 @@ import UpdatePass from './components/InfoUser/UpdatePass';
 import TableStaff from './components/Admin/Staff/TableStaff';
 import TableReview from './components/Admin/Review/TableReview';
 import NewPage from './pages/news';
+import ContactTable from './components/Admin/Contact/ContactTable';
 
 
 const Layout = () => {
@@ -161,6 +162,10 @@ export default function App() {
         {
           path: "review",
           element: <TableReview />,
+        },
+        {
+          path: "contact",
+          element: <ContactTable />,
         },
       ],
     },

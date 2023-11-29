@@ -79,7 +79,7 @@ const ListRoom = () => {
       setTotal(res.data.total);
     }
 
-    console.log("listTour>>>", res.data);
+    //console.log("listTour>>>", res.data);
   };
 
   // Selected
@@ -141,7 +141,7 @@ const ListRoom = () => {
     }
   }
 
-  console.log(querySearch);
+ // console.log(querySearch);
 
  
   return (

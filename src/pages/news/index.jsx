@@ -14,6 +14,9 @@ const NewPage = () => {
       <div className="home-new">
         <div className="overlay-new">
           <img src={imgNew} alt="#img" />
+          <div className="title-banner-new">
+             {/* Tin tức */}
+          </div>
         </div>
       </div>
       <div className="page-container">

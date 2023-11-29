@@ -20,11 +20,11 @@ import { doLogoutAction } from '../../redux/account/accountSlice';
 const { Content, Footer, Sider } = Layout;
 
 const items = [
-    {
-        label: <Link to='/personal'>Dashboard Personal</Link>,
-        key: 'dashboard',
-        icon: <AppstoreOutlined />
-    },
+    // {
+    //     label: <Link to='/personal'>Dashboard Personal</Link>,
+    //     key: 'dashboard',
+    //     icon: <AppstoreOutlined />
+    // },
    
     {
         label: <Link to='/personal/history'>Lịch sử đặt hàng</Link>,

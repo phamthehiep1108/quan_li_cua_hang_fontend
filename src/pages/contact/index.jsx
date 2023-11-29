@@ -1,15 +1,31 @@
-import { Modal, Divider, Row, Col,} from 'antd';
+import { Modal,Row, Col,} from 'antd';
 import ImgContact from '../../assets/halong.jpg'
 import './contact.scss'
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { FaInternetExplorer } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
+import { SiZalo } from "react-icons/si";
+import { callGetContactCus } from '../../services/api';
+import { useEffect, useState } from 'react';
+
 
 const ContactPage = (props) => {
  
     const {open, setOpen} = props
-    
+    const [dataContact, setDataContact] = useState({})
 
+    useEffect(()=>{
+        fetchContactForCus();
+    },[])
+
+    const fetchContactForCus = async() => {
+        const res = await callGetContactCus();
+        if(res && res.status === 200){
+            setDataContact(res?.data)
+        }
+        //console.log('res>>>',res);
+    }
+    
     return ( 
         <>
        <Modal
@@ -37,7 +53,7 @@ const ContactPage = (props) => {
                                             Hotline:
                                         </div>
                                     </span>
-                                    <span>0362 334 912 - 0333 999 555</span>
+                                    <span>{dataContact?.phone_number}</span>
                                 </div>
                                 <div className="contact-item">
                                     <span className='item-one'>
@@ -46,7 +62,7 @@ const ContactPage = (props) => {
                                             Website:
                                         </div>
                                     </span>
-                                    <span>BookingTourUltimate.com.vn</span>
+                                    <span>{dataContact?.email}</span>
                                 </div>
                                 <div className="contact-item">
                                     <span className='item-one'>
@@ -56,7 +72,18 @@ const ContactPage = (props) => {
                                         </div>
                                     </span>
                                     <span>
-                                    facebook.com/BookingUltimate
+                                        {dataContact?.facebook}
+                                    </span>
+                                </div>
+                                <div className="contact-item">
+                                    <span className='item-one'>
+                                        <div style={{display:'flex', alignItems:'center', gap:'10px'}}>
+                                            <SiZalo/> 
+                                            Zalo:
+                                        </div>
+                                    </span>
+                                    <span>
+                                        {dataContact?.zalo}
                                     </span>
                                 </div>
                                 
@@ -65,7 +92,7 @@ const ContactPage = (props) => {
                     </Col>
                     <Col span={10}>
                         <div className="media-contact">
-                            <img src={ImgContact} alt="" />
+                            <img src={ImgContact} alt="#imgContact" />
                         </div>
                     </Col>
                 </Row>

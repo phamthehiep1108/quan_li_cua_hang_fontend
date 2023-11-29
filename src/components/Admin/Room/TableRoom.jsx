@@ -77,12 +77,12 @@ const TableRoom = () => {
       dataIndex: "name",
       width:'150px',
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      width:'400px',
+    // {
+    //   title: "Description",
+    //   dataIndex: "description",
+    //   width:'400px',
       
-    },
+    // },
     {
       title: "Type",
       dataIndex: "type_room",

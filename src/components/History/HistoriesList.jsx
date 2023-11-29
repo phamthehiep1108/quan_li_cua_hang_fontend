@@ -163,12 +163,16 @@ const HistoriesList = () => {
                       },
                       {
                         value: "&status[]=ending",
-                        label: "Đã xử lý",
+                        label: "Đã kết thúc",
                       },
 
                       {
                         value: "&status[]=cancel",
                         label: "Đã bị hủy",
+                      },
+                      {
+                        value: "&status[]=pending_cancel",
+                        label: "Chờ xử lý hủy",
                       },
                     ]}
                   />
@@ -197,9 +201,13 @@ const HistoriesList = () => {
                             </Tag>
                           ) : item?.status === "ending" ? (
                             <Tag color="blue" style={{ fontSize: "13px" }}>
-                              Đã xử lý xong
+                              Đã kết thúc
                             </Tag>
-                          ) : (
+                          ) : item?.status === "pending_cancel" ? (
+                            <Tag color="purple" style={{ fontSize: "13px" }}>
+                              Chờ xử lý hủy
+                            </Tag>
+                          ):(
                             <Tag color="red" style={{ fontSize: "13px" }}>
                               Đơn hàng bị hủy{" "}
                             </Tag>
@@ -207,12 +215,17 @@ const HistoriesList = () => {
                         </span>
                       </div>
                       <div className="btn-handle">
+                        { statusOrder === '&status[]=pending' || statusOrder === '&status[]=access' ?
+                          
                         <Button
                           danger
                           onClick={() => handleCancelOrder(item?.id)}
                         >
                           Hủy đơn hàng
                         </Button>
+                        :
+                        ""
+                        }
                         <Button
                           type="primary"
                           onClick={() =>

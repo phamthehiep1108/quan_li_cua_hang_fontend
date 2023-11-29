@@ -40,7 +40,12 @@ const items = [
                 label: <Link to='/admin/staff'>Staff</Link>,
                 key: 'staff',
                 icon: <TeamOutlined />,
-            }
+            },
+            {
+                label: <Link to='/admin/contact'>Info Contact</Link>,
+                key: 'contact',
+                icon: <TeamOutlined />,
+            },
         ]
     },
     {

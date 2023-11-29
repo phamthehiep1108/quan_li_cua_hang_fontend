@@ -26,6 +26,16 @@ export const callLRegisterUser = (email, password, display_name, phone_number, d
     return axios.post('/api/register', data)
 }
 
+// setting-contact -- get info
+export const callGetInfoContact = () => {
+    return axios.get(`/api/v2/setting/contact`);
+}
+
+//setting-contact --  update info
+export const callUpdateInfoContact = (phone_number, email, facebook, zalo) => {
+    return axios.post(`/api/v2/setting/create-contact`,{phone_number, email, facebook, zalo});
+}
+
 // Customer -- /api/v2/customer/index?page=1&perpage=5&search=1%20ng%C6%B0%C6%A1%CC%80i
 export const callGetAllCustomer = (query) => {
     return axios.get(`/api/v2/customer/${query}`)
@@ -314,6 +324,12 @@ export const callCreateReview = (user_id, room_id, rate, content, images) => {
     images?.files?.forEach((file) => data.append('images[]', file))
     return axios.post(`/api/review/create`,data)
 }
+
+//get contact(setting)
+export const callGetContactCus = () => {
+    return axios.get(`/api/setting/contact`)
+}
+
 
 
 

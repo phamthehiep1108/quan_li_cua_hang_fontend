@@ -1,6 +1,6 @@
 import { Col, Divider, Row, Form, Input, Button, message } from "antd";
 import "./profile.scss";
-import avatarImg from "../../assets/img6.jpg";
+import avatarImg from "../../assets/avatarLogo.jpg";
 import { useEffect, useState } from "react";
 import { callGetInfoUser, callUpdateInfoUser } from "../../services/api";
 import { useDispatch, useSelector } from "react-redux";

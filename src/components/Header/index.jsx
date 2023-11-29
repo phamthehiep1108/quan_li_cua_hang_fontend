@@ -12,7 +12,7 @@ import { doLogoutAction } from '../../redux/account/accountSlice';
 import './header.scss';
 import { Link, NavLink } from 'react-router-dom';
 import ContactPage from '../../pages/contact';
-import imgReplace from '../../assets/img6.jpg'
+import imgReplace from '../../assets/avatarLogo.jpg'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -154,20 +154,20 @@ const Header = () => {
                     </div>
 
                     <div className="toggleNavbar">
-                        <Space>
-                            <Avatar src={user?.avatar || admin?.avatar ||imgReplace} className='icon'/>
+                        
                             <Dropdown
                                 menu={{items}}
                                 trigger={['click']}
                             >
                                 <a onClick={(e) => e.preventDefault()}>
-                                <Space>
-                                   {user?.display_name || admin?.display_name || "BookingUltimate" }
+                                <Space >
+                                 <Avatar src={user?.avatar || admin?.avatar ||imgReplace} className='icon'/>
+                                   {user?.display_name || admin?.display_name || "Account" }
                                     <DownOutlined />
                                 </Space>
                                 </a>
                             </Dropdown>
-                        </Space>
+                    
                     </div>
 
             </header>  
