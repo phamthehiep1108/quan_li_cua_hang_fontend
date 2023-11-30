@@ -212,11 +212,23 @@ export const callGetListReview = (query) => {
 export const callDeleteReview = (ids) => {
     return axios.delete(`/api/v2/review/multiple-delete`,{params:ids})
 }
-
 // Delete review - admin
 export const callGetInfoDashBoard = () => {
     return axios.get(`/api/v2/dashboard/general`)
 }
+
+//1-forgot password
+export const callPostEmailForgotPass = (email) => {
+    return axios.post(`/api/user/send-code`,{email})
+}
+//2-forgot password
+export const callPostVerifyCode = (email, code) => {
+    return axios.post(`/api/user/send-code`,{email, code})
+}
+//3-reset password
+
+
+
 
 
 

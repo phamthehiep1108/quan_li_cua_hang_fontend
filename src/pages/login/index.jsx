@@ -86,7 +86,7 @@ const LoginPage = () => {
                                     </span>
                                 </p>
                                 <p>
-                                    <Link to='/register' > Quên mật khẩu </Link>
+                                    <Link to='/forgot-password' > Quên mật khẩu </Link>
                                 </p>
                             </div>
                         </Form>

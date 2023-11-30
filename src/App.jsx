@@ -40,6 +40,7 @@ import TableReview from './components/Admin/Review/TableReview';
 import NewPage from './pages/news';
 import ContactTable from './components/Admin/Contact/ContactTable';
 import DashBoard from './components/Admin/DashBoard/DashBoard';
+import ForgotPass from './pages/forgotPass';
 
 
 const Layout = () => {
@@ -185,6 +186,11 @@ export default function App() {
     {
       path: "/register",
       element: <RegisterPage />,
+    },
+
+    {
+      path: "/forgot-password",
+      element: <ForgotPass />,
     },
   ]);
 
