@@ -39,6 +39,7 @@ import TableStaff from './components/Admin/Staff/TableStaff';
 import TableReview from './components/Admin/Review/TableReview';
 import NewPage from './pages/news';
 import ContactTable from './components/Admin/Contact/ContactTable';
+import DashBoard from './components/Admin/DashBoard/DashBoard';
 
 
 const Layout = () => {
@@ -126,7 +127,7 @@ export default function App() {
         {
           index: true, element:
              <ProtectedRoute>
-              <TableRoom />
+                <DashBoard />
              </ProtectedRoute>
         },
         

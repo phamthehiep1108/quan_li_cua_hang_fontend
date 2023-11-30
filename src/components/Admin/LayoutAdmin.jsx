@@ -96,7 +96,6 @@ const LayoutAdmin = () => {
         navigate('/');
     }
 
-
     const itemsDropdown = [
         {
             label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
@@ -109,7 +108,6 @@ const LayoutAdmin = () => {
             >Đăng xuất</label>,
             key: 'logout',
         },
-
     ];
 
 
@@ -134,7 +132,6 @@ const LayoutAdmin = () => {
                 />
             </Sider>
 
-            
             <Layout>
                 <div className='admin-header'>
                     <span>

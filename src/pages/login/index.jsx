@@ -79,11 +79,16 @@ const LoginPage = () => {
                                 </Button>
                             </Form.Item>
                             <Divider>Or</Divider>
-                            <p className="text text-normal">Chưa có tài khoản ?
-                                <span>
-                                    <Link to='/register' > Đăng Ký </Link>
-                                </span>
-                            </p>
+                            <div className='login-footer'>
+                                <p className="text text-normal">Chưa có tài khoản ?
+                                    <span>
+                                        <Link to='/register' > Đăng Ký </Link>
+                                    </span>
+                                </p>
+                                <p>
+                                    <Link to='/register' > Quên mật khẩu </Link>
+                                </p>
+                            </div>
                         </Form>
                     </section>
                 </div>
