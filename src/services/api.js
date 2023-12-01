@@ -229,6 +229,10 @@ export const callPostVerifyCode = (email, code) => {
 export const callResetPassword = (email, code, new_password) => {
     return axios.post(`/api/user/reset-password`,{email, code, new_password})
 }
+//3-verify register
+export const callVerifyRegister = (email, code) => {
+    return axios.post(`/api/register/verify-code`,{email, code})
+}
 
 
 

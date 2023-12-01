@@ -1,17 +1,14 @@
-import { Modal, Form, Divider, Row, Col, Input, message, notification, DatePicker, Button} from 'antd';
+import { Modal, Form, Divider, Row, Col, Input, message, notification, DatePicker} from 'antd';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { callPostVerifyCode, callPostEmailForgotPass } from '../../services/api';
-import ModalResetPass from './ModalReset';
+import { callVerifyRegister } from '../../services/api';
 
-
-const ModalOTP = (props) => {
+const ModalVerify = (props) => {
  
-    const {open, setOpen, emailUser} = props
+    const {open, setOpen, emailVerify} = props
     const [form] = Form.useForm()
     const[isSubmit, setIsSubmit] = useState(false)
-    const[isResend, setIsResend] = useState(false)
     const[openReset, setOpenReset] = useState(false)
     const[codeOTP, setCodeOTP] = useState("")
 
@@ -19,22 +16,22 @@ const ModalOTP = (props) => {
 
     useEffect(() => {
       let initValue = {
-        email: emailUser
+        email: emailVerify
       }
       form.setFieldsValue(initValue)
-    }, [emailUser]);
+    }, [emailVerify]);
 
     const onFinish = async(value) => {
       setIsSubmit(true);
       const {email, code} = value;
      // console.log("code>>>",value);
       setCodeOTP(code);
-      const res = await callPostVerifyCode(email, +code)
+      const res = await callVerifyRegister(email, code)
       if(res.status === 200){
-        message.success("Xác thực OTP thành công")
+        message.success("Xác thực OTP đăng ký thành công!")
         setIsSubmit(false);
         setOpen(false);
-        setOpenReset(true)
+        navigate('/login')
       }else{
         notification.error({
           message: "Có lỗi xảy ra",
@@ -44,16 +41,6 @@ const ModalOTP = (props) => {
       })
         setIsSubmit(false);
       }
-      console.log('res verify >>>',res);
-    }
-
-    const handleResend = async() => {
-      setIsResend(true)
-        const res = await callPostEmailForgotPass(emailUser)
-        if(res.status === 200){
-          message.success("Vui lòng kiểm tra email")
-        }
-        setIsResend(false)
     }
 
     return ( 
@@ -83,7 +70,7 @@ const ModalOTP = (props) => {
                 name="email"
                 hidden = {true}
                labelCol={{ span: 24 }}
-               initialValue={emailUser}
+               initialValue={emailVerify}
               >
                 <Input />
               </Form.Item>
@@ -100,26 +87,13 @@ const ModalOTP = (props) => {
               </Form.Item>
             </Col>
 
-            <Col span={6} style={{ padding: "0 10px", position:'absolute',top:'160px' }}>
-              <Form.Item
-              >
-                <Button type='primary' danger onClick={()=>handleResend()} loading={isResend}>Gửi lại</Button>
-              </Form.Item>
-            </Col>
-
             
           </Row>
         </Form>
       </Modal>
 
-      <ModalResetPass
-        open = {openReset}
-        setOpen = {setOpenReset}
-        emailUser = {emailUser}
-        codeOTP = {codeOTP}
-      />
         </>
      );
 }
  
-export default ModalOTP;
+export default ModalVerify;

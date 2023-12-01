@@ -4,14 +4,18 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import './register.scss';
 import { callLRegisterUser } from '../../services/api';
+import ModalVerify from './ModalVerify';
 
 
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
+    const [openVerify, setOpenVerify] = useState(false);
+    const [emailVerify, setEmailVerify] = useState("");
 
     const onFinish = async (values) => {
         const { email, password, display_name, phone_number, detail_address} = values;
+        setEmailVerify(email)
         if(phone_number.length < 10){
             message.error("Số điện thoại cần nhập tối thiểu 10 số!")
             return
@@ -21,7 +25,8 @@ const RegisterPage = () => {
         setIsSubmit(false);
          if (res?.data?.id) {
              message.success('Đăng ký tài khoản thành công!');
-             navigate('/login')
+             setOpenVerify(true)
+             //navigate('/login')
          } else {
             notification.error({
                 message: "Có lỗi xảy ra",
@@ -111,6 +116,11 @@ const RegisterPage = () => {
                     </section>
                 </div>
             </main>
+            <ModalVerify
+                open = {openVerify}
+                setOpen = {setOpenVerify}
+                emailVerify = {emailVerify}
+            />
         </div>
     )
 }
