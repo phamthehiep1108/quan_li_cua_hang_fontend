@@ -221,11 +221,14 @@ export const callGetInfoDashBoard = () => {
 export const callPostEmailForgotPass = (email) => {
     return axios.post(`/api/user/send-code`,{email})
 }
-//2-forgot password
+//2-verify otp
 export const callPostVerifyCode = (email, code) => {
-    return axios.post(`/api/user/send-code`,{email, code})
+    return axios.post(`/api/user/verify-code`,{email, code})
 }
 //3-reset password
+export const callResetPassword = (email, code, new_password) => {
+    return axios.post(`/api/user/reset-password`,{email, code, new_password})
+}
 
 
 

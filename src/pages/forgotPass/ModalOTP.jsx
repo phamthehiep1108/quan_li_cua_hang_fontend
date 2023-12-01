@@ -12,6 +12,7 @@ const ModalOTP = (props) => {
     const [form] = Form.useForm()
     const[isSubmit, setIsSubmit] = useState(false)
     const[openReset, setOpenReset] = useState(false)
+    const[codeOTP, setCodeOTP] = useState("")
 
     const navigate = useNavigate()
 
@@ -24,8 +25,10 @@ const ModalOTP = (props) => {
 
     const onFinish = async(value) => {
       setIsSubmit(true);
-      const {email, otp_code} = value;
-      const res = await callPostVerifyCode(email, +otp_code)
+      const {email, code} = value;
+     // console.log("code>>>",value);
+      setCodeOTP(code);
+      const res = await callPostVerifyCode(email, +code)
       if(res.status === 200){
         message.success("Xác thực OTP thành công, vui lòng kiểm tra email")
         setIsSubmit(false);
@@ -80,7 +83,7 @@ const ModalOTP = (props) => {
             <Col span={24} style={{ padding: "0 10px" }}>
               <Form.Item
                 label="Mã OTP"
-                name="opt_code"
+                name="code"
                 labelCol={{ span: 24 }}
                // hidden = {true}
               >
@@ -96,6 +99,8 @@ const ModalOTP = (props) => {
       <ModalResetPass
         open = {openReset}
         setOpen = {setOpenReset}
+        emailUser = {emailUser}
+        codeOTP = {codeOTP}
       />
         </>
      );
