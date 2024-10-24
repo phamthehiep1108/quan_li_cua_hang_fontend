@@ -1,223 +1,224 @@
-import imageHome from "../../assets/Banner.jpg";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./home.scss";
-import img1 from "../../assets/img1.jpg";
-import img2 from "../../assets/img2.jpg";
-import img3 from "../../assets/img3.jpg";
-import img4 from "../../assets/tour-dao6.jpg";
-import imgCol1 from "../../assets/halong.jpg";
-import roomBanner from "../../assets/roomBanner.jpg";
-
-import { IoLocationSharp } from "react-icons/io5";
-import { IoIosTime } from "react-icons/io";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { IoTicket } from "react-icons/io5";
-
-import { Rate, Input, Button, Form } from 'antd';
-import moment from "moment/moment";
-import { Link, useNavigate } from "react-router-dom";
+import imageHome from "../../assets/banner1.jpg";
+import productImage1 from "../../assets/product-thumb-1.png"; // Nhập ảnh sản phẩm 1
+import productImage2 from "../../assets/product-thumb-2.png"; // Nhập ảnh sản phẩm 2
+import productImage3 from "../../assets/product-thumb-1.png"; // Nhập thêm ảnh sản phẩm mới
+import productImage4 from "../../assets/product-thumb-1.png"; // Nhập thêm ảnh sản phẩm mới
 
 const HomePage = (props) => {
-  const navigate = useNavigate()
-  const { Search } = Input;
-  const {listTour, listRoom} = props
-  console.log('listTour>>>',listTour);
+  const navigate = useNavigate();
 
   return (
     <>
-      <div className="home">
-
-        <div className="overlay">
-          <img src={imageHome} alt="#img" />
-        </div>
-
-        <div className="homeContent container">
-
-          <div className="textDiv">
-            <span className="smallText">Our Packages</span>
-            <h1 className="homeTitle">Search your Holiday</h1>
-          </div>
-
-          <div className="cardDiv">
-              
-              <div className="content">
-               
-                      <Input placeholder="Search your Holiday" className="input-search" />
-                   
+      {/* Banner Section */}
+      <section className="banner-section">
+        <div className="container">
+          <div className="banner-content">
+            <h1 className="title">Organic</h1>
+            <h2 className="sub-title">Foods at</h2>
+            <h2 className="sub-title">
+              your <span>Doorsteps</span>
+            </h2>
+            <p className="description">Dignissim massa diam elementum.</p>
+            <div className="cta-buttons">
+              <a href="#" className="btn btn-primary">
+                Start Shopping
+              </a>
+              <a href="#" className="btn btn-dark">
+                Join Now
+              </a>
+            </div>
+            <div className="info-row">
+              <div className="info-box">
+                <p>14k+</p>
+                <span>Product Varieties</span>
               </div>
-          </div>
-          <div className="btn-search">
-              <Button type="primary">Search Holiday</Button>
-          </div>
-
-        </div>
-
-      </div>
-      <div className="home-tour-container">
-        <div className="text-header">
-          <h1>Khám phá điểm đến nổi bật</h1>
-          <p>
-            Nhận cơ hội để đi du lịch | Đi nghỉ | Nghỉ dưỡng cùng gia đình | Tận
-            hưởng chính mình
-          </p>
-        </div>
-        <div className="layout-intro">
-          <div className="list-img">
-            <div className="img-item">
-              <img src={imgCol1} alt="#" />
-            </div>
-            <div className="img-item">
-              <img src={img1} alt="#" />
-            </div>
-            <div className="img-item">
-              <img src={img4} alt="#" />
-            </div>
-            <div className="img-item">
-              <img src={img3} alt="#" />
+              <div className="info-box">
+                <p>50k+</p>
+                <span>Happy Customers</span>
+              </div>
+              <div className="info-box">
+                <p>10+</p>
+                <span>Store Locations</span>
+              </div>
             </div>
           </div>
         </div>
-        <div className="text-review">
-          <h1>Tour HOT 2023</h1>
-          <p>
-            Chào hè 2023 sôi động với những Tour du lịch hấp dẫn, những địa điểm
-            thu hút khách du lịch tại Nha Trang. Khám phá ngay để có thêm những
-            trải nghiệm hè thật sôi động bên gia đình, người thân nào !
-          </p>
-        </div>
-        <div className="tour-list">
-          {listTour.length > 0 &&
-            listTour?.map(tour => {
-              return (
-                <>
-                  <div className="tour-item" onClick={()=>navigate(`/tour/${tour?.id}`)}>
-                    <div className="left-item">
-                      <div className="media-tour">
-                        <img src={`${tour.logo}`} alt="#imgTour" />
-                      </div>
 
-                      <div className="tour-content">
-                        <h5 className="tour-name">{tour.name}</h5>
-                        <p className="tour-desc">
-                         {tour.description}
-                        </p>
-                        <div className="list-info">
-                          <div className="item-info" style={{display:'flex', alignItems:'center'}}>
-                              <IoIosTime />
-                            <span>
-                              {moment(`${tour.end_date}`).diff(moment(`${tour.start_date}`),"days")} ngày
-                            </span>
-                          </div>
-                          <div className="item-info" style={{display:'flex', alignItems:'center'}}>
-                            
-                              <BsFillPeopleFill />
-                            <span>
-                              {tour?.categories.number} người
-                            </span>
-                          </div>
-                          <div className="item-info" style={{display:'flex', alignItems:'center'}}>
-                            <IoLocationSharp />
-                            <span>
-                              4 địa điểm
-                            </span>
-                          </div>
-                          <div className="item-info" style={{display:'flex', alignItems:'center'}}>
-                            <IoTicket />
-                            <span>{tour?.can_order} Vé còn lại</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="right-item">
-                      <div className="review-and-start">
-                        <span className="the-reviews">3.1540 Review</span>
-                        <span>
-                           <Rate disabled defaultValue={5} />
-                        </span>
-                      </div>
-                      <span className="price-tour">
-                        {new Intl.NumberFormat("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        }).format(tour.cost ?? 0)} / Người
-                      </span>
-                      <button className="btn-booking"
-                        onClick={()=>navigate(`/tour/${tour?.id}`)}
-                      >Đặt ngay</button>
-                    </div>
-                  </div>
-                </>
-              )
-            })
-          }
-          
+        {/* Info Cards at Bottom */}
+        <div className="bottom-info">
+          <div className="info-card">
+            <h5>Fresh from farm</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+          </div>
+          <div className="info-card">
+            <h5>100% Organic</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+          </div>
+          <div className="info-card">
+            <h5>Free delivery</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+          </div>
         </div>
-      </div>
-      <div className="btn-view-more">
-        <button onClick={()=>navigate('/tour')}>Xem thêm</button>
-      </div>
-      <div className="home-room-container">
-        <div className="banner-room">
-          <img src={roomBanner} alt="#bannerImg" />
-        </div>
+      </section>
 
-        <div className="list-room">
-          {listRoom.length > 0 && 
-          
-          listRoom?.map(room => {
-            return (
-              <>
-                <div className="room-item" onClick={()=>navigate(`/room/${room?.id}`)}>
-                  <div className="room-media">
-                    <img src={`${room.logo}`} alt="#roomImg" />
-                  </div>
-                  <div className="room-info">
-                    <div className="room-info-top">
-                      <h4 className="room-title">
-                        {room.name}
-                      </h4>
-                      <div className="room-rate">
-                          <Rate disabled defaultValue={4} />
-                      </div>
-                      <div className="room-review">
-                        <span style={{color:'red'}}>Đánh giá: 4.0 Rất tốt</span>
-                        <span>(1.27k đánh giá)</span>
-                      </div>
-                      <div className="room-tag">
-                        <span className="tag-item">Giá tốt</span>
-                        <span className="tag-item">Gần biển</span>
-                        <span className="tag-item">Luxury</span>
-                      </div>
-                    </div>
-                    <div className="room-info-bottom">
-                      <h3 className="room-price">
-                      {new Intl.NumberFormat("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        }).format(room.cost ?? 0)}
+      {/* Best Selling Products Section */}
+      <section className="best-selling pb-5">
+        <div className="container-lg">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="section-header d-flex flex-wrap justify-content-between my-4">
+                <h2 className="section-title">Best Selling Products</h2>
+                <div className="d-flex align-items-center">
+                  <a href="#" className="btn btn-primary rounded-1">
+                    View All
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                {/* Product Item 1 */}
+                <div className="col">
+                  <div className="product-item">
+                    <figure>
+                      <a href="#" title="Whole Wheat Sandwich Bread">
+                        <img
+                          src={productImage1}
+                          alt="Whole Wheat Sandwich Bread"
+                          className="product-image"
+                        />
+                      </a>
+                    </figure>
+                    <div className="product-details">
+                      <h3 className="product-title">
+                        Whole Wheat Sandwich Bread
                       </h3>
-                      <p className="room-noti">*Chấp nhận sau 24h</p>
+                      <div className="rating">
+                        <span>⭐⭐⭐⭐</span>
+                        <span>(222)</span>
+                      </div>
+                      <div className="price">
+                        <del>$24.00</del>
+                        <span className="current-price">$18.00</span>
+                        <span className="discount-tag">10% OFF</span>
+                      </div>
                     </div>
                   </div>
-                </div>     
-              </>
-            )
-          })   
-          }
-          <div className="view-more-room">
-           
-           <Link to={'/room'}>
-             <span>
-               Xem thêm
-             </span>
-           </Link>
-      
-         </div>
+                </div>
+                {/* Product Item 2 */}
+                <div className="col">
+                  <div className="product-item">
+                    <figure>
+                      <a href="#" title="Organic Almonds">
+                        <img
+                          src={productImage2}
+                          alt="Organic Almonds"
+                          className="product-image"
+                        />
+                      </a>
+                    </figure>
+                    <div className="product-details">
+                      <h3 className="product-title">Organic Almonds</h3>
+                      <div className="rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span>(150)</span>
+                      </div>
+                      <div className="price">
+                        <del>$15.00</del>
+                        <span className="current-price">$12.00</span>
+                        <span className="discount-tag">20% OFF</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Product Item 3 */}
+                <div className="col">
+                  <div className="product-item">
+                    <figure>
+                      <a href="#" title="Fresh Salmon">
+                        <img
+                          src={productImage3}
+                          alt="Fresh Salmon"
+                          className="product-image"
+                        />
+                      </a>
+                    </figure>
+                    <div className="product-details">
+                      <h3 className="product-title">Fresh Salmon</h3>
+                      <div className="rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span>(180)</span>
+                      </div>
+                      <div className="price">
+                        <del>$28.00</del>
+                        <span className="current-price">$24.00</span>
+                        <span className="discount-tag">15% OFF</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Product Item 4 */}
+                <div className="col">
+                  <div className="product-item">
+                    <figure>
+                      <a href="#" title="Imported Italian Pasta">
+                        <img
+                          src={productImage4}
+                          alt="Imported Italian Pasta"
+                          className="product-image"
+                        />
+                      </a>
+                    </figure>
+                    <div className="product-details">
+                      <h3 className="product-title">Imported Italian Pasta</h3>
+                      <div className="rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span>(300)</span>
+                      </div>
+                      <div className="price">
+                        <del>$20.00</del>
+                        <span className="current-price">$18.00</span>
+                        <span className="discount-tag">10% OFF</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Thêm sản phẩm khác nếu cần */}
+                <div className="col">
+                  <div className="product-item">
+                    <figure>
+                      <a href="#" title="Organic Avocados">
+                        <img
+                          src={productImage2}
+                          alt="Organic Avocados"
+                          className="product-image-1"
+                        />
+                      </a>
+                    </figure>
+                    <div className="product-details">
+                      <h3 className="product-title">Organic Avocados</h3>
+                      <div className="rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span>(250)</span>
+                      </div>
+                      <div className="price">
+                        <del>$30.00</del>
+                        <span className="current-price">$25.00</span>
+                        <span className="discount-tag">16% OFF</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-       
-      </div>
-            
-    
-    
+      </section>
     </>
   );
 };

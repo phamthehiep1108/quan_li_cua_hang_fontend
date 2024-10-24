@@ -1,44 +1,34 @@
-import { callGetTourRoomHome } from "../../services/api";
-import { useEffect, useState } from "react";
-import { Rate } from 'antd';
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import HomePage from "./HomePage";
+import { callGetTourRoomHome } from "../../services/api";
 import "./home.scss";
 
 const Home = () => {
-  const navigate = useNavigate()
-  const [listTour, setListTour] = useState([])
-  const [listRoom, setListRoom] = useState([])
+  const [listTour, setListTour] = useState([]);
+  const [listRoom, setListRoom] = useState([]);
 
   useEffect(() => {
-      fetchListTourHome();
-      fetchListRoomHome();
+    fetchListTourHome();
+    fetchListRoomHome();
   }, []);
 
-  const fetchListTourHome = async() => {
-      const res = await callGetTourRoomHome("3","tour","1")
-      if(res && res?.data){
-          setListTour(res.data.data)
-        //  console.log("check res",res);
-      }
-  }
-  const fetchListRoomHome = async() => {
-    const res = await callGetTourRoomHome("3","room","10")
-    if(res && res?.data){
-        setListRoom(res.data.data)
-       console.log("check resRoom",res);
+  const fetchListTourHome = async () => {
+    const res = await callGetTourRoomHome("3", "tour", "1");
+    if (res && res.data) {
+      setListTour(res.data.data);
     }
-  }
+  };
 
-  //console.log( moment('2011-02-07 15:13:06').diff(moment('2011-02-01 12:14:06'),"days"));
+  const fetchListRoomHome = async () => {
+    const res = await callGetTourRoomHome("3", "room", "10");
+    if (res && res.data) {
+      setListRoom(res.data.data);
+    }
+  };
 
   return (
     <>
-    <HomePage
-      listTour = {listTour}
-      listRoom = {listRoom}
-    />
-    
+      <HomePage listTour={listTour} listRoom={listRoom} />
     </>
   );
 };
