@@ -11,18 +11,20 @@ import { Button, Row, Col, Form, InputNumber, Pagination, Input } from "antd";
 import { Select } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { useDispatch, useSelector } from "react-redux";
-import { callGetTourRoomPage, callGetCategoryForUser } from "../../services/api";
+import {
+  callGetTourRoomPage,
+  callGetCategoryForUser,
+} from "../../services/api";
 import { doSaveCategoryAction } from "../../redux/categoryAD/categorySlice";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
-
 const ListRoom = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const { Search } = Input;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -36,7 +38,6 @@ const ListRoom = () => {
   const [querySearch, setQuerySearch] = useState("");
 
   useEffect(() => {
-    
     getCateForTourPage();
   }, []);
 
@@ -50,12 +51,19 @@ const ListRoom = () => {
 
   useEffect(() => {
     fetchListTour();
-  }, [queryCheckbox, currentPage, pageSize, queryInputRange, querySort, querySearch]);
+  }, [
+    queryCheckbox,
+    currentPage,
+    pageSize,
+    queryInputRange,
+    querySort,
+    querySearch,
+  ]);
 
   const fetchListTour = async () => {
     // `page=1&perpage=10&type[]=tour&type[]=room&category[]=1&category[]=2&search=tour1&cost_min=12&cost_max=80&sort_cost=asc`
     let tourQuery = `page=${currentPage}&perpage=${pageSize}&type[]=room`;
-    if(querySearch){
+    if (querySearch) {
       tourQuery += querySearch;
     }
     if (queryCheckbox) {
@@ -66,11 +74,11 @@ const ListRoom = () => {
       tourQuery += queryInputRange;
     }
 
-    if(querySort){
-        tourQuery += querySort;
+    if (querySort) {
+      tourQuery += querySort;
     }
 
-   // console.log("query after checkbox>>>", tourQuery);
+    // console.log("query after checkbox>>>", tourQuery);
 
     const res = await callGetTourRoomPage(tourQuery);
     if (res && res.data) {
@@ -86,9 +94,9 @@ const ListRoom = () => {
 
   const onChangeSelect = (value) => {
     console.log("value sort>>>", value);
-    if(value){
-        setQuerySort(value)
-        setCurrentPage(1)
+    if (value) {
+      setQuerySort(value);
+      setCurrentPage(1);
     }
   };
 
@@ -118,7 +126,7 @@ const ListRoom = () => {
       let queryByCheckCate = checkedValues.join("");
       setQueryCheckbox(queryByCheckCate);
       //console.log('checked => ', queryByCheckCate);
-      setCurrentPage(1)
+      setCurrentPage(1);
     } else {
       setQueryCheckbox("");
     }
@@ -130,20 +138,19 @@ const ListRoom = () => {
     if (values) {
       let queryRange = `&cost_min=${values.range.from}&cost_max=${values.range.to}`;
       setQueryInputRange(queryRange);
-      setCurrentPage(1)
+      setCurrentPage(1);
     }
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if(e.target.dataSearch){
+    if (e.target.dataSearch) {
       setQuerySearch(`&search=${e.target.dataSearch.value}`);
     }
-  }
+  };
 
- // console.log(querySearch);
+  // console.log(querySearch);
 
- 
   return (
     <>
       <div className="list-tour">
@@ -158,21 +165,21 @@ const ListRoom = () => {
             </div>
             <div className="cardDiv-room">
               <div className="content">
-                <form onSubmit={(e)=>handleSearch(e)} >
-                      <Input 
-                        placeholder="Search your Holiday" 
-                        className="input-search-room" 
-                        name="dataSearch"
-                        />
-                   
-                     <div className="btn-search-room">
-                      <button className="btn-search-holiday" >Search Holiday</button>
-                    </div>
-                   
+                <form onSubmit={(e) => handleSearch(e)}>
+                  <Input
+                    placeholder="Search your Holiday"
+                    className="input-search-room"
+                    name="dataSearch"
+                  />
+
+                  <div className="btn-search-room">
+                    <button className="btn-search-holiday">
+                      Search Holiday
+                    </button>
+                  </div>
                 </form>
               </div>
-          </div>
-         
+            </div>
           </div>
         </div>
         <div className="container-list-tour">
@@ -189,7 +196,12 @@ const ListRoom = () => {
               >
                 <Form.Item>
                   <div className="range-cell">
-                    <span className="range-title" style={{textAlign:'center'}}>Khoảng giá</span>
+                    <span
+                      className="range-title"
+                      style={{ textAlign: "center" }}
+                    >
+                      Khoảng giá
+                    </span>
                     <div className="range-value">
                       <Form.Item name={["range", "from"]} labelCol={24}>
                         <InputNumber placeholder="Từ" name="from" min={0} />
@@ -256,24 +268,22 @@ const ListRoom = () => {
                 <div className="select-sort">
                   <span>Sắp xếp theo: </span>
                   <span>
-               
                     <Select
-                        showSearch
-                        placeholder="Select a sort"
-                        optionFilterProp="children"
-                        onChange={onChangeSelect}
-                    
-                        options={[
-                            {
-                                value: "&sort_cost=asc",
-                                label: "Thấp đến cao",
-                            },
-                            {
-                                value: "&sort_cost=desc",
-                                label: "Cao đến thấp",
-                            },
-                        ]}
-  />
+                      showSearch
+                      placeholder="Select a sort"
+                      optionFilterProp="children"
+                      onChange={onChangeSelect}
+                      options={[
+                        {
+                          value: "&sort_cost=asc",
+                          label: "Thấp đến cao",
+                        },
+                        {
+                          value: "&sort_cost=desc",
+                          label: "Cao đến thấp",
+                        },
+                      ]}
+                    />
                   </span>
                 </div>
               </Row>
@@ -282,19 +292,19 @@ const ListRoom = () => {
                   {listDataTour?.map((tour) => {
                     return (
                       <>
-                        <div className="tour-item" onClick={()=>navigate(`/room/${tour?.id}`)}>
+                        <div
+                          className="tour-item"
+                          onClick={() => navigate(`/room/${tour?.id}`)}
+                        >
                           <div className="left-item">
                             <div className="media-tour">
                               <img src={`${tour?.logo}`} alt="#imgTour" />
                             </div>
                             <div className="tour-content">
                               <h5 className="tour-name">{tour?.name}</h5>
-                              <p className="tour-desc">
-                                {tour?.description}
-                              </p>
+                              <p className="tour-desc">{tour?.description}</p>
                               <div className="list-info">
                                 <div className="tour-info">
-                                  
                                   <span className="item-info">
                                     {tour?.categories.number} người
                                   </span>
@@ -308,7 +318,8 @@ const ListRoom = () => {
                                     {new Intl.NumberFormat("vi-VN", {
                                       style: "currency",
                                       currency: "VND",
-                                    }).format(tour.cost ?? 0)}/ngày
+                                    }).format(tour.cost ?? 0)}
+                                    /ngày
                                   </span>
                                 </div>
                               </div>

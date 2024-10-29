@@ -161,7 +161,7 @@ const Header = () => {
             <ul className="navList flex">
               <li className="navItem ">
                 <NavLink to={"/"} className="navLink" activeClassName="active">
-                  Khách hàng
+                  Trang chủ
                 </NavLink>
               </li>
               <li className="navItem">
@@ -170,7 +170,7 @@ const Header = () => {
                   className="navLink"
                   activeClassName="active"
                 >
-                  Sản phẩm
+                  Khách hàng
                 </NavLink>
               </li>
               <li className="navItem">
@@ -179,7 +179,7 @@ const Header = () => {
                   className="navLink"
                   activeClassName="active"
                 >
-                  Đơn hàng
+                  Sản phẩm
                 </NavLink>
               </li>
               <li className="navItem">
@@ -188,12 +188,12 @@ const Header = () => {
                   className="navLink"
                   activeClassName="active"
                 >
-                  Nhập kho
+                  Đơn hàng
                 </NavLink>
               </li>
               <li className="navItem" onClick={() => setOpenModalContact(true)}>
                 <a href="#" className="navLink">
-                  Liên hệ
+                  Thống kê
                 </a>
               </li>
             </ul>

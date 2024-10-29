@@ -4,8 +4,6 @@
   max-width: 1170px;
   padding: 15px;
 
-
-
   .range-cell {
     padding: 10px 20px;
     background-color: #ffffff;
@@ -19,7 +17,6 @@
     .range-value {
       display: flex;
       justify-content: space-between;
-    
     }
 
     .btn-search-range {
@@ -140,43 +137,39 @@
   }
 }
 
-.select-sort{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
+.select-sort {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
 }
 
-.cardDiv-room{
-  margin: 0  auto;
+.cardDiv-room {
+  margin: 0 auto;
   //  background-color: #ffffff;
-    border-radius: 10px;
-    width: 76%;
-    translate: 0% -280%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  border-radius: 10px;
+  width: 76%;
+  translate: 0% -280%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-    .content{
-
-        .input-search-room{
-            height: 70px;
-        }
-        .btn-search-room{
-          translate: 87% -170%;
-          .btn-search-holiday{
-            border: none;
-            padding: 8px;
-            background-color: #e54141;
-            border-radius: 5px;
-            color: #ffffff;
-            font-weight: 500;
-            cursor: pointer;
-          }
-          
-        }
-
+  .content {
+    .input-search-room {
+      height: 70px;
     }
+    .btn-search-room {
+      translate: 87% -170%;
+      .btn-search-holiday {
+        border: none;
+        padding: 8px;
+        background-color: #e54141;
+        border-radius: 5px;
+        color: #ffffff;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+  }
 }
-

@@ -8,12 +8,12 @@ import {
   message,
   notification,
   Rate,
-  Avatar
+  Avatar,
 } from "antd";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { callCreateReview } from "../../services/api";
-import './modalReview.scss'
+import "./modalReview.scss";
 
 const ModalReview = (props) => {
   const { open, setOpen, room_id, tourDetail, getListComment } = props;
@@ -22,7 +22,7 @@ const ModalReview = (props) => {
 
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const accountUser = useSelector((state) => state.account.user);
-  const user_id = accountUser?.id
+  const user_id = accountUser?.id;
 
   const [imgPreview, setImgPreview] = useState([]);
   const [images, setImages] = useState([]);
@@ -33,36 +33,33 @@ const ModalReview = (props) => {
 
   //upload file
   const handleFile = (e) => {
-
-      const files = [...images]; // Spread syntax creates a shallow copy
-      files.push(...e.target.files); // Spread again to push each selected file individually
-      setImages({files});
-      setImgPreview({files});
-     //images?.files?.forEach((file) => data.append('images[]', file))
+    const files = [...images]; // Spread syntax creates a shallow copy
+    files.push(...e.target.files); // Spread again to push each selected file individually
+    setImages({ files });
+    setImgPreview({ files });
+    //images?.files?.forEach((file) => data.append('images[]', file))
   };
 
   //onfinish
   const onFinish = async (value) => {
-    const {content } = value
-    console.log("value",value);
-    if(isAuthenticated === false){
+    const { content } = value;
+    console.log("value", value);
+    if (isAuthenticated === false) {
       notification.error({
-          message:'Bạn chưa đăng nhập',
-          description:'Không thể thực hiện review'
-      })
+        message: "Bạn chưa đăng nhập",
+        description: "Không thể thực hiện review",
+      });
       return;
     }
 
-    const res = await callCreateReview( user_id, room_id, rate, content, images);
-    if(res && res.data && res.status === 200){
-          message.success(res.message)
-          setOpen(false)
-          await getListComment();
-          console.log("res>>>",res);
+    const res = await callCreateReview(user_id, room_id, rate, content, images);
+    if (res && res.data && res.status === 200) {
+      message.success(res.message);
+      setOpen(false);
+      await getListComment();
+      console.log("res>>>", res);
     }
-    };
-
-
+  };
 
   return (
     <>
@@ -73,8 +70,8 @@ const ModalReview = (props) => {
         onCancel={() => {
           setOpen(false);
           form.resetFields();
-          setImages([])
-          setImgPreview([])
+          setImages([]);
+          setImgPreview([]);
         }}
         okText="Đánh giá"
         cancelText="Hủy"
@@ -87,7 +84,6 @@ const ModalReview = (props) => {
 
         <Form form={form} name="basic" onFinish={onFinish} autoComplete="off">
           <Row gutter={15}>
-
             <Col span={24} style={{ padding: "0 10px" }}>
               <Form.Item
                 label="Chất lượng"
@@ -114,21 +110,21 @@ const ModalReview = (props) => {
             <Col span={24} style={{ padding: "0 10px" }}>
               <Form.Item label="Hình ảnh" name="images" labelCol={{ span: 24 }}>
                 <div className="list-img-review">
-                  {imgPreview && imgPreview?.files?.map(file => {
+                  {imgPreview &&
+                    imgPreview?.files?.map((file) => {
                       return (
                         <>
                           <div className="img-review-item">
-                              <img src={URL.createObjectURL(file)} alt="#imgRv" />
+                            <img src={URL.createObjectURL(file)} alt="#imgRv" />
                           </div>
                         </>
-                      )
-                  })}
-                    
+                      );
+                    })}
                 </div>
-                <div style={{marginTop:'15px'}}>
-                    <label for="fileUpload" className="upload-files">
-                        Upload Image
-                    </label>
+                <div style={{ marginTop: "15px" }}>
+                  <label for="fileUpload" className="upload-files">
+                    Upload Image
+                  </label>
                 </div>
                 <input
                   id="fileUpload"
