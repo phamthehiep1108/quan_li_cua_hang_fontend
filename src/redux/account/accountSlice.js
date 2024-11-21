@@ -5,13 +5,10 @@ const initialState = {
     isLoading: true,
     user: {
         id: "",
-        display_name: "",
+        name: "",
         email: "",
-        phone_number: "",
-        avatar: "",
-        role_id:0,
+        role:0,
         status: 0,
-        verify: 0,
     },
 
     admin: {
@@ -37,8 +34,9 @@ export const accountSlice = createSlice({
           
             state.isAuthenticated = true;
             state.isLoading = false;
+            
 
-            state.user = action.payload.user;
+            state.user = action.payload;
             state.role = action.payload.role
 
         },

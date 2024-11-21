@@ -30,8 +30,45 @@ const ListRoom = () => {
   const [pageSize, setPageSize] = useState(5);
   const [total, setTotal] = useState(0);
 
-  const [dataCate, setListDataCate] = useState([]);
-  const [listDataTour, setListDataTour] = useState([]);
+  const [dataCate, setListDataCate] = useState([{ id: 1, name: "Tour trong nước" },
+    { id: 2, name: "Tour quốc tế" },
+    { id: 3, name: "Tour giá rẻ" },
+    { id: 4, name: "Tour cao cấp" },
+    { id: 5, name: "Tour gia đình" },])
+  const [listDataTour, setListDataTour] = useState([
+    {
+      "id": 1,
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrBHwb5qrxEnmJdlzKUenOgz0RBrtoucpMGQ&s",
+      "name": "Tour Hà Nội",
+      "description": "Khám phá nét đẹp thủ đô Hà Nội.",
+      "categories": {
+        "number": 20
+      },
+      "cost": 500000
+    },
+    {
+      "id": 2,
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrBHwb5qrxEnmJdlzKUenOgz0RBrtoucpMGQ&s",
+      "name": "Tour Sài Gòn",
+      "description": "Trải nghiệm sự sôi động của thành phố Sài Gòn.",
+      "categories": {
+        "number": 15
+      },
+      "cost": 750000
+    },
+    {
+      "id": 3,
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrBHwb5qrxEnmJdlzKUenOgz0RBrtoucpMGQ&s",
+      "name": "Tour Đà Nẵng",
+      "description": "Chiêm ngưỡng vẻ đẹp của biển Đà Nẵng.",
+      "categories": {
+        "number": 25
+      },
+      "cost": 600000
+    }
+  ])
+    
+
   const [queryCheckbox, setQueryCheckbox] = useState("");
   const [queryInputRange, setQueryInputRange] = useState("");
   const [querySort, setQuerySort] = useState("");

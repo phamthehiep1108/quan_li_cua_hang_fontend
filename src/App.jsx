@@ -41,6 +41,7 @@ import NewPage from './pages/news';
 import ContactTable from './components/Admin/Contact/ContactTable';
 import DashBoard from './components/Admin/DashBoard/DashBoard';
 import ForgotPass from './pages/forgotPass';
+import ReceiptOrder from './components/Admin/Receipt/ReceiptProduct';
 
 
 const Layout = () => {
@@ -127,9 +128,9 @@ export default function App() {
       children: [
         {
           index: true, element:
-             <ProtectedRoute>
+             
                 <DashBoard />
-             </ProtectedRoute>
+             
         },
         
         {
@@ -163,7 +164,7 @@ export default function App() {
         },
         {
           path: "review",
-          element: <TableReview />,
+          element: <ReceiptOrder />,
         },
         {
           path: "contact",

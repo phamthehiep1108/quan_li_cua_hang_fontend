@@ -22,10 +22,10 @@ const LoginForAdmin
         const res = await callLoginAdmin(email, password);
         console.log("check res",res);
         setIsSubmit(false);
-        if (res?.data) {
-            localStorage.setItem('access_token', res.data.token);
+        if (res) {
+            //localStorage.setItem('access_token', res.data.token);
 
-            dispatch(doLoginAdminAction(res.data))
+            dispatch(doLoginAdminAction(res))
 
             message.success('Đăng nhập tài khoản thành công!');
             navigate('/')

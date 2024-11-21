@@ -9,13 +9,13 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { callGetListOrder, callGetRoomTour } from "../../../services/api";
+import { callGetListOrder, callGetRoomTour, callGetStockInOrder } from "../../../services/api";
 import InputSearchOrder from "./InputSearchOrder";
 import ViewDetailOrder from "./ViewDetailOrder";
 import ModalUpdateStatus from "./ModalUpdateStatus";
 // import InputSearchRT from "./InputSearchRoom";
 
-const TableOrder = () => {
+const ReceiptOrder = () => {
     const [form] = Form.useForm()
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState(1);
@@ -26,10 +26,12 @@ const TableOrder = () => {
     const [statusOrder, setStatusOrder] = useState("")
     const [querySearch, setQuerySearch] = useState("")
     const [listOrderRoomTour, setListOrderRoomTour] = useState([])
+    
 
     const [openViewModal, setOpenViewModal] = useState(false)
     const [dataViewDetail, setDataViewDetail] = useState({})
-    
+    const [dataView, setDataView] = useState({})
+
     const [openModalUpdateStatus, setOpenModalUpdateStatus] = useState(false)
     const [idOrder, setIdOrder] = useState(0)
 
@@ -37,28 +39,28 @@ const TableOrder = () => {
   const columns = [
     {
       title: "ID",
-      dataIndex: "orderId",
+      dataIndex: "stockinId",
       render: (text, record) => (
         <a
           onClick={() => {
             setOpenViewModal(true);
             setDataViewDetail(record);
-           
+            
           }}
         >
-          ORD0{record.orderId}
+          ORD0{record.stockInId}
         </a>
       ),
     },
     {
-      title: "Customer Name",
-      dataIndex: "customerName",
-      key: "customerName"
+      title: "Suppler Name",
+      dataIndex: "supplierName",
+      key: "supplierName"
     },
     {
-      title: "Order Date",
-      dataIndex: "orderDate",
-      key: "orderDate"
+      title: "Stock In Date",
+      dataIndex: "stockInDate",
+      key: "stockInDate"
     },
     {
       title: "Total Amount",
@@ -68,25 +70,37 @@ const TableOrder = () => {
     },
     {
       title: "Status",
-      dataIndex: "orderStatus",
-      key: "orderStatus"
+      dataIndex: "status",
+      key: "status"
     },
     {
       title: "Action",
       dataIndex: "action",
-      render: (_, record) => (
-        <>
-          <EditTwoTone
-            twoToneColor="#3cc41a"
-            style={{ cursor: "pointer", marginLeft: "20px" }}
-            onClick={() => {
-              setOpenModalUpdateStatus(true);
-              setIdOrder(record.orderid);
-            }}
-          />
-        </>
-      ),
+      render: (_, record) => {
+        const isCompleted = record.status === "Completed"; // Kiểm tra trạng thái
+    
+        return (
+          <>
+            <EditTwoTone
+              twoToneColor={isCompleted ? "#d9d9d9" : "#3cc41a"} // Màu xám nếu là "completed"
+              style={{
+                cursor: isCompleted ? "not-allowed" : "pointer",
+                marginLeft: "20px",
+                opacity: isCompleted ? 0.5 : 1, // Giảm độ hiển thị nếu là "completed"
+              }}
+              onClick={() => {
+                if (!isCompleted) { // Chỉ mở modal nếu trạng thái không phải là "completed"
+                  setOpenModalUpdateStatus(true);
+                  setDataView(record)
+                  setIdOrder(record.stockInId);
+                }
+              }}
+            />
+          </>
+        );
+      },
     },
+    
   ];
   
 
@@ -148,7 +162,7 @@ const TableOrder = () => {
       queryRT += statusOrder
     }
   //  console.log('query>>>', queryRT);
-    const res = await callGetListOrder(queryRT);
+    const res = await callGetStockInOrder(queryRT);
     
     if (res && res?.data) {
       setListOrderRoomTour(res.data)
@@ -163,7 +177,6 @@ const TableOrder = () => {
 const handleDelete = async() => {
   setOpenDeleteModal(true)
 };
-
 
   return (
     <>
@@ -278,7 +291,7 @@ const handleDelete = async() => {
         setOpen = {setOpenModalUpdateStatus}
         fetchGetOrderRoomTour = {fetchGetOrderRoomTour}
         idOrder = {idOrder}
-        dataView = {dataViewDetail}
+        dataView = {dataView}
       />
 
      {/* <ModalDeleteTR
@@ -292,4 +305,4 @@ const handleDelete = async() => {
   );
 };
 
-export default TableOrder;
+export default ReceiptOrder;

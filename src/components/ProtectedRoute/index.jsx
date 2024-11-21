@@ -6,11 +6,11 @@ const RoleBaseRoute = (props) => {
     const isAdminRoute = window.location.pathname.startsWith('/admin');
     const userRole = useSelector(state => state.account.role);
      
-    if (isAdminRoute && userRole === 'admin') {
-        return (<>{props.children}</>)
-    } else {
-        return (<NotPermitted />)
-    }
+    // if (isAdminRoute && userRole === 'admin') {
+    //     return (<>{props.children}</>)
+    // } else {
+    //     return (<NotPermitted />)
+    // }
 }
 
 const ProtectedRoute = (props) => {

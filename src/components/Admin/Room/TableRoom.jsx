@@ -64,7 +64,7 @@ const TableRoom = () => {
           >
             <a>{record?.id}</a>
             <div className="imgPreview">
-              <img src={record?.logo} alt="#imgPreview" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2ISwqeanWaJTsUyUuLHABO4Lp9wVYvCyQWQ&s" alt="#imgPreview" />
             </div>
           </div>
           
@@ -84,30 +84,21 @@ const TableRoom = () => {
       
     // },
     {
-      title: "Type",
-      dataIndex: "type_room",
-    },
-    {
       title: "Cost(VND)",
-      dataIndex: "cost",
+      dataIndex: "price",
     },
     {
-      title: "Start date",
-      dataIndex: "start_date",
+      title: "Current Quantity",
+      dataIndex: "quantity",
     },
-    {
-      title: "End date",
-      dataIndex: "end_date",
-    },
-   
     {
       title: "Category",
       dataIndex: "category",
-      render: (text, record, index) => {
-        return (
-            <span>{record?.categories.name}</span>
-        );
-      },
+      // render: (text, record, index) => {
+      //   return (
+      //       <span>{record?.categories.name}</span>
+      //   );
+      // },
     },
     // {
     //   title: "Status",
@@ -205,8 +196,8 @@ const TableRoom = () => {
     const res = await callGetRoomTour(queryRT);
     if (res && res?.data) {
 
-      setListRoomTour(res?.data?.data);
-      setTotal(res.data.total)
+      setListRoomTour(res.data);
+      setTotal(res.total)
      
      // console.log("resAll",res);
     }

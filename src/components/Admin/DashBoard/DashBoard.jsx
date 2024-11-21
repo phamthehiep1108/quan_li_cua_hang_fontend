@@ -1,7 +1,7 @@
 import CountUp from 'react-countup';
 import { Col, Row, Statistic, Card } from 'antd';
 import './dash.scss';
-import { callGetInfoDashBoard } from '../../../services/api';
+import { callGetAllCustomer, callGetAllPrice, callGetDetailOrder, callGetInfoDashBoard, callGetListOrder, callGetRoomTour } from '../../../services/api';
 import { ResponsiveContainer, BarChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import { useEffect, useState } from 'react';
 const DashBoard = () => {
@@ -10,13 +10,31 @@ const DashBoard = () => {
 
     useEffect(()=>{
         fetchGetInfoDash()
+        
     },[])
 
     const fetchGetInfoDash = async() => {
-        const res = await callGetInfoDashBoard();
+        
+        // const res = await callGetInfoDashBoard();
+        const res = await callGetAllCustomer()
+        const res2 = await callGetListOrder()
+        const res3 = await callGetRoomTour()
+        const res4 = await callGetAllPrice()
         console.log("res>>>",res);
-        if(res && res.status === 200){
-            setChartData(res.data)
+        
+        if(res && res.data){
+            // setChartData(res.data)
+            setChartData({
+                customer: res.total,
+                products: res3.total,
+                orders: res2.total,
+                revenue: res4,
+                order_pending: 50,
+                order_access: 120,
+                order_ending: 200,
+                order_cancel: 10,
+                order_pending_cancel: 5,
+            })
         }
     }
    
@@ -54,20 +72,27 @@ const DashBoard = () => {
         <>
             <div className='dashboard-container'>
                 <div className="header-dash">
+                
                 <Row gutter={5} style={{display:'flex', gap:'70px'}}>
                     <Col span={4}>
                         <Card bordered={false}>
+                        
                             <Statistic title="Customer" value={chartData?.customer} formatter={formatter} />
                         </Card>
                     </Col>
                     <Col span={4}>
                         <Card bordered={false}>
-                            <Statistic title="Room" value={chartData?.room} formatter={formatter} />
+                            <Statistic title="Products" value={chartData?.products} formatter={formatter} />
                         </Card>
                     </Col>
                     <Col span={4}>
                         <Card bordered={false}>
-                            <Statistic title="Tour" value={chartData?.tour} formatter={formatter} />
+                            <Statistic title="Orders" value={chartData?.orders} formatter={formatter} />
+                        </Card>
+                    </Col>
+                    <Col span={4}>
+                        <Card bordered={false}>
+                            <Statistic title="Revenue (VNĐ)" value={chartData?.revenue} formatter={formatter} />
                         </Card>
                     </Col>
                 </Row>

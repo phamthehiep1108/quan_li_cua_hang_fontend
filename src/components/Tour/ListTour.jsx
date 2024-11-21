@@ -1,5 +1,6 @@
 import imageHome from "../../assets/Banner.jpg";
 import "./listtour.scss";
+import "./haha.scss";
 import img1 from "../../assets/img1.jpg";
 import img5 from "../../assets/img5.jpg";
 import roomItem from "../../assets/roomItem.jpg";
@@ -14,6 +15,8 @@ import { doSaveCategoryAction } from "../../redux/categoryAD/categorySlice";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css'
+ 
 
 const ListTour = () => {
   const [form] = Form.useForm();
@@ -26,7 +29,58 @@ const ListTour = () => {
   const [total, setTotal] = useState(0);
 
   const [dataCate, setListDataCate] = useState([]);
-  const [listDataTour, setListDataTour] = useState([]);
+  const [listDataTour, setListDataTour] = useState([{
+    "id": 101,
+    "logo": "https://example.com/tour101.jpg",
+    "name": "Tour Biển Nha Trang",
+    "description": "Tham quan bãi biển tuyệt đẹp và thưởng thức hải sản tươi sống.",
+    "start_date": "2024-12-01",
+    "end_date": "2024-12-05",
+    "categories": {
+      "number": 50
+    },
+    "can_order": 20,
+    "cost": 3000000
+  },
+  {
+    "id": 102,
+    "logo": "https://example.com/tour102.jpg",
+    "name": "Tour Núi Đà Lạt",
+    "description": "Khám phá những đồi thông bạt ngàn và không khí trong lành.",
+    "start_date": "2024-11-15",
+    "end_date": "2024-11-20",
+    "categories": {
+      "number": 40
+    },
+    "can_order": 15,
+    "cost": 4500000
+  },
+  {
+    "id": 103,
+    "logo": "https://example.com/tour103.jpg",
+    "name": "Tour Thành Phố Hà Nội",
+    "description": "Khám phá lịch sử và văn hóa thủ đô.",
+    "start_date": "2024-10-10",
+    "end_date": "2024-10-14",
+    "categories": {
+      "number": 30
+    },
+    "can_order": 10,
+    "cost": 3500000
+  },
+  {
+    "id": 104,
+    "logo": "https://example.com/tour104.jpg",
+    "name": "Tour Sinh Thái Miền Tây",
+    "description": "Trải nghiệm cuộc sống miền sông nước và tham quan vườn trái cây.",
+    "start_date": "2024-11-25",
+    "end_date": "2024-11-29",
+    "categories": {
+      "number": 25
+    },
+    "can_order": 5,
+    "cost": 2800000
+  }]);
   const [queryCheckbox, setQueryCheckbox] = useState("");
   const [queryInputRange, setQueryInputRange] = useState("");
   const [querySort, setQuerySort] = useState("");
@@ -143,7 +197,7 @@ const ListTour = () => {
       <div className="list-tour">
         <div className="home">
           <div className="overlay">
-            <img src={img5} alt="#img" />
+            
           </div>
           <div className="homeContent container">
             <div className="textDiv">
@@ -180,47 +234,10 @@ const ListTour = () => {
                 }
                 onFinish={onFinish}
               >
-                <Form.Item>
-                  <div className="range-cell">
-                    <span className="range-title" style={{textAlign:'center'}}>Khoảng giá</span>
-                    <div className="range-value">
-                      <Form.Item name={["range", "from"]} labelCol={24}>
-                        <InputNumber placeholder="Từ" name="from" min={0} />
-                      </Form.Item>
-                      <span>-</span>
-                      <Form.Item name={["range", "to"]} labelCol={24}>
-                        <InputNumber placeholder="Đến" name="to" min={0} />
-                      </Form.Item>
-                    </div>
-                    <div
-                      className="btn-search-range"
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-evenly",
-                      }}
-                    >
-                      <Button type="primary" onClick={() => form.submit()}>
-                        Search
-                      </Button>
-                      <Button
-                        type="error"
-                        style={{ border: "1px solid #ECECEC" }}
-                        onClick={() => {
-                          form.resetFields();
-                          setQueryCheckbox("");
-                          setQueryInputRange("");
-                          setCurrentPage(1);
-                        }}
-                      >
-                        Refresh
-                      </Button>
-                    </div>
-                  </div>
-                </Form.Item>
 
                 <Form.Item name={"category"}>
                   <div className="category-cell">
-                    <span className="category-title">Loại tour</span>
+                    <span className="category-title">Cathegory</span>
                     <Checkbox.Group
                       className="list-checkbox"
                       onChange={onChange}
@@ -336,6 +353,308 @@ const ListTour = () => {
             </Col>
           </Row>
         </div>
+        <div className="tab-content" id="nav-tabContent">
+        <div className="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+
+            <div className="category-section mb-4">
+          <h4 className="mb-3">Categories</h4>
+          <ul className="nav nav-pills">
+            <li className="nav-item">
+              <a className="nav-link active" href="#" id="nav-all-category">All</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#" id="nav-fruits-category">Fruits</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#" id="nav-vegetables-category">Vegetables</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#" id="nav-drinks-category">Drinks</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#" id="nav-snacks-category">Snacks</a>
+            </li>
+          </ul>
+        </div>
+
+          <div className="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+            <div className="col">
+              <div className="product-item">
+                <span className="badge bg-success position-absolute m-3">-30%</span>
+                <a href="#" className="btn-wishlist">
+                  <svg width="24" height="24">
+                    <use href="#heart"></use>
+                  </svg>
+                </a>
+                <figure>
+                  <a href="index.html" title="Product Title">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6482/6482627.png" className="tab-image" alt="Product"/>
+                  </a>
+                </figure>
+                <h3>Sunstar Fresh Melon Juice</h3>
+                <span className="qty">1 Unit</span>
+                <span className="rating">
+                  <svg width="24" height="24" className="text-primary">
+                    <use href="#star-solid"></use>
+                  </svg> 4.5
+                </span>
+                <span className="price">$18.00</span>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="input-group product-qty">
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                        <svg width="16" height="16">
+                          <use href="#minus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                    <input type="text" id="quantity" name="quantity" className="form-control input-number" defaultValue="1" />
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                        <svg width="16" height="16">
+                          <use href="#plus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                  <a href="#" className="nav-link">
+                    Add to Cart <iconify-icon icon="uil:shopping-cart" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="col">
+              <div className="product-item">
+                <span className="badge bg-success position-absolute m-3">-30%</span>
+                <a href="#" className="btn-wishlist">
+                  <svg width="24" height="24">
+                    <use href="#heart"></use>
+                  </svg>
+                </a>
+                <figure>
+                  <a href="index.html" title="Product Title">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6482/6482627.png" className="tab-image" alt="Product"/>
+                  </a>
+                </figure>
+                <h3>Sunstar Fresh Melon Juice</h3>
+                <span className="qty">1 Unit</span>
+                <span className="rating">
+                  <svg width="24" height="24" className="text-primary">
+                    <use href="#star-solid"></use>
+                  </svg> 4.5
+                </span>
+                <span className="price">$18.00</span>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="input-group product-qty">
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                        <svg width="16" height="16">
+                          <use href="#minus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                    <input type="text" id="quantity" name="quantity" className="form-control input-number" defaultValue="1" />
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                        <svg width="16" height="16">
+                          <use href="#plus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                  <a href="#" className="nav-link">
+                    Add to Cart <iconify-icon icon="uil:shopping-cart" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="col">
+              <div className="product-item">
+                <span className="badge bg-success position-absolute m-3">-30%</span>
+                <a href="#" className="btn-wishlist">
+                  <svg width="24" height="24">
+                    <use href="#heart"></use>
+                  </svg>
+                </a>
+                <figure>
+                  <a href="index.html" title="Product Title">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6482/6482627.png" className="tab-image" alt="Product"/>
+                  </a>
+                </figure>
+                <h3>Sunstar Fresh Melon Juice</h3>
+                <span className="qty">1 Unit</span>
+                <span className="rating">
+                  <svg width="24" height="24" className="text-primary">
+                    <use href="#star-solid"></use>
+                  </svg> 4.5
+                </span>
+                <span className="price">$18.00</span>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="input-group product-qty">
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                        <svg width="16" height="16">
+                          <use href="#minus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                    <input type="text" id="quantity" name="quantity" className="form-control input-number" defaultValue="1" />
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                        <svg width="16" height="16">
+                          <use href="#plus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                  <a href="#" className="nav-link">
+                    Add to Cart <iconify-icon icon="uil:shopping-cart" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="col">
+              <div className="product-item">
+                <span className="badge bg-success position-absolute m-3">-30%</span>
+                <a href="#" className="btn-wishlist">
+                  <svg width="24" height="24">
+                    <use href="#heart"></use>
+                  </svg>
+                </a>
+                <figure>
+                  <a href="index.html" title="Product Title">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6482/6482627.png" className="tab-image" alt="Product"/>
+                  </a>
+                </figure>
+                <h3>Sunstar Fresh Melon Juice</h3>
+                <span className="qty">1 Unit</span>
+                <span className="rating">
+                  <svg width="24" height="24" className="text-primary">
+                    <use href="#star-solid"></use>
+                  </svg> 4.5
+                </span>
+                <span className="price">$18.00</span>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="input-group product-qty">
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                        <svg width="16" height="16">
+                          <use href="#minus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                    <input type="text" id="quantity" name="quantity" className="form-control input-number" defaultValue="1" />
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                        <svg width="16" height="16">
+                          <use href="#plus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                  <a href="#" className="nav-link">
+                    Add to Cart <iconify-icon icon="uil:shopping-cart" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="col">
+              <div className="product-item">
+                <span className="badge bg-success position-absolute m-3">-30%</span>
+                <a href="#" className="btn-wishlist">
+                  <svg width="24" height="24">
+                    <use href="#heart"></use>
+                  </svg>
+                </a>
+                <figure>
+                  <a href="index.html" title="Product Title">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6482/6482627.png" className="tab-image" alt="Product"/>
+                  </a>
+                </figure>
+                <h3>Sunstar Fresh Melon Juice</h3>
+                <span className="qty">1 Unit</span>
+                <span className="rating">
+                  <svg width="24" height="24" className="text-primary">
+                    <use href="#star-solid"></use>
+                  </svg> 4.5
+                </span>
+                <span className="price">$18.00</span>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="input-group product-qty">
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                        <svg width="16" height="16">
+                          <use href="#minus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                    <input type="text" id="quantity" name="quantity" className="form-control input-number" defaultValue="1" />
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                        <svg width="16" height="16">
+                          <use href="#plus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                  <a href="#" className="nav-link">
+                    Add to Cart <iconify-icon icon="uil:shopping-cart" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="col">
+              <div className="product-item">
+                <span className="badge bg-success position-absolute m-3">-30%</span>
+                <a href="#" className="btn-wishlist">
+                  <svg width="24" height="24">
+                    <use href="#heart"></use>
+                  </svg>
+                </a>
+                <figure>
+                  <a href="index.html" title="Product Title">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6482/6482627.png" className="tab-image" alt="Product"/>
+                  </a>
+                </figure>
+                <h3>Sunstar Fresh Melon Juice</h3>
+                <span className="qty">1 Unit</span>
+                <span className="rating">
+                  <svg width="24" height="24" className="text-primary">
+                    <use href="#star-solid"></use>
+                  </svg> 4.5
+                </span>
+                <span className="price">$18.00</span>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div className="input-group product-qty">
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                        <svg width="16" height="16">
+                          <use href="#minus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                    <input type="text" id="quantity" name="quantity" className="form-control input-number" defaultValue="1" />
+                    <span className="input-group-btn">
+                      <button type="button" className="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                        <svg width="16" height="16">
+                          <use href="#plus"></use>
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+                  <a href="#" className="nav-link">
+                    Add to Cart <iconify-icon icon="uil:shopping-cart" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
       </div>
     </>
   );

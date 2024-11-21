@@ -5,25 +5,24 @@ import axios from '../utils/axios-customize';
 
 //Login Admin/Staff
 export const callLoginAdmin = (email, password) => {
-    return axios.post('/api/v2/auth/login', { email, password })
+    return axios.post('/api/users/validate/admin', { email, password })
 }
 
 //Login User
 export const callLoginUser = (email, password, device_token) => {
-    return axios.post('/api/auth/login', { email, password, device_token })
+    return axios.post('/api/users/validate/login', { email, password, device_token })
 }
 
 //Register User
-export const callLRegisterUser = (email, password, display_name, phone_number, detail_address) => {
+export const callLRegisterUser = (email, password, display_name, detail_address) => {
    
     const data = new FormData();
     data.append("email", email);
     data.append("password", password);
-    data.append("display_name", display_name);
-    data.append("phone_number", phone_number);
-    data.append("detail_address", detail_address);
+    data.append("name", display_name);
+    data.append("address", detail_address);
     
-    return axios.post('/api/register', data)
+    return axios.post('/api/users/validate/login', data)
 }
 
 // setting-contact -- get info
@@ -38,19 +37,20 @@ export const callUpdateInfoContact = (phone_number, email, facebook, zalo) => {
 
 // Customer -- /api/v2/customer/index?page=1&perpage=5&search=1%20ng%C6%B0%C6%A1%CC%80i
 export const callGetAllCustomer = (query) => {
-    return axios.get(`/api/v2/customer/${query}`)
+    //return axios.get(`/api/v2/customer/${query}`)
+    return axios.get(`/api/users`)
 }
 // Update status customer
 export const callUpdateStatusCustomer = (id, status) => {
     const statusData = new FormData();
-    statusData.append("status", status);
-    return axios.post(`/api/v2/customer/updateStatus/${id}`,statusData)
+    //statusData.append("status", status);
+    return axios.put(`/api/users/update/${id}`,statusData)
 }
 
 // Delete customer
 export const callDeleteCustomer = (idDelete) => {
-    //console.log('checkApi',{...idDelete});
-    return axios.delete(`/api/v2/customer/multiple-delete`,{params:idDelete})
+    //console.log('checkApi',{...idDelete})
+    return axios.delete(`/api/users/delete`,{params:idDelete})
 }
 // Get category -- /api/v2/category/index?page=1&perpage=10&search=2%20ng%C3%A0y%201%20%C4%91%C3%AAm
 export const callGetCategory = (query) => {
@@ -89,7 +89,12 @@ export const callDeleteCategory = (dataID) => {
 
 // Get Room -- /api/v2/room/index?page=1&perpage=10&search=Phong so 1&status[]=1&type[]=1&type[]=2&type_room[]=room
 export const callGetRoomTour = (query) => {
-    return axios.get(`/api/v2/room/${query}`)
+    // return axios.get(`/api/v2/room/${query}`)
+    return axios.get(`/api/products/all`)
+}
+
+export const callGetAllPrice = () => {
+    return axios.get(`/api/price/all`)
 }
 
 // --- /api/v2/room/index?page=1&perpage=10&type_room[]=room&type_room[]=tour&search=Ha Noi - HCM
@@ -158,18 +163,43 @@ export const callUpdateTour = (id, name, description, type, cost, logo, status, 
 
 // Delete Room Tour
 export const callDeleteRoomTour = (dataID) => {
-    return axios.delete(`/api/v2/room/multiple-delete`,{params:dataID})
+    const data = new FormData();
+    return axios.delete(`/api/v2/room/multiple-delete`, { params: { order_id: 123 } } )
 }
 
 //Get order booking
 export const callGetListOrder = (query) => {
-    return axios.get(`/api/v2/order/${query}`)
+    // return axios.get(`/api/v2/order/${query}`)
+    return axios.get(`/api/manager/orders`)
 }
+
+
+export const callGetProductBasedOnOrders = (order_id) => {
+    const data = new FormData();
+    data.append("id", order_id)
+    return axios.post(`api/order/each-product`, data )
+}
+
 //Update status order
 export const callUpdateStatusOrder = (idOrder, status) => {
     console.log(idOrder, status);
-    return axios.post(`/api/v2/order/update-status/${idOrder}?status=${status}`)
+    const data = new FormData();
+    data.append("id", idOrder)
+    return axios.post(`/stock-in/confirm/${idOrder}?status=${status}`)
 }
+
+export const callAddProducts = (dataView) => {
+    console.log(dataView)
+    const requestData = {
+        data: [dataView]
+    }
+    return axios.post(`/stock-in/save-product`, requestData, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
 
 //Get list request cancel
 export const callGetListRequestCancel = (query) => {
@@ -180,10 +210,16 @@ export const callUpdateRequestCancel = (idRequest, status) => {
     return axios.post(`/api/v2/request-cancel/update-status/${idRequest}?status=${status}`)
 }
 
+//Get list stockIn
+export const callGetStockInOrder = () => {
+    return axios.get(`/stock-in/details/all`)
+}
+
 //Get list staff and admin--------------
 export const callGetListStaff = (query) => {
     // -- /api/v2/staff/index?page=1&perpage=10&search=&role_id[]=1&role_id[]=3
-    return axios.get(`api/v2/staff/index?${query}`)
+    // return axios.get(`api/v2/staff/index?${query}`)
+    return axios.get(`api/users/admin`)
 }
 
 // Create new staff
@@ -294,6 +330,9 @@ export const callBookingRoom = (id_room, id_user, start_date, end_date) => {
 }
 
 // Call get order user
+
+
+
 export const callGetListOrderUser = (query) => {
     return axios.get(`/api/order/list-order?${query}`)
 }

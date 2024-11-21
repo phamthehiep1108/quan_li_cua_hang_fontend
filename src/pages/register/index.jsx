@@ -21,9 +21,10 @@ const RegisterPage = () => {
             return
         }
         setIsSubmit(true);
-         const res = await callLRegisterUser(email, password, display_name, phone_number, detail_address);
+        const res = await callLRegisterUser(email, password, display_name, detail_address);
         setIsSubmit(false);
-         if (res?.data?.id) {
+        
+        if (res?.id) {
              message.success('Đăng ký tài khoản thành công!');
              setOpenVerify(true)
              //navigate('/login')

@@ -16,7 +16,8 @@ import { callAddProducts, callUpdateStatusOrder } from "../../../services/api";
 
 
   const ModalUpdateStatus = (props) => {
-    const { open, setOpen, fetchGetOrderRoomTour, idOrder, dataView} = props;
+    const { open, setOpen, fetchGetOrderRoomTour, idOrder, dataView } = props;
+    
     const [isSubmit, setIsSubmit] = useState(false);
     const [statusValue, setStatusValues] = useState("");
   
@@ -26,15 +27,11 @@ import { callAddProducts, callUpdateStatusOrder } from "../../../services/api";
 
     const optionsStatus = [
         {
-            value: "access",
-            label: "Access"
+            value: "Completed",
+            label: "Completed"
         },
         {
-            value: "ending",
-            label: "Ending"
-        },
-        {
-            value: "cancel",
+            value: "Cancel",
             label: "Cancel"
         },
     ]
@@ -46,12 +43,15 @@ import { callAddProducts, callUpdateStatusOrder } from "../../../services/api";
     const onFinish = async () => {
       
      //  setIsSubmit(true)
-       const res = await callUpdateStatusOrder(idOrder, statusValue)
+      
+      const res = await callUpdateStatusOrder(idOrder, statusValue)
+      console.log(statusValue)
+      
       // setIsSubmit(false)
-       if(res){
+       if(res) {
           if (statusValue == "Completed") {
-            const res_product = await callAddProducts();
-          }
+            const res_add = await callAddProducts(dataView)
+          } 
           message.success('Update status thành công')
           form.resetFields();
           setOpen(false)
