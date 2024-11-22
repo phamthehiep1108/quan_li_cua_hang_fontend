@@ -34,13 +34,13 @@ const TableCustomer = () => {
   const handleDeleteCustomer = async (id) => {
     //console.log('id',id);
     const idDelete = {
-      "ids":[id]
+      "id":id
     }
 
     //  console.log(idDelete);
      const res = await callDeleteCustomer(idDelete);
-
-     if (res && res.data && res.status === 200) {
+    //if (res && res.data && res.status === 200) {
+      if (res.message == "Successfully!!!" ) {
         message.success("Đã xóa thành công!");
         await fetchCustomerWithPaginate();
     } else {
@@ -66,6 +66,7 @@ const TableCustomer = () => {
         // console.log('after set',statusCus);
 
         const res = await callUpdateStatusCustomer(id, statusCus)
+        console.log(res)
         if(res && res?.data){
           setStatusCustomer(res.data.status)
          // console.log('object',res);
@@ -98,7 +99,7 @@ const TableCustomer = () => {
     },
     {
       title: "Tên hiển thị",
-      dataIndex: "display_name",
+      dataIndex: "name",
       key: "name",
     
     },
@@ -110,13 +111,13 @@ const TableCustomer = () => {
     },
     {
       title: "Số điện thoại",
-      dataIndex: "phone_number",
+      dataIndex: "phone",
       key: "phone",
      
     },
     {
       title: "Địa chỉ",
-      dataIndex: "detail_address",
+      dataIndex: "address",
       key: "address",
      
     },
@@ -191,9 +192,12 @@ const TableCustomer = () => {
     }
   
     const res = await callGetAllCustomer(query);
+    
     if (res && res?.data) {
-       setListCustomer(res.data.data);
+
+       setListCustomer(res.data);
        setTotal(res.data.total);
+      
     }
     setIsLoading(false);
     //console.log('resDataUser >>>', res)

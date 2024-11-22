@@ -16,13 +16,14 @@ const LoginPage = () => {
 
     const onFinish = async (values) => {
 
-        const { email, password } = values;
+    const { email, password } = values;
       //  setIsSubmit(true);
         const res = await callLoginUser(email, password, "xxx111xxx");
         console.log("res login>>>",res);
-        if (res?.data && res.status === 200) {
-            localStorage.setItem('access_token', res.data.token);
-            dispatch(doLoginAction(res.data))
+        console.log("res status>>>",res.status);
+        if (res) {
+            //localStorage.setItem('access_token', res.data.token);
+            dispatch(doLoginAction(res))
             message.success('Đăng nhập tài khoản thành công!');
             navigate('/')
         }else if(res?.status !== 200) {

@@ -2,25 +2,8 @@ import { Drawer, Descriptions, Badge, Divider } from 'antd';
 import { useState, useEffect } from 'react';
 import { callGetProductBasedOnOrders } from '../../../services/api';
 const ViewDetailOrder = (props) => {
-    const [productsAll, setProductBasedOnSingleOrder] = useState({});
-    const [total, setTotal] = useState("");
+
     const {open, setOpen, dataView} = props
-    // useEffect(() => {
-    //     fetchGetProductBasedOnSingleOrder();
-    //   }, []);
-    
-    //   const fetchGetProductBasedOnSingleOrder = async () => {
-        
-    //     const res = await callGetProductBasedOnOrders(dataView?.orderId);
-    //     console.log(dataView?.orderId)
-    //     console.log("res>>>>>" + JSON.stringify(res));
-    //     if (res && res?.data) {
-    //       setProductBasedOnSingleOrder(JSON.stringify(res))
-    //       setTotal(res.total)
-    //       //console.log("resAll",res);
-    //     }
-    //     // setIsLoading(false);
-    //   };
     return ( 
         <>
             <Drawer 
@@ -49,7 +32,7 @@ const ViewDetailOrder = (props) => {
                         {dataView?.status}
                     </Descriptions.Item>
 
-                    <Descriptions.Item label="Products">
+                    <Descriptions.Item label="Products Add">
                         {dataView?.products && dataView.products.length > 0 ? (
                             dataView.products.map((product, index) => (
                             <div key={index}>
@@ -89,14 +72,17 @@ const ViewDetailOrder = (props) => {
                         }
                     </Descriptions.Item>
                    
-                    <Descriptions.Item label="userID">
-                        {dataView?.customerId}
+                    <Descriptions.Item label="Supplier Id">
+                        {dataView?.supplierId}
                     </Descriptions.Item>
                     <Descriptions.Item label="Email">
-                        {dataView?.customerEmail}
+                        {dataView?.supplierEmail}
                     </Descriptions.Item>
-                    <Descriptions.Item label="User Name">
-                        {dataView?.customerName}
+                    <Descriptions.Item label="Supplier Name">
+                        {dataView?.supplierName}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Phone">
+                        {dataView?.supplierPhone}
                     </Descriptions.Item>
 
                    

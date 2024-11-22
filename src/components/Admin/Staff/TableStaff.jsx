@@ -37,7 +37,7 @@ const TableStaff = () => {
   const handleDeleteStaff = async (id) => {
     //console.log('id',id);
     const idDelete = {
-      "ids":[id]
+      "id":id
     }
 
     //  console.log(idDelete);
@@ -70,7 +70,7 @@ const TableStaff = () => {
     },
     {
         title: "Role ID",
-        dataIndex: "role_id",
+        dataIndex: "id",
     },
     {
         title: "Status",
@@ -78,7 +78,7 @@ const TableStaff = () => {
     },
     {
       title: "Name",
-      dataIndex: "display_name",
+      dataIndex: "name",
     },
     {
       title: "Phone",
@@ -90,7 +90,7 @@ const TableStaff = () => {
     },
     {
       title: "Detail Address",
-      dataIndex: "detail_address",
+      dataIndex: "address",
     },
     
    
@@ -151,10 +151,10 @@ const TableStaff = () => {
     //     queryRequest+=statusRequest
     // }
 
-     const res = await callGetListStaff(queryRequest);
+    const res = await callGetListStaff(queryRequest);
     if(res && res?.data){
-        setListStaff(res.data.data)
-        setTotal(res.data.total)
+        setListStaff(res.data)
+        setTotal(res.total)
     }
 
      console.log('check res >>>',res);

@@ -54,7 +54,7 @@ const items = [
         icon: <ExceptionOutlined />
     },
     {
-        label: <Link to='/admin/room'>Manage Tour</Link>,
+        label: <Link to='/admin/room'>Manage Products</Link>,
         key: 'room',
         icon: <ExceptionOutlined />
     },
@@ -64,7 +64,7 @@ const items = [
         icon: <ExceptionOutlined />
     },
     {
-        label: <Link to='/admin/review'>Manage Review</Link>,
+        label: <Link to='/admin/review'>Receipt Products</Link>,
         key: 'review',
         icon: <ExceptionOutlined />
     },
