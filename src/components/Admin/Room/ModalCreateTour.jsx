@@ -35,12 +35,18 @@ import imgUpload from '../../../assets/img-upload.jpg'
 
 
     //Select cate
-    let options = cates?.map(item => {
-        return {
-          value: `${item.id}`,
-          label: `${item.name}`
-        }
-    })
+    // let options = cates?.map(item => {
+    //     return {
+    //       value: `${item.id}`,
+    //       label: `${item.name}`
+    //     }
+    // })
+
+    // let options = {
+    //   value: 1,
+    //   label: "Hoa quả"
+    // }
+  
 
     const handleFileBanner = (e) => {
 
@@ -82,13 +88,13 @@ import imgUpload from '../../../assets/img-upload.jpg'
 
 
     const onFinish = async (value) => {
-      const {name, type_room, type ,cost, description, status} = value
+      const {name,cost, description, status} = value
             setIsSubmit(true)
-            const res = await callCreateNewTour(name, description, type, cost, logo, banner, status, type_room, startDate, endDate)
+            const res = await callCreateNewTour(name, description, cost, logo, status)
             setIsSubmit(false)
-            if(res && res.data){
+            if(res.message == 'Successfully!' ){
                 console.log("res check", res);
-                message.success('Tạo phòng mới thành công')
+                message.success('Tạo sản phẩm mới thành công')
                 form.resetFields();
                 setOpen(false)
                 setTypeRT('&type_room[]=tour')
@@ -97,7 +103,7 @@ import imgUpload from '../../../assets/img-upload.jpg'
               }else{
                   notification.error({
                   message: 'Có lỗi xảy ra!!!',
-                  description:'Không thể tạo mới phòng',
+                  description:'Không thể tạo mới sản phẩm',
                   duration: 3
               })
   
@@ -142,7 +148,7 @@ import imgUpload from '../../../assets/img-upload.jpg'
             <Row gutter={15}>
               <Col span={12} style={{ padding: "0 10px" }}>
                 <Form.Item
-                  label="Name Tour"
+                  label="Name Product"
                   name="name"
                   labelCol={{ span: 24 }}
                   rules={[{ required: true, message: "Please input name!"}]}
@@ -155,13 +161,12 @@ import imgUpload from '../../../assets/img-upload.jpg'
                   label="Category"
                   name="type"
                   labelCol={{ span: 24 }}
-                  rules={[{ required: true, message: "Please input type!" }]}
                 >
                   <Select
                     showSearch
                     placeholder="Select a category"
                     optionFilterProp="children"
-                    options={options}
+                    
                  />
                 </Form.Item>
               </Col>
@@ -177,41 +182,20 @@ import imgUpload from '../../../assets/img-upload.jpg'
               </Col>
               <Col span={12} style={{ padding: "0 10px" }}>
                 <Form.Item
-                  label="Type Room"
-                  name="type_room"
+                  label="Status"
+                  name="status"
                   labelCol={{ span: 24 }}
-                  rules={[{ required: true, message: "Please input type_room!" }]}
+                  rules={[{ required: true, message: "Please input status!" }]}
                 >
-                    <Select
-                        showSearch
-                        placeholder="Select a type room"
-                        optionFilterProp="children"
-                        options={optionsType}
-                    />
+                   <Select
+                    showSearch
+                    placeholder="Select a status"
+                    optionFilterProp="children"
+                    options={optionsStatus}
+                 />
                 </Form.Item>
               </Col>
-              <Col span={12} style={{ padding: "0 10px" }}>
-                <Form.Item
-                  label="Date Start"
-                 // name="start_date"
-                  labelCol={{ span: 24 }}
-                  rules={[{ required: true, message: "Please input start_date follow format YYYY-MM-DD" }]}
-                >
-                    {/* <Input/> */}
-                    <DatePicker onChange={onChangeStart} />
-                </Form.Item>
-              </Col>
-              <Col span={12} style={{ padding: "0 10px" }}>
-                <Form.Item
-                  label="Date end"
-                 // name="end_date"
-                  labelCol={{ span: 24 }}
-                  rules={[{ required: true, message: "Please input end_date follow format YYYY-MM-DD" }]}
-                >
-                    {/* <Input/> */}
-                    <DatePicker onChange={onChangeEnd} />
-                </Form.Item>
-              </Col>
+  
               <Col span={8} style={{ padding: "0 10px" }}>
                 <Form.Item
                   label="Logo"
@@ -240,55 +224,7 @@ import imgUpload from '../../../assets/img-upload.jpg'
 
                 </Form.Item>
               </Col>
-              <Col span={16} style={{ padding: "0 10px" }}>
-                <Form.Item
-                  label="Banner"
-                  labelCol={{ span: 24 }}
-                  rules={[{ required: true, message: "Please input banner!" }]}
-                >
-                  {/* <input type="file" onChange={(e)=>handleUploadImg(e,'banner')}/> */}
-                  <div style={{marginTop:'15px'}}>
-                    <label for="fileBanner" className="upload-files">
-                        Upload Banner
-                    </label>
-                </div>
-                <input
-                  id="fileBanner"
-                  type={"file"}
-                  onChange={handleFileBanner}
-                  multiple
-                  style={{ visibility: "hidden" }}
-                />
-                <div className="list-img-review">
-                  { bannerPreview?.files?.map(file => {
-                      return (
-                        <>
-                          <div className="img-review-item">
-                              <img src={URL.createObjectURL(file) || imgUpload} alt="#imgBanner" />
-                          </div>
-                        </>
-                      )
-                  })}
-                    
-                </div>
-                </Form.Item>
-              </Col>
-              <Col span={12} style={{ padding: "0 10px" }}>
-                <Form.Item
-                  label="Status"
-                  name="status"
-                  labelCol={{ span: 24 }}
-                  rules={[{ required: true, message: "Please input status!" }]}
-                >
-                   <Select
-                    showSearch
-                    placeholder="Select a status"
-                    optionFilterProp="children"
-                    options={optionsStatus}
-                 />
-                </Form.Item>
-              </Col>
-           
+              
               <Col span={24} style={{ padding: "0 10px" }}>
                 <Form.Item
                   label="Description"

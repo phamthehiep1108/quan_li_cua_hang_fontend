@@ -7,17 +7,17 @@ const InputSearchRT = (props) => {
   
   const formStyle = {
     maxWidth: "550px",
-   // background: token.colorFillAlter,
+    // background: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
     padding: "10px",
 
   };
-
+  
   const onFinish = (value) => {
     const {name} = value
     let querySearch = ``;
     if(name){
-      querySearch+=`&search=${name}`
+      querySearch+=`?search=${name}`
     }
     handleQuerySearch(querySearch)
   };

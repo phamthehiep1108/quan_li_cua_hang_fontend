@@ -59,11 +59,6 @@ const items = [
         icon: <ExceptionOutlined />
     },
     {
-        label: <Link to='/admin/cancel-request'>Cancel Request</Link>,
-        key: 'request',
-        icon: <ExceptionOutlined />
-    },
-    {
         label: <Link to='/admin/review'>Receipt Products</Link>,
         key: 'review',
         icon: <ExceptionOutlined />
