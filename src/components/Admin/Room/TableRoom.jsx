@@ -27,7 +27,7 @@ const TableRoom = () => {
     const [total, setTotal] = useState(0);
     const [isLoading, setIsLoading] = useState(false)
     const [typeRT, setTypeRT] = useState("&type_room[]=room&type_room[]=tour")
-    const [querySearch, setQuerySearch] = useState("")
+    const [querySearch, setQuerySearch  ] = useState("")
     const [listRoomTour, setListRoomTour] = useState([])
     
 
@@ -179,16 +179,16 @@ const TableRoom = () => {
 
   useEffect(() => {
     fetchGetRoomTour();
-  }, [typeRT, currentPage, pageSize, querySearch]);
+  }, [querySearch]);
 
 
   const fetchGetRoomTour = async () => {
     setIsLoading(true);
-    let queryRT= `index?page=${currentPage}&perpage=${pageSize}`
-    if(typeRT){
-      queryRT += typeRT
-    }
-
+    // let queryRT= `index?page=${currentPage}&perpage=${pageSize}`
+    // if(typeRT){
+    //   queryRT += typeRT
+    // }
+    let queryRT = ``
     if(querySearch){
       queryRT += querySearch  
     }
@@ -236,7 +236,7 @@ const handleDelete = async() => {
             onClick={() => {
               setOpenCreateTour(true)
             }}
-            >New Tour</Button>
+            >New Product</Button>
             }
         </div>
         <div
@@ -258,8 +258,7 @@ const handleDelete = async() => {
               >
                 <span style={{ padding: "5px 8px", border: "1px solid black", borderRadius:'5px' }}>
                   {`Selected ${selectedRowKeys.length} items`}
-                </span>
-               
+                </span>               
                   <Button danger onClick={()=>handleDelete()}>Delete Item</Button>
               
               </div>
@@ -274,7 +273,7 @@ const handleDelete = async() => {
             return (
               <div className="selected-status" style={{display:"flex", justifyContent:'space-between'}}>
                 <span>
-                  Quản lý Room - Tour
+                  Product Manager
                 </span>
                 <span>
                 <Select

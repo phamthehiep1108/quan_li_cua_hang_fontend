@@ -41,12 +41,12 @@ const TableCustomer = () => {
      const res = await callDeleteCustomer(idDelete);
     //if (res && res.data && res.status === 200) {
       if (res.message == "Successfully!!!" ) {
-        message.success("Đã xóa thành công!");
+        message.success("Delete successfully!");
         await fetchCustomerWithPaginate();
     } else {
         notification.error({
-          message: "Có lỗi xảy ra",
-          description: "Có lỗi xảy ra",
+          message: "Something gone wrong!!!",
+          description: "Something gone wrong!!!",
           duration: 3,
         });
     }
@@ -98,7 +98,7 @@ const TableCustomer = () => {
       },
     },
     {
-      title: "Tên hiển thị",
+      title: "Display Name",
       dataIndex: "name",
       key: "name",
     
@@ -110,13 +110,13 @@ const TableCustomer = () => {
      
     },
     {
-      title: "Số điện thoại",
+      title: "Phone",
       dataIndex: "phone",
       key: "phone",
      
     },
     {
-      title: "Địa chỉ",
+      title: "Address",
       dataIndex: "address",
       key: "address",
      
@@ -145,12 +145,12 @@ const TableCustomer = () => {
         return (
           <>
             <Popconfirm
-              title="Xác nhận xóa user"
+              title="User removal comfirmation"
               placement="leftTop"
-              description="Bạn có chắc chắn muốn xóa customer này ?"
+              description="Are you sure you want to delete this user?"
               onConfirm={() => handleDeleteCustomer(record?.id)}
-              okText={"Xác nhận"}
-              cancelText={"Hủy"}
+              okText={"Comfirm"}
+              cancelText={"Cancel"}
               key={index}
             >
               <DeleteTwoTone
@@ -160,12 +160,12 @@ const TableCustomer = () => {
             </Popconfirm>
 
             <Popconfirm
-              title="Xác nhận thay đổi"
+              title="Update comfirmmation"
               placement="leftTop"
-              description="Bạn có chắc chắn muốn thay đổi status customer này ?"
+              description="Are you sure you want to update this user?"
               onConfirm={() => handleChangeStatus(record?.id, record?.status)}
-              okText={"Xác nhận"}
-              cancelText={"Hủy"}
+              okText={"Comfirm"}
+              cancelText={"Cancel"}
               key={`${index}-key`}
             >
               <EditTwoTone
@@ -239,7 +239,7 @@ const TableCustomer = () => {
                 <>
                 
                   <div className="header-table">
-                    <div className="title-table">Quản lý Customer</div>
+                    <div className="title-table">Customer Manager</div>
                     
                   </div>
                 </>

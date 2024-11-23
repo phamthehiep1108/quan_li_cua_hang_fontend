@@ -130,23 +130,23 @@ const TableOrder = () => {
   //-----------------------Main Event--------------------------
   useEffect(() => {
     fetchGetOrderRoomTour();
-  }, [typeRT, currentPage, pageSize, querySearch, statusOrder]);
+  }, [querySearch]);
 
   const fetchGetOrderRoomTour = async () => {
     setIsLoading(true);
-    let queryRT= `index?page=${currentPage}&perpage=${pageSize}`
+    // let queryRT= `index?page=${currentPage}&perpage=${pageSize}`
    
-    if(typeRT){
-      queryRT += typeRT
-    }
-
+    // if(typeRT){
+    //   queryRT += typeRT
+    // }
+    let queryRT = ''
     if(querySearch){
       queryRT += querySearch  
     }
 
-    if(statusOrder){
-      queryRT += statusOrder
-    }
+    // if(statusOrder){
+    //   queryRT += statusOrder
+    // }
   //  console.log('query>>>', queryRT);
     const res = await callGetListOrder(queryRT);
     

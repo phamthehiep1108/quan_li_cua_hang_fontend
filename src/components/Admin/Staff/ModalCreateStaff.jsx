@@ -29,8 +29,8 @@ const ModalCreateStaff = (props) => {
        const {display_name, email, phone_number, detail_address, role_id, password} = value
     //    setIsSubmit(true)
         const res = await callCreateNewStaff(email, password, display_name, phone_number, detail_address, role_id, avatar)
-        console.log("res check", res);
-       if(res && res?.data){
+        
+       if(res && res?.status == 201){
            message.success('Thêm mới staff thành công')
            form.resetFields();
            setOpen(false);

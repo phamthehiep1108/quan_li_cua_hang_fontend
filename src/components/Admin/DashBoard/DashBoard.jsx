@@ -1,9 +1,11 @@
 import CountUp from 'react-countup';
 import { Col, Row, Statistic, Card } from 'antd';
 import './dash.scss';
-import { callGetAllCustomer, callGetAllPrice, callGetDetailOrder, callGetInfoDashBoard, callGetListOrder, callGetRoomTour } from '../../../services/api';
-import { ResponsiveContainer, BarChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
+import { callGetAllCustomer, callGetAllPrice, callGetAllPriceRe, callGetDetailOrder, callGetInfoDashBoard, callGetListOrder, callGetListOrderDash, callGetRoomTour, callGetRoomTourDash, callGetStockInOrder, callGetStockInOrderDash, callListOrderStatus, callListReceiptStatus } from '../../../services/api';
+import { ResponsiveContainer, BarChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, PieChart, Pie, Cell } from 'recharts';
+
 import { useEffect, useState } from 'react';
+const COLORS = ['#0088FE', '#FF8042'];
 const DashBoard = () => {
     const formatter = (value) => <CountUp end={value} separator="," />;
     const [chartData, setChartData] = useState({})
@@ -17,23 +19,30 @@ const DashBoard = () => {
         
         // const res = await callGetInfoDashBoard();
         const res = await callGetAllCustomer()
-        const res2 = await callGetListOrder()
-        const res3 = await callGetRoomTour()
+        const res2 = await callGetListOrderDash()
+        const res2Re = await callGetStockInOrderDash()
+        const res3 = await callGetRoomTourDash()
         const res4 = await callGetAllPrice()
+        const res4Re = await callGetAllPriceRe()
+        const res5 = await callListOrderStatus()
+        const res6 = await callListReceiptStatus() 
+        const revenue = res4 - res4Re
         console.log("res>>>",res);
-        
         if(res && res.data){
             // setChartData(res.data)
             setChartData({
                 customer: res.total,
                 products: res3.total,
                 orders: res2.total,
-                revenue: res4,
-                order_pending: 50,
-                order_access: 120,
-                order_ending: 200,
-                order_cancel: 10,
-                order_pending_cancel: 5,
+                receipts: res2Re.total,
+                revenue_order: res4,
+                revenue_receipt: res4Re,
+                revenue: revenue,
+                order_pending: res5[1]?.orderCount || 0,
+                order_completed: res5[0]?.orderCount || 0,
+                receipt_completed: res6[1]?.receiptCount || 0,
+                receipt_pending: res6[2]?.receiptCount || 0,
+                receipt_cancel: res6[0]?.receiptCount || 0,
             })
         }
     }
@@ -42,31 +51,31 @@ const DashBoard = () => {
         {
           "name": "Order pending",
           "op": chartData?.order_pending,
-          
+        },
+        {
+          "name": "Order completed",
+          "oa": chartData?.order_completed,
          
         },
         {
-          "name": "Order access",
-          "oa": chartData?.order_access,
+          "name": "Receipt pending",
+          "oe": chartData?.receipt_pending,
          
         },
         {
-          "name": "Order ending",
-          "oe": chartData?.order_ending,
-         
+          "name": "Receipt completed",
+          "oc": chartData?.receipt_completed,
         },
         {
-          "name": "Order cancel",
-          "oc": chartData?.order_cancel,
-         
-        },
-        {
-          "name": "Order pending cancel",
-          "opc": chartData?.order_pending_cancel,
-         
+          "name": "Receipt cancel",
+          "opc": chartData?.receipt_cancel,
         },
         
       ]
+    const pieData = [
+        { name: "Buy", value: chartData?.revenue_order || 0 },
+        { name: "Sell", value: chartData?.revenue_receipt || 0 }
+    ];
     
     return ( 
         <>
@@ -92,13 +101,29 @@ const DashBoard = () => {
                     </Col>
                     <Col span={4}>
                         <Card bordered={false}>
+                            <Statistic title="Receipts" value={chartData?.receipts} formatter={formatter} />
+                        </Card>
+                    </Col>
+                    <Col span={5}>
+                        <Card bordered={false}>
+                            <Statistic title="Orders Revenue (VNĐ)" value={chartData?.revenue_order} formatter={formatter} />
+                        </Card>
+                    </Col>
+                    <Col span={7}  >
+                        <Card bordered={false}>
+                            <Statistic title="Receipt Revenue (VNĐ)" value={chartData?.revenue_receipt} formatter={formatter}  />
+                        </Card>
+                    </Col>
+                    <Col span={5}>
+                        <Card bordered={false}>
                             <Statistic title="Revenue (VNĐ)" value={chartData?.revenue} formatter={formatter} />
                         </Card>
                     </Col>
                 </Row>
                 </div>
                 <div className="chart-dash">
-                    <ResponsiveContainer width="95%" height={400}>
+                    
+                    <ResponsiveContainer width="50%" height={400}>
                             <BarChart  data={data} >
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" />
@@ -112,8 +137,35 @@ const DashBoard = () => {
                                 <Bar dataKey="opc" fill="#e414d6" />
                             </BarChart>
                     </ResponsiveContainer>    
+                    <ResponsiveContainer width="50%" height={400}>
+                        <PieChart>
+                            {/* Biểu đồ tròn */}
+                            <Pie
+                                data={pieData}
+                                dataKey="value"
+                                nameKey="name"
+                                cx="50%"
+                                cy="50%"
+                                outerRadius={100}
+                                fill="#8884d8"
+                                label={(entry) => `${entry.name}: ${entry.value}`}
+                            >
+                                {pieData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            {/* Chú thích */}
+                            <Legend verticalAlign="bottom" height={36} />
+                            {/* Tooltip hiển thị chi tiết */}
+                            <Tooltip />
+                        </PieChart>
+                    </ResponsiveContainer>
                 </div>
-            </div>
+
+
+                </div>
+           
+            
         </>
      );
 }

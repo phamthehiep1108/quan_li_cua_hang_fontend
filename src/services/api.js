@@ -90,11 +90,20 @@ export const callDeleteCategory = (dataID) => {
 // Get Room -- /api/v2/room/index?page=1&perpage=10&search=Phong so 1&status[]=1&type[]=1&type[]=2&type_room[]=room
 export const callGetRoomTour = (query) => {
     // return axios.get(`/api/v2/room/${query}`)
+    return axios.get(`/api/products${query}`)
+}
+
+export const callGetRoomTourDash = (query) => {
+    // return axios.get(`/api/v2/room/${query}`)
     return axios.get(`/api/products/all`)
 }
 
 export const callGetAllPrice = () => {
     return axios.get(`/api/price/all`)
+}
+
+export const callGetAllPriceRe = () => {
+    return axios.get(`/stock-in/price/all`)
 }
 
 // --- /api/v2/room/index?page=1&perpage=10&type_room[]=room&type_room[]=tour&search=Ha Noi - HCM
@@ -113,21 +122,20 @@ export const callCreateNewRoom = (name, description, type, cost, logo, banner, s
     return axios.post(`/api/v2/room/create-room`,data)
 }
 // create new tour admin
-export const callCreateNewTour = (name, description, type, cost, logo, banner, status, type_room, start_date, end_date) => {
+export const callCreateNewTour = (name, description, cost, logo, status) => {
     const data = new FormData();
     data.append("name", name);
-    data.append("type", type);
-    data.append("description", description);
-    data.append("cost", cost);
+    // data.append("description", description);
+    data.append("price", cost);
     data.append("logo", logo);
-    banner?.files?.forEach((file) => data.append('banner[]', file))
+    //banner?.files?.forEach((file) => data.append('banner[]', file))
    
-    data.append("status", status);
-    data.append("type_room", type_room);
-    data.append("start_date", start_date);
-    data.append("end_date", end_date);
-    
-    return axios.post(`/api/v2/room/create-room`,data)
+    // data.append("status", status);
+    // data.append("type_room", type_room);
+    // data.append("start_date", start_date);
+    // data.append("end_date", end_date);
+    console.log(data)
+    return axios.post(`/api/products/save`, data)
 }
 
 //Update room
@@ -169,10 +177,13 @@ export const callDeleteRoomTour = (dataID) => {
 
 //Get order booking
 export const callGetListOrder = (query) => {
-    // return axios.get(`/api/v2/order/${query}`)
+    
+    return axios.get(`/api/manager/orders${query}`)
+}
+export const callGetListOrderDash = (query) => {
+    
     return axios.get(`/api/manager/orders`)
 }
-
 
 export const callGetProductBasedOnOrders = (order_id) => {
     const data = new FormData();
@@ -200,7 +211,15 @@ export const callAddProducts = (dataView) => {
     })
 }
 
+export const callListOrderStatus = () => {
 
+    return axios.get(`/api/order/status`)
+}
+
+export const callListReceiptStatus = () => {
+
+    return axios.get(`/stock-in/status`)
+}
 //Get list request cancel
 export const callGetListRequestCancel = (query) => {
     return axios.get(`/api/v2/request-cancel/index?${query}`)
@@ -211,10 +230,12 @@ export const callUpdateRequestCancel = (idRequest, status) => {
 }
 
 //Get list stockIn
-export const callGetStockInOrder = () => {
-    return axios.get(`/stock-in/details/all`)
+export const callGetStockInOrder = (query) => {
+    return axios.get(`/stock-in/details${query}`)
 }
-
+export const callGetStockInOrderDash = (query) => {
+    return axios.get(`/stock-in/details`)
+}
 //Get list staff and admin--------------
 export const callGetListStaff = (query) => {
     // -- /api/v2/staff/index?page=1&perpage=10&search=&role_id[]=1&role_id[]=3
@@ -227,13 +248,12 @@ export const callCreateNewStaff = (email, password, display_name, phone_number, 
     const data = new FormData();
     data.append("email", email);
     data.append("password", password);
-    data.append("display_name", display_name);
-    data.append("phone_number", phone_number);
-    data.append("detail_address", detail_address);
-    data.append("role_id", role_id);
+    data.append("name", display_name);
+    // data.append("phone_number", phone_number);
+    data.append("address", detail_address);
+    data.append("role", role_id);
     data.append("image_data", image_data);
-    
-    return axios.post(`/api/v2/staff/create`,data)
+    return axios.post(`/api/users/save`,data)
 }
 
 //Get list review admin

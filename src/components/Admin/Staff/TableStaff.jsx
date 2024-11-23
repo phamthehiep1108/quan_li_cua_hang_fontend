@@ -103,12 +103,12 @@ const TableStaff = () => {
           <>
            
             <Popconfirm
-              title="Xác nhận xóa staff"
+              title="Staff removal comfirmation"
               placement="leftTop"
-              description="Bạn có chắc chắn muốn xóa staff này ?"
+              description="Are you sure you want to delete this staff?"
               onConfirm={() => handleDeleteStaff(record?.id)}
-              okText={"Xác nhận"}
-              cancelText={"Hủy"}
+              okText={"Comfirm"}
+              cancelText={"Cancel"}
               key={index}
             >
               <DeleteTwoTone
@@ -178,7 +178,7 @@ const TableStaff = () => {
           title={() => {
             return (
               <div className="selected-status-table" style={{display:'flex', justifyContent:'space-between'}}>
-                <div className="title-table">Quản lý Staff</div>
+                <div className="title-table">Staff Manager</div>
                 <div className="select-option-table" style={{display:'flex', gap:'20px'}}>
                   <span>
                     <Select
@@ -211,7 +211,7 @@ const TableStaff = () => {
             showTotal: (total, range) => {
               return (
                 <div>
-                  {range[0]} - {range[1]} / Trên {total}
+                  {range[0]} - {range[1]} / total {total}
                 </div>
               );
             },

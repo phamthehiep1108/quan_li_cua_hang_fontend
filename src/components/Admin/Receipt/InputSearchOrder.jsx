@@ -17,7 +17,7 @@ const InputSearchOrder = (props) => {
     const {name} = value
     let querySearch = ``;
     if(name){
-      querySearch+=`&search=${name}`
+      querySearch+=`?search=${name}`
     }
     handleQuerySearch(querySearch)
   };

@@ -30,7 +30,7 @@ const InputSearchCus = (props) => {
             <Form.Item
               labelCol={{ span: 24 }}
               name={`name`}
-              label={"Name Category"}
+              label={"Search Name"}
               autocomplete="off"
             >
               <Input status="" />
