@@ -9,6 +9,7 @@ const initialState = {
         email: "",
         role:0,
         status: 0,
+        baseRole: "",
     },
 
     admin: {
@@ -16,7 +17,8 @@ const initialState = {
         display_name: "",
         avatar: "",
         role: "",
-        token: ""
+        token: "",
+        baseRole: "",
     },
 
     role:"",
@@ -58,7 +60,7 @@ export const accountSlice = createSlice({
             state.isLoading = false;
 
             state.admin = action.payload;
-            state.role = action.payload.role
+            state.role = action.payload.baseRole
 
         },
         

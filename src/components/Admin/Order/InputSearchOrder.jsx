@@ -36,7 +36,7 @@ const InputSearchOrder = (props) => {
               <Input status="" />
             </Form.Item>
           </Col>
-          <Col span={8} style={{ textAlign: "right", marginTop:"40px" }}>
+          <Col span={6} style={{ textAlign: "right", marginTop:"40px" }}>
             <Button type="primary" htmlType="submit">
                 Search
             </Button>

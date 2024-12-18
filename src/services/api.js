@@ -40,12 +40,19 @@ export const callGetAllCustomer = (query) => {
     //return axios.get(`/api/v2/customer/${query}`)
     return axios.get(`/api/users`)
 }
+
+export const callGetAllSupplier = (query) => {
+    //return axios.get(`/api/v2/customer/${query}`)
+    return axios.get(`/api/suppliers`)
+}
+
 // Update status customer
 export const callUpdateStatusCustomer = (id, status) => {
     const statusData = new FormData();
     //statusData.append("status", status);
     return axios.put(`/api/users/update/${id}`,statusData)
 }
+
 
 // Delete customer
 export const callDeleteCustomer = (idDelete) => {
@@ -54,18 +61,19 @@ export const callDeleteCustomer = (idDelete) => {
 }
 // Get category -- /api/v2/category/index?page=1&perpage=10&search=2%20ng%C3%A0y%201%20%C4%91%C3%AAm
 export const callGetCategory = (query) => {
-    return axios.get(`/api/v2/category/${query}`)
+    return axios.get(`/api/products/stock?${query}`)
 }
-
+export const callGetCategory2 = () => {
+    return axios.get(`/api/categories`)
+}
 // Create Category
-export const callCreateCategory = (name, number, description) => {
+export const callCreateCategory = (name,description) => {
     
     const data = new FormData();
     data.append("name", name);
-    data.append("number", number);
     data.append("description", description);
     
-    return axios.post(`/api/v2/category/create`,data)
+    return axios.post(`/api/categories/save`,data)
 }
 
 // Update Category
@@ -108,7 +116,7 @@ export const callGetAllPriceRe = () => {
 
 // --- /api/v2/room/index?page=1&perpage=10&type_room[]=room&type_room[]=tour&search=Ha Noi - HCM
 // create new room admin
-export const callCreateNewRoom = (name, description, type, cost, logo, banner, status, type_room) => {
+export const callCreateNewRoom = (name, descripti   , type, cost, logo, banner, status, type_room) => {
     const data = new FormData();
     data.append("name", name);
     data.append("type", type);
@@ -124,6 +132,7 @@ export const callCreateNewRoom = (name, description, type, cost, logo, banner, s
 // create new tour admin
 export const callCreateNewTour = (name, description, cost, logo, status) => {
     const data = new FormData();
+    console.log(logo)
     data.append("name", name);
     // data.append("description", description);
     data.append("price", cost);
@@ -135,7 +144,7 @@ export const callCreateNewTour = (name, description, cost, logo, status) => {
     // data.append("start_date", start_date);
     // data.append("end_date", end_date);
     console.log(data)
-    return axios.post(`/api/products/save`, data)
+    return axios.post(`/api/products/category/1/save`, data)
 }
 
 //Update room
@@ -171,8 +180,8 @@ export const callUpdateTour = (id, name, description, type, cost, logo, status, 
 
 // Delete Room Tour
 export const callDeleteRoomTour = (dataID) => {
-    const data = new FormData();
-    return axios.delete(`/api/v2/room/multiple-delete`, { params: { order_id: 123 } } )
+    
+    return axios.delete(`/api/products/delete/${dataID.id}` )
 }
 
 //Get order booking
@@ -244,7 +253,7 @@ export const callGetListStaff = (query) => {
 }
 
 // Create new staff
-export const callCreateNewStaff = (email, password, display_name, phone_number, detail_address, role_id, image_data) => {
+export const callCreateNewStaff = (email, password, display_name, phone_number, detail_address, role_id, image_data, role_base) => {
     const data = new FormData();
     data.append("email", email);
     data.append("password", password);
@@ -252,6 +261,7 @@ export const callCreateNewStaff = (email, password, display_name, phone_number, 
     // data.append("phone_number", phone_number);
     data.append("address", detail_address);
     data.append("role", role_id);
+    data.append("baseRole", role_base)
     data.append("image_data", image_data);
     return axios.post(`/api/users/save`,data)
 }

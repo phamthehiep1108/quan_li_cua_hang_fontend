@@ -20,6 +20,7 @@ import { doLogoutAction } from '../../redux/account/accountSlice';
 
 const { Content, Footer, Sider } = Layout;
 
+
 const items = [
     {
         label: <Link to='/admin'>Dashboard</Link>,
@@ -42,15 +43,20 @@ const items = [
                 icon: <TeamOutlined />,
             },
             {
-                label: <Link to='/admin/contact'>Info Contact</Link>,
-                key: 'contact',
+                label: <Link to='/admin/supplier'>Supplier</Link>,
+                key: 'supplier',
                 icon: <TeamOutlined />,
             },
         ]
     },
     {
-        label: <Link to='/admin/category'>Category</Link>,
-        key: 'category',
+        label: <Link to='/admin/stock'>Stock</Link>,
+        key: 'stock',
+        icon: <ExceptionOutlined />
+    },
+    {
+        label: <Link to='/admin/categories'>Category</Link>,
+        key: 'categories',
         icon: <ExceptionOutlined />
     },
     {
@@ -59,8 +65,8 @@ const items = [
         icon: <ExceptionOutlined />
     },
     {
-        label: <Link to='/admin/review'>Receipt Products</Link>,
-        key: 'review',
+        label: <Link to='/admin/receipt'>Receipt Products</Link>,
+        key: 'receipt',
         icon: <ExceptionOutlined />
     },
     {
@@ -74,6 +80,8 @@ const items = [
 //fuck
 
 const LayoutAdmin = () => {
+    const userRole = useSelector(state => state.account.role);
+    const userName = useSelector(state =>  state.account.admin.name )
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState('dashboard');
 
@@ -93,14 +101,14 @@ const LayoutAdmin = () => {
 
     const itemsDropdown = [
         {
-            label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
+            label: <label style={{ cursor: 'pointer' }}>Account Manager</label>,
             key: 'account',
         },
         {
             label: <label
                 style={{ cursor: 'pointer' }}
                 onClick={() => handleLogout()}
-            >Đăng xuất</label>,
+            >Log Out</label>,
             key: 'logout',
         },
     ];
@@ -117,7 +125,7 @@ const LayoutAdmin = () => {
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}>
                 <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
-                    Admin
+                    {userRole}
                 </div>
                 <Menu
                     defaultSelectedKeys={[activeMenu]}
@@ -138,7 +146,7 @@ const LayoutAdmin = () => {
                     <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                                Welcome Admin
+                                Welcome {userName}
                                 <DownOutlined />
                             </Space>
                         </a>

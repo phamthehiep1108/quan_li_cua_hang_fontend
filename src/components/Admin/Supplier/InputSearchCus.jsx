@@ -1,23 +1,23 @@
 import { Col, Row, Input, Form, theme, Button } from "antd";
 
-const InputSearchOrder = (props) => {
+const InputSearchCus = (props) => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
   const {handleQuerySearch} = props
   
   const formStyle = {
-    maxWidth: "550px",
-    //background: token.colorFillAlter,
+    maxWidth: "600px",
+   // background: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
     padding: "10px",
-    
+    marginBottom:'40px'
   };
 
   const onFinish = (value) => {
     const {name} = value
     let querySearch = ``;
     if(name){
-      querySearch+=`?search=${name}`
+      querySearch+=`&search=${name}`
     }
     handleQuerySearch(querySearch)
   };
@@ -26,7 +26,7 @@ const InputSearchOrder = (props) => {
     <>
       <Form name="advanced_search" style={formStyle} form={form} onFinish={onFinish} >
         <Row>
-          <Col span={16}>
+          <Col span={10}>
             <Form.Item
               labelCol={{ span: 24 }}
               name={`name`}
@@ -36,7 +36,7 @@ const InputSearchOrder = (props) => {
               <Input status="" />
             </Form.Item>
           </Col>
-          <Col span={7} style={{ textAlign: "right", marginTop:"40px" }}>
+          <Col span={4} style={{ textAlign: "right", marginTop:"40px" }}>
             <Button type="primary" htmlType="submit">
                 Search
             </Button>
@@ -50,4 +50,4 @@ const InputSearchOrder = (props) => {
   );
 };
 
-export default InputSearchOrder;
+export default InputSearchCus;

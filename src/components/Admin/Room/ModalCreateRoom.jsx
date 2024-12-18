@@ -13,30 +13,24 @@ import {
 import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { callCreateNewRoom } from "../../../services/api";
 import imgUpload from '../../../assets/img-upload.jpg'
+import { getCategory } from "../../../redux/categoryAD/categorySlice";
   const ModalCreateRoom = (props) => {
     const { open, setOpen, fetchGetRoomTour, setTypeRT } = props;
     const [isSubmit, setIsSubmit] = useState(false);
     const [form] = Form.useForm();
     const { TextArea } = Input;
     
-    const cates = useSelector(state => state.cate.category)
     const [logo, setLogo] = useState(null);
     const [logoPreview, setLogoPreview] = useState(null);
     const [banner, setBanner] = useState([]);
     const [bannerPreview, setBannerPreview] = useState([]);
 
- 
-    //Select
-    let options = cates?.map(item => {
-        return {
-          value: `${item.id}`,
-          label: `${item.name}`
-        }
-    })
 
+    //Select
+    let options = []
 
     const handleFileBanner = (e) => {
       const files = [...banner]; 

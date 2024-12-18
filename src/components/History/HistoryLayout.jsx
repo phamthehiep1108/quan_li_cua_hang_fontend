@@ -101,7 +101,7 @@ const HistoryLayout = () => {
                 <div style={{ height: 60, marginTop: 28, textAlign: 'center' }}>
                     
                     <Tag color="geekblue" style={{ fontSize: "14px" }}>
-                        Công ty du lịch Việt Nam
+                        Công ty quản lý sản phẩm
                     </Tag>
 
                 </div>

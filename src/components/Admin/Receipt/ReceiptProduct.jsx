@@ -223,7 +223,7 @@ const handleDelete = async() => {
             return (
               <div className="selected-status" style={{display:"flex", justifyContent:'space-between'}}>
                 <span>
-                  Quản lý Booking Room - Tour
+                  Receipts Manager
                 </span>
                 <div style={{display:"flex", gap:'30px'}}>
                   <span>

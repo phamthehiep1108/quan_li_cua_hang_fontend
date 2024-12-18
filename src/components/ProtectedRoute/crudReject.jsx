@@ -5,15 +5,15 @@ import NotPermitted from "./NotPermitted";
 const RoleBaseRoute = (props) => {
     const isAdminRoute = window.location.pathname.startsWith('/admin');
     const userRole = useSelector(state => state.account.role);
-    console.log(userRole)
-    if (isAdminRoute  === true && userRole == 'Admin') {
+
+    if (isAdminRoute  === true && userRole == 'Stock Manager') {
          return (<>{props.children}</>)
      } else {
          return (<NotPermitted />)
      }
 }
 
-const ProtectedRoute = (props) => {
+const ProtectedCrudRoute = (props) => {
     const isAuthenticated = useSelector(state => state.account.isAuthenticated)
     return (
         <>
@@ -30,5 +30,5 @@ const ProtectedRoute = (props) => {
     )
 }
 
-export default ProtectedRoute;
+export default ProtectedCrudRoute;
 

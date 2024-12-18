@@ -14,17 +14,18 @@ import {
 import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
 import { PlusOutlined } from '@ant-design/icons';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { callCreateNewTour } from "../../../services/api";
 import imgUpload from '../../../assets/img-upload.jpg'
- 
+import { getCategory } from "../../../redux/categoryAD/categorySlice";
   const ModalCreateTour = (props) => {
-    const { open, setOpen, fetchGetRoomTour, setTypeRT } = props;
+    const { open, setOpen, fetchGetRoomTour, setTypeRT, dataCate} = props;
     const [isSubmit, setIsSubmit] = useState(false);
     const [form] = Form.useForm();
     const { TextArea } = Input;
-    
-    const cates = useSelector(state => state.cate.category)
+  
+    const userRole = useSelector((state) => state.account.role);
+
     const [logo, setLogo] = useState(null);
     const [logoPreview, setLogoPreview] = useState(null);
     const [banner, setBanner] = useState([]);
@@ -32,24 +33,15 @@ import imgUpload from '../../../assets/img-upload.jpg'
 
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-
-
-    //Select cate
-    // let options = cates?.map(item => {
-    //     return {
-    //       value: `${item.id}`,
-    //       label: `${item.name}`
-    //     }
-    // })
-
-    // let options = {
-    //   value: 1,
-    //   label: "Hoa quả"
-    // }
-  
+    console.log(dataCate)
+    let options = dataCate?.map( (item) => {
+        return {
+          value: item.id,
+          label: item.name
+        }
+    })
 
     const handleFileBanner = (e) => {
-
       const files = [...banner]; 
       files.push(...e.target.files); 
       setBanner({files});
@@ -63,6 +55,8 @@ import imgUpload from '../../../assets/img-upload.jpg'
       } 
     };
     //Cate status
+
+
 
     let optionsStatus = [
         {
@@ -90,20 +84,26 @@ import imgUpload from '../../../assets/img-upload.jpg'
     const onFinish = async (value) => {
       const {name,cost, description, status} = value
             setIsSubmit(true)
-            const res = await callCreateNewTour(name, description, cost, logo, status)
+            let res = {};
+            if (userRole != "Admin") {
+              res.message = "You dont have create permission!!!   ";
+            } else {
+              res = await callCreateNewTour(name, description, cost, logo, status)
+            }
+            console.log(res)
             setIsSubmit(false)
-            if(res.message == 'Successfully!' ){
+            if(res ){
                 console.log("res check", res);
-                message.success('Tạo sản phẩm mới thành công')
+                message.success('Product create successfully')
                 form.resetFields();
                 setOpen(false)
                 setTypeRT('&type_room[]=tour')
                 await fetchGetRoomTour()
 
-              }else{
+              } else {
                   notification.error({
-                  message: 'Có lỗi xảy ra!!!',
-                  description:'Không thể tạo mới sản phẩm',
+                  message: 'Something gone wrong!!!',
+                  description: res.message || "Can't Create Product" ,
                   duration: 3
               })
   
@@ -125,7 +125,7 @@ import imgUpload from '../../../assets/img-upload.jpg'
     return (
       <>
         <Modal
-          title="Thêm mới Tour"
+          title="Add product"
          
           open={open}
           onOk={() => form.submit()}
@@ -137,8 +137,8 @@ import imgUpload from '../../../assets/img-upload.jpg'
             setLogo(null)
             setLogoPreview(null)
           }}
-          okText="Tạo mới"
-          cancelText="Hủy"
+          okText="Create new"
+          cancelText="Cancel"
           confirmLoading={isSubmit}
           width={'50vw'}
           maskClosable = {false}
@@ -166,7 +166,7 @@ import imgUpload from '../../../assets/img-upload.jpg'
                     showSearch
                     placeholder="Select a category"
                     optionFilterProp="children"
-                    
+                    options={options}
                  />
                 </Form.Item>
               </Col>

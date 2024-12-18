@@ -1,8 +1,6 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
-
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const instance = axios.create({
@@ -18,7 +16,7 @@ instance.defaults.headers.common = {
   accept:"application/json"
 };
 
-console.log('Auth',localStorage.getItem("access_token"));
+
 
 
 // Add a request interceptor

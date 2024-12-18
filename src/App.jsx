@@ -22,6 +22,7 @@ import LoginForAdmin from './pages/admin/loginForAdmin';
 import TableCustomer from './components/Admin/Customer/TableCustomer';
 import TableCategory from './components/Admin/Category/TableCategory';
 import TableRoom from './components/Admin/Room/TableRoom';
+import TableCategoryRiel from './components/Admin/Category riel/TableCategory'
 
 import ListTour from './components/Tour/ListTour';
 import TableOrder from './components/Admin/Order/TableOrder';
@@ -42,6 +43,7 @@ import ContactTable from './components/Admin/Contact/ContactTable';
 import DashBoard from './components/Admin/DashBoard/DashBoard';
 import ForgotPass from './pages/forgotPass';
 import ReceiptOrder from './components/Admin/Receipt/ReceiptProduct';
+import TableCustomer2 from './components/Admin/Supplier/TableCustomer';
 
 
 const Layout = () => {
@@ -64,7 +66,7 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: <LoginForAdmin />,
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
@@ -129,28 +131,48 @@ export default function App() {
         {
           index: true, element:
              
-                <DashBoard />
+          <ProtectedRoute>
+              <DashBoard />
+          </ProtectedRoute>
              
         },
         
         {
           path: "staff",
-          element: <TableStaff />,
+          element: 
+
+          <ProtectedRoute>
+              <TableStaff />
+          </ProtectedRoute>
+        
         },
 
         {
           path: "customer",
-          element: <TableCustomer />,
+          element: 
+          <ProtectedRoute>
+            <TableCustomer />
+          </ProtectedRoute>
+          
+
         },
     
         {
-          path: "category",
+          path: "stock",
           element: <TableCategory/>,
+        },
+        {
+          path: "categories",
+          element: <TableCategoryRiel/>,
         },
 
         {
           path: "room",
-          element: <TableRoom />,
+          element: 
+ 
+            <TableRoom />
+          
+          
         },
 
         {
@@ -163,12 +185,12 @@ export default function App() {
           element: <TableOrder />,
         },
         {
-          path: "review",
+          path: "receipt",
           element: <ReceiptOrder />,
         },
         {
-          path: "contact",
-          element: <ContactTable />,
+          path: "supplier",
+          element: <TableCustomer2 />,
         },
       ],
     },

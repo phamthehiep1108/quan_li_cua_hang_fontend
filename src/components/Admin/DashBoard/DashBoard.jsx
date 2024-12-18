@@ -73,8 +73,8 @@ const DashBoard = () => {
         
       ]
     const pieData = [
-        { name: "Buy", value: chartData?.revenue_order || 0 },
-        { name: "Sell", value: chartData?.revenue_receipt || 0 }
+        { name: "Sell", value: chartData?.revenue_order || 0 },
+        { name: "Buy", value: chartData?.revenue_receipt || 0 }
     ];
     
     return ( 
@@ -104,6 +104,9 @@ const DashBoard = () => {
                             <Statistic title="Receipts" value={chartData?.receipts} formatter={formatter} />
                         </Card>
                     </Col>
+
+                </Row>
+                <Row gutter={5} style={{display:'flex', gap:'83px',  marginTop: '60px'}}>
                     <Col span={5}>
                         <Card bordered={false}>
                             <Statistic title="Orders Revenue (VNĐ)" value={chartData?.revenue_order} formatter={formatter} />
@@ -111,7 +114,7 @@ const DashBoard = () => {
                     </Col>
                     <Col span={7}  >
                         <Card bordered={false}>
-                            <Statistic title="Receipt Revenue (VNĐ)" value={chartData?.revenue_receipt} formatter={formatter}  />
+                            <Statistic title="Income Revenue (VNĐ)" value={chartData?.revenue_receipt} formatter={formatter}  />
                         </Card>
                     </Col>
                     <Col span={5}>
@@ -139,7 +142,7 @@ const DashBoard = () => {
                     </ResponsiveContainer>    
                     <ResponsiveContainer width="50%" height={400}>
                         <PieChart>
-                            {/* Biểu đồ tròn */}
+                            
                             <Pie
                                 data={pieData}
                                 dataKey="value"
@@ -154,9 +157,9 @@ const DashBoard = () => {
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
                             </Pie>
-                            {/* Chú thích */}
+                            
                             <Legend verticalAlign="bottom" height={36} />
-                            {/* Tooltip hiển thị chi tiết */}
+                            
                             <Tooltip />
                         </PieChart>
                     </ResponsiveContainer>

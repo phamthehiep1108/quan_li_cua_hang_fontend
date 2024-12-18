@@ -26,19 +26,20 @@ const ModalCreateStaff = (props) => {
 
   const onFinish = async (value) => {
     console.log("value staff",value);
-       const {display_name, email, phone_number, detail_address, role_id, password} = value
+       const {display_name, email, phone_number, detail_address, role_id, password, role_base} = value
     //    setIsSubmit(true)
-        const res = await callCreateNewStaff(email, password, display_name, phone_number, detail_address, role_id, avatar)
+        const res = await callCreateNewStaff(email, password, display_name, phone_number, detail_address, role_id, avatar, role_base)
         
        if(res && res?.status == 201){
-           message.success('Thêm mới staff thành công')
+           message.success('Staff create succesfully!!!')
            form.resetFields();
            setOpen(false);
            await fetchListStaff();
+
         }else{
             notification.error({
-                message: 'Có lỗi xảy ra!!!',
-                description:'Không thể thêm mới staff',
+                message: 'Something gone wrong!!!',
+                description:'Cant create staff!!!',
                 duration: 3
             })
         }
@@ -100,12 +101,19 @@ const ModalCreateStaff = (props) => {
 
             <Col span={12} style={{ padding: "0 10px" }}>
               <Form.Item
-                label="Phone number"
-                name="phone_number"
+                label="Role Base"
+                name="role_base"
                 labelCol={{ span: 24 }}
-                rules={[{ required: true, message: "Please input phone!" }]}
+                rules={[{ required: true, message: "Please input role!" }]}
               >
-                <Input />
+                <Select
+                showSearch
+                placeholder="Choose Staff Role"
+                optionFilterProp="children"
+              >
+                <Option value="Admin">Admin</Option>
+                <Option value="Stock Manager">Stock Manager</Option>
+              </Select>
               </Form.Item>
             </Col>
 
@@ -122,16 +130,19 @@ const ModalCreateStaff = (props) => {
 
             <Col span={12} style={{ padding: "0 10px" }}>
               <Form.Item
-                label="Role ID"
+                label="Is Staff"
                 name="role_id"
                 labelCol={{ span: 24 }}
+                
+                initialValue="true" 
                 rules={[
-                  { required: true, message: "Please input role = 1 or 3!" },
+                  { required: true, message: "Please input true or false!" },
                 ]}
               >
-                <Input />
+                 <Input placeholder="true" disabled="false" />
               </Form.Item>
-            </Col>
+          </Col>
+
 
             <Col span={12} style={{ padding: "0 10px" }}>
               <Form.Item
