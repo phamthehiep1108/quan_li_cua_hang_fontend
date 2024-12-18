@@ -1,52 +1,63 @@
-import { Col, Row, Input, Form, theme, Button } from "antd";
+import { Col, Row, Form, theme, Button, DatePicker } from "antd";
+import moment from "moment";
 
-const InputSearchCate = (props) => {
+const InputSearchByDate = (props) => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
-  const {handleQuerySearch} = props
-  
+  const { handleQuerySearch } = props;
+
   const formStyle = {
     maxWidth: "750px",
-    //background: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
-    padding: 20,
+    padding: 4,
   };
 
   const onFinish = (value) => {
-    const {name} = value
+    
+    const { date } = value;
+    
     let querySearch = ``;
-    if(name){
-      querySearch+=`&search=${name}`
+    if (date) {
+      // Format date to YYYY-MM-DD
+      const formattedDate = moment(date.$d).format("YYYY-MM-DD");
+      const sqlDate = moment(date).utcOffset(0).format("YYYY-MM-DD");
+      console.log(formattedDate)
+     
+      querySearch += `toDate=${formattedDate}`;
     }
-    handleQuerySearch(querySearch)
+    handleQuerySearch(querySearch);
   };
 
   return (
-    <>
-      <Form name="advanced_search" style={formStyle} form={form} onFinish={onFinish} >
-        <Row>
-          <Col span={16}>
-            <Form.Item
-              labelCol={{ span: 24 }}
-              name={`name`}
-              label={"Name Category"}
-              autocomplete="off"
-            >
-              <Input status="" />
-            </Form.Item>
-          </Col>
-          <Col span={8} style={{ textAlign: "right", marginTop:"40px" }}>
-            <Button type="primary" htmlType="submit">
-                Search
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          
-        </Row>
-      </Form>
-    </>
+    <Form
+      name="search_by_date"
+      style={formStyle}
+      form={form}
+      onFinish={onFinish}
+    >
+      <Row gutter={16}>
+        <Col span={16}>
+        <Form.Item
+          labelCol={{ span: 24 }}
+          name={`date`}
+          label={"Select Date"}
+          rules={[{ required: true, message: "Please select a date!" }]} 
+        >
+        <DatePicker
+            format="YYYY-MM-DD"
+            style={{ width: "100%" }}
+            status=""
+        />
+      </Form.Item>
+        </Col>
+        <Col span={6} style={{ textAlign: "right", marginTop: "40px" }}>
+          <Button type="primary" htmlType="submit">
+            Search
+          </Button>
+        </Col>
+      </Row>
+    </Form>
   );
 };
 
-export default InputSearchCate;
+export default InputSearchByDate;

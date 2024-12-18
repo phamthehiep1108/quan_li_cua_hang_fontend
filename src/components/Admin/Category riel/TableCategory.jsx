@@ -9,10 +9,10 @@ import "./tableCategory.scss";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { callDeleteCategory, callGetCategory } from "../../../services/api";
+import { callDeleteCategory, callGetCategory, callGetCategory2 } from "../../../services/api";
 import InputSearchCate from "./InputSearchCate";
- 
 import ModalCreateCate from "./ModalCreateCate";
+import ModalViewDetail from "./ModalViewDetail";
 import ModalUpdateCate from "./ModalUpdateCate";
 import ModalDeleteCate from "./ModalDelete";
 import { doSaveCategoryAction } from "../../../redux/categoryAD/categorySlice";
@@ -34,6 +34,8 @@ const TableCategory = () => {
     const [dataUpdate, setDataUpdate] = useState({})
     const [searchQuery, setSearchQuery] = useState('')
 
+    const [openViewModal, setOpenViewModal] = useState(false);
+    const [dataViewDetail, setDataViewDetail] = useState({});
 
     const handleQuerySearch = (query) => {
         //console.log('query',query);
@@ -46,63 +48,57 @@ const TableCategory = () => {
   //Table Component--------------------------
   const columns = [
     {
-      title: "Product ID",
-      dataIndex: "productId",
-      key: "productId",
-      render: (text, record) => {
-        return <Link to={`/admin/inventory/${record.productId}`}>{record.productId}</Link>;
-      },
-    },
-    {
-      title: "Product Name",
-      dataIndex: "productName",
-      key: "productName",
-    },
-    {
-      title: "Inventory Date",
-      dataIndex: "inventoryDate",
-      key: "inventoryDate",
-      render: (text) => {
-        return <span>{text ? new Date(text).toLocaleDateString() : "-"}</span>;
-      },
-    },
-    {
-      title: "Stock Remaining",
-      dataIndex: "stockRemaining",
-      key: "stockRemaining",
-      render: (text) => {
-        return <Badge count={text} style={{ backgroundColor: "#52c41a" }} />;
-      },
-    },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
-      render: (text, record) => {
+      title: "ID",
+      dataIndex: "id",
+      width:'200px',
+      render: (text, record, index) => {
         return (
           <>
-            <EditTwoTone
-              twoToneColor="#3cc41a"
-              style={{ cursor: "pointer", marginRight: "10px" }}
-              onClick={() => {
-                setShowModalUpdate(true);
-                setDataUpdate(record); // Pass the record to update form
-              }}
-            />
-            <Popconfirm
-              title="Are you sure you want to delete this item?"
-              onConfirm={() => handleDelete(record.productId)}
-              okText="Yes"
-              cancelText="No"
-            >
-              <DeleteTwoTone twoToneColor="#ff4d4f" style={{ cursor: "pointer" }} />
-            </Popconfirm>
+          <div 
+            style={{display:'flex', gap:'15px', alignItems:'center', cursor:'pointer'}}
+            onClick={()=>{
+              setDataViewDetail(record)
+              setOpenViewModal(true)
+            }}
+          >
+            <a>{record?.id}</a>
+
+          </div>
+          
           </>
         );
       },
     },
-  ];
+    {
+      title: "Name",
+      dataIndex: "name",
+      
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      width:650,
+    },
+    {
+        title: "Action",
+        dataIndex: "action",
+        width: 100,
+        render: (text, record, index) => {
+          return (
+          <>  
+            <EditTwoTone
+                twoToneColor="#3cc41a"
+                style={{ cursor: "pointer", marginLeft: "20px" }}
+                onClick={()=>{
+                    setShowModalUpdate(true)
+                    setDataUpdate(record)
+                }}
+              />
+          </>)
+        },
+      },
   
+  ];
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
@@ -133,28 +129,27 @@ const TableCategory = () => {
   //----------------------------------------------------------
   useEffect(() => {
     getAllCategory();
-  }, [searchQuery]);
+  }, [searchQuery, currentPage, pageSize]);
 
-  // useEffect(()=>{
-  //     const getCateForCreate = async() => {
-  //       const resOne =  await callGetCategory('index?');
-  //       if(resOne?.data?.data){
-  //         dispatch(doSaveCategoryAction(resOne.data.data))
-  //       }
+  useEffect(()=>{
+      const getCateForCreate = async() => {
+        const resOne =  await callGetCategory('index?');
+        if(resOne?.data?.data){
+          dispatch(doSaveCategoryAction(resOne.data.data))
+        }
 
-  //     }
-  //     getCateForCreate()
-  // },[])
+      }
+      getCateForCreate()
+  },[])
 
   const getAllCategory = async () => {
     setIsLoading(true);
-    let queryCate = ``
     // let queryCate = `index?page=${currentPage}&perpage=${pageSize}`
-    if(searchQuery){
-      queryCate += searchQuery
-    }
+    // if(searchQuery){
+    //   queryCate += searchQuery
+    // }
 
-    const res = await callGetCategory(queryCate);
+    const res = await callGetCategory2();
     if (res.data) {
     
       setListCategory(res.data);
@@ -181,7 +176,14 @@ const handleDelete = async() => {
           <div className="title-table">
             <InputSearchCate handleQuerySearch={handleQuerySearch}/>
           </div>
-
+          <Button
+            type="primary"
+            onClick={() => {
+                setShowModalAdd(true)
+            }}
+          >
+            New Category
+          </Button>
         </div>
         <div
           style={{
@@ -217,7 +219,7 @@ const handleDelete = async() => {
           title={() => {
             return (
               <div className="selected-status" style={{display:"flex"}}>
-                    Stock Manager
+                    Quản lý Category
               </div>
             );
           }}
@@ -262,6 +264,12 @@ const handleDelete = async() => {
         setOpen = {setShowModalDelete}
         selectedRowKeys = {selectedRowKeys}
         fetchListCate = {getAllCategory}
+     />
+     <ModalViewDetail
+        open = {openViewModal}
+        setOpen = {setOpenViewModal}
+        dataView = {dataViewDetail}
+        setDataView = {setDataViewDetail}
      />
     </>
   );

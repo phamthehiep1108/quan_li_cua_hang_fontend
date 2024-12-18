@@ -93,14 +93,14 @@ const ModalUpdateRoom = (props) => {
     );
     //setIsSubmit(false)
     if (res && res.data) {
-      message.success("Update phòng mới thành công");
+      message.success("Product update successfully");
       setOpen(false);
       setTypeRT("&type_room[]=room");
       await fetchGetRoomTour();
     } else {
       notification.error({
-        message: "Có lỗi xảy ra!!!",
-        description: "Không thể update phòng",
+        message: "Something wrong here!!!",
+        description: "Can't Update Product",
         duration: 3,
       });
 

@@ -22,26 +22,15 @@ const ModalViewDetail = (props) => {
                         {dataView?.room_id}
                     </Descriptions.Item> */}
                     
-                    <Descriptions.Item label="Category Number">
-                        {dataView?.type}
-                    </Descriptions.Item>
                     <Descriptions.Item label="Name">
                         {dataView?.name}
                     </Descriptions.Item>
-                    <Descriptions.Item label="Price" span={12}>
-                        
-                        {dataView?.price}
+                    <Descriptions.Item label="Products">
+                        {dataView?.name}
                     </Descriptions.Item>
-                    <Descriptions.Item label="Quantity">
-                        {dataView?.quantity}  
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Cost">
-                        
-                         {dataView?.price} 
-                       
-                    </Descriptions.Item>
+
                     <Descriptions.Item label="Description" span={12}>
-                        No description here...
+                        {dataView?.description}
                     </Descriptions.Item>
                     <Descriptions.Item label="Logo" span={12}>
                         {dataView?.logo ? <>

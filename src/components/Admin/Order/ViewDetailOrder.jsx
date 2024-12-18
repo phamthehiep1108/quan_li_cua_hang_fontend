@@ -84,7 +84,7 @@ const ViewDetailOrder = (props) => {
                         {dataView?.logo ? <>
                             <img src={`${dataView?.logo}`} alt="#imgLogo" style={{height:"300px", width:"300px"}}/>
                         </>
-                        :   "Không có ảnh hiển thị"
+                        :   "No image available"
 
                         }
                     </Descriptions.Item>

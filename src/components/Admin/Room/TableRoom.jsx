@@ -9,7 +9,7 @@ import "./TableManage.scss";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { callGetRoomTour } from "../../../services/api";
+import { callGetCategory2, callGetRoomTour } from "../../../services/api";
 import InputSearchRT from "./InputSearchRoom";
 import ModalCreateRoom from "./ModalCreateRoom";
 import ModalCreateTour from "./ModalCreateTour";
@@ -34,7 +34,7 @@ const TableRoom = () => {
     const [openCreateRoom, setOpenCreateRoom] = useState(false)
     const [openUpdateRoom, setOpenUpdateRoom] = useState(false)
     const [dataUpdateRoom, setDataUpdateRoom] = useState({})
-
+    const [dataCate, setDataCate] = useState([])
 
     const [openCreateTour, setOpenCreateTour] = useState(false)
     const [openUpdateTour, setOpenUpdateTour] = useState(false)
@@ -63,9 +63,7 @@ const TableRoom = () => {
             }}
           >
             <a>{record?.id}</a>
-            <div className="imgPreview">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2ISwqeanWaJTsUyUuLHABO4Lp9wVYvCyQWQ&s" alt="#imgPreview" />
-            </div>
+
           </div>
           
           </>
@@ -94,11 +92,11 @@ const TableRoom = () => {
     {
       title: "Category",
       dataIndex: "category",
-      // render: (text, record, index) => {
-      //   return (
-      //       <span>{record?.categories.name}</span>
-      //   );
-      // },
+      render: (text, record, index) => {
+        return (
+            <span>{record?.category?.name}</span>
+        );
+      },
     },
     // {
     //   title: "Status",
@@ -194,9 +192,11 @@ const TableRoom = () => {
     }
 
     const res = await callGetRoomTour(queryRT);
-    if (res && res?.data) {
+    const res2 = await callGetCategory2()
+    if (res.data && res?.data) {
 
       setListRoomTour(res.data);
+      setDataCate(res2.data)
       setTotal(res.total)
      
      // console.log("resAll",res);
@@ -229,14 +229,14 @@ const handleDelete = async() => {
             onClick={() => {
                setOpenCreateRoom(true)
             }}
-            > New Room</Button>
+            > New </Button>
             : 
             <Button
             type="primary"
             onClick={() => {
               setOpenCreateTour(true)
             }}
-            >New Product</Button>
+            >New </Button>
             }
         </div>
         <div
@@ -321,7 +321,7 @@ const handleDelete = async() => {
         setOpen = {setOpenCreateRoom}
         fetchGetRoomTour = {fetchGetRoomTour}
         setTypeRT = {setTypeRT}
-      />
+      /> 
 
       <ModalUpdateRoom
         dataUpdateRoom = {dataUpdateRoom} 
@@ -338,6 +338,7 @@ const handleDelete = async() => {
        setOpen = {setOpenCreateTour}
        fetchGetRoomTour = {fetchGetRoomTour}
        setTypeRT = {setTypeRT}
+       dataCate = {dataCate}
      />
 
      <ModalUpdateTour

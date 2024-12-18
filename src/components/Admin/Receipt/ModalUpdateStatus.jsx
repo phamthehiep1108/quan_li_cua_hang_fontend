@@ -52,14 +52,14 @@ import { callAddProducts, callUpdateStatusOrder } from "../../../services/api";
           if (statusValue == "Completed") {
             const res_add = await callAddProducts(dataView)
           } 
-          message.success('Update status thành công')
+          message.success('Update status successfully!')
           form.resetFields();
           setOpen(false)
           await fetchGetOrderRoomTour()
         }else{
             notification.error({
-            message: 'Có lỗi xảy ra!!!',
-            description:'Không thể update status',
+            message: 'Something gone wrong!!!',
+            description:"Can't update status",
             duration: 3
         })
 
@@ -78,8 +78,8 @@ import { callAddProducts, callUpdateStatusOrder } from "../../../services/api";
             setOpen(false);
             form.resetFields()
           }}
-          okText="Cập nhật"
-          cancelText="Hủy"
+          okText="Update"
+          cancelText="Cancle"
           confirmLoading={isSubmit}
           width={'25vw'}
           maskClosable = {false}

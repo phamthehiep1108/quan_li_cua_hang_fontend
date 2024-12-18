@@ -142,7 +142,7 @@ const ModalUpdateTour = (props) => {
 
             <Col span={12} style={{ padding: "0 10px" }}>
               <Form.Item
-                label="Name Tour"
+                label="Name Products"
                 name="name"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Please input name!" }]}
@@ -168,7 +168,7 @@ const ModalUpdateTour = (props) => {
             <Col span={12} style={{ padding: "0 10px" }}>
               <Form.Item
                 label="Cost (VND)"
-                name="cost"
+                name="price"
                 labelCol={{ span: 24 }}
                 rules={[{ required: true, message: "Please input cost!" }]}
               >

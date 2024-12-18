@@ -22,13 +22,14 @@ const LoginForAdmin
         const res = await callLoginAdmin(email, password);
         console.log("check res",res);
         setIsSubmit(false);
-        if (res) {
+
+        if (res.id) {
             //localStorage.setItem('access_token', res.data.token);
 
             dispatch(doLoginAdminAction(res))
 
             message.success('Đăng nhập tài khoản thành công!');
-            navigate('/')
+            navigate('/admin')
         } else {
             notification.error({
                 message: "Có lỗi xảy ra",

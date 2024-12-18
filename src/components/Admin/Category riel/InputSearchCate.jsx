@@ -1,23 +1,22 @@
 import { Col, Row, Input, Form, theme, Button } from "antd";
 
-const InputSearchOrder = (props) => {
+const InputSearchCate = (props) => {
   const { token } = theme.useToken();
   const [form] = Form.useForm();
   const {handleQuerySearch} = props
   
   const formStyle = {
-    maxWidth: "550px",
+    maxWidth: "750px",
     //background: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
-    padding: "10px",
-    
+    padding: 20,
   };
 
   const onFinish = (value) => {
     const {name} = value
     let querySearch = ``;
     if(name){
-      querySearch+=`?search=${name}`
+      querySearch+=`&search=${name}`
     }
     handleQuerySearch(querySearch)
   };
@@ -30,13 +29,13 @@ const InputSearchOrder = (props) => {
             <Form.Item
               labelCol={{ span: 24 }}
               name={`name`}
-              label={"Search Name"}
+              label={"Name Category"}
               autocomplete="off"
             >
               <Input status="" />
             </Form.Item>
           </Col>
-          <Col span={7} style={{ textAlign: "right", marginTop:"40px" }}>
+          <Col span={8} style={{ textAlign: "right", marginTop:"40px" }}>
             <Button type="primary" htmlType="submit">
                 Search
             </Button>
@@ -50,4 +49,4 @@ const InputSearchOrder = (props) => {
   );
 };
 
-export default InputSearchOrder;
+export default InputSearchCate;

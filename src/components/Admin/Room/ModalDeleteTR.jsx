@@ -6,24 +6,36 @@ import {
 import { useForm } from "antd/es/form/Form";
 import { useEffect, useState } from "react";
 import { callDeleteRoomTour } from "../../../services/api";
-
+import { useSelector } from "react-redux";
 const ModalDeleteTR = (props) => {
 
     const { open, setOpen, fetchGetRoomTour, selectedRowKeys } = props;
-    
+    const userRole = useSelector(state => state.account.role);
       const [isSubmit, setIsSubmit] = useState(false);
 
       const handleOk = async() => {
         const dataId =
         {
-          "ids":[...selectedRowKeys]
+          "id":[...selectedRowKeys]
         }
-        
-        const res = await callDeleteRoomTour(dataId)
-        if(res){
-          message.success("Xóa room tour thành công")
+        console.log(userRole)
+        let res = {};
+            if (userRole != "Admin") {
+              res = "You dont have delete permission";
+      
+            } else {
+              res = await callDeleteRoomTour(dataId)
+            }
+        if( res != "You dont have delete permission" ){
+          message.success("Delete product succesfully!!!")
           setOpen(false);
           await fetchGetRoomTour();
+        } else {
+          notification.error({
+            message: "Something gone wrong!!!",
+            description: "You dont have delete permission",
+            duration: 3,
+          });
         }
       };
       
@@ -34,21 +46,21 @@ const ModalDeleteTR = (props) => {
     return ( 
         <>
             <Modal 
-            title="Xóa Room/Tour" 
+            title="Delete product" 
             open={open} 
             onOk={handleOk} 
             onCancel={handleCancel}
-            okText="Xóa"
-            cancelText="Hủy"
+            okText="Delete"
+            cancelText="Cancel"
             confirmLoading={isSubmit}
             width={'30vw'}
             maskClosable = {false}
             >
-                <h4>Xác nhận xóa</h4>
+                <h4>Confirm Deletion</h4>
         
             </Modal>
         </>
      );
 }
- 
+
 export default ModalDeleteTR;

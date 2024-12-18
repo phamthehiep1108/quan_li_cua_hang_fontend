@@ -119,19 +119,19 @@ const HistoriesList = () => {
             <div className="filter-right">
               <div className="filter-status-order">
                 <span style={{ fontSize: "14px", fontWeight: "500" }}>
-                  Lọc theo
+                  Filter
                 </span>
                 <div className="input-select">
                   <Select
-                    defaultValue="Tour"
+                   
                     style={{
                       width: 120,
                     }}
                     onChange={handleChangeType}
                     options={[
                       {
-                        value: "&type[]=tour",
-                        label: "Tour",
+                        value: "&type[]=",
+                        label: "",
                       },
                       {
                         value: "&type[]=room",

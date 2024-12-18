@@ -69,8 +69,8 @@ const TableStaff = () => {
       },
     },
     {
-        title: "Role ID",
-        dataIndex: "id",
+        title: "Role",
+        dataIndex: "baseRole",
     },
     {
         title: "Status",
